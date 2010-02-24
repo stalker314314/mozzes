@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>Mozzes</artifactId>
+		<groupId>org.mozzes</groupId>
+		<version>trunk-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mozzes.swing</groupId>
+	<artifactId>mozzesSwing</artifactId>
+	<name>Mozzes Swing Components</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.swinglabs</groupId>
+			<artifactId>swingx</artifactId>
+			<version>0.9.5-2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.utils</groupId>
+			<artifactId>mozzesUtils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.validation</groupId>
+			<artifactId>mozzesValidation</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

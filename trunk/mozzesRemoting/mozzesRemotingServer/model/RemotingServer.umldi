@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_NL4ikP2lEd2RBObC0KXKIg" activeDiagram="_NL4ikf2lEd2RBObC0KXKIg">
+  <model href="RemotingServer.uml#_w8IxIM37EdqwVrslYOdUDA"/>
+  <diagrams xmi:id="_NL4ikf2lEd2RBObC0KXKIg" position="0,0" size="100,100" name="RemotingServer" viewport="0,0">
+    <property xmi:id="_NSI7kP2lEd2RBObC0KXKIg" key="pageFormatName" value=""/>
+    <property xmi:id="_NSI7kf2lEd2RBObC0KXKIg" key="diagramWidth" value="740"/>
+    <property xmi:id="_NSI7kv2lEd2RBObC0KXKIg" key="diagramHeight" value="445"/>
+    <property xmi:id="_NSI7k_2lEd2RBObC0KXKIg" key="pageMarginName" value="A2"/>
+    <property xmi:id="_NSI7lP2lEd2RBObC0KXKIg" key="diagramTopMargin" value="20"/>
+    <property xmi:id="_NSI7lf2lEd2RBObC0KXKIg" key="diagramBottomMargin" value="20"/>
+    <property xmi:id="_NSI7lv2lEd2RBObC0KXKIg" key="diagramLeftMargin" value="20"/>
+    <property xmi:id="_NSI7l_2lEd2RBObC0KXKIg" key="diagramRightMargin" value="20"/>
+    <property xmi:id="_NSI7mP2lEd2RBObC0KXKIg" key="orientation" value="portrait"/>
+    <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NL4ikv2lEd2RBObC0KXKIg" presentation="org.topcased.modeler.uml.classdiagram">
+      <element href="RemotingServer.uml#_w8IxIM37EdqwVrslYOdUDA"/>
+    </semanticModel>
+    <contained xsi:type="di:GraphNode" xmi:id="_S3VCcP2lEd2RBObC0KXKIg" position="92,163" size="343,-1">
+      <anchorage xmi:id="_qKh-Af23Ed20dZHoTZl_jQ" graphEdge="_qLkf0P23Ed20dZHoTZl_jQ _9YDi0f23Ed20dZHoTZl_jQ"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_S3VCcf2lEd2RBObC0KXKIg" presentation="default">
+        <element href="RemotingServer.uml#_S4EpUP2lEd2RBObC0KXKIg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_S3VCcv2lEd2RBObC0KXKIg">
+        <property xmi:id="_S3VCc_2lEd2RBObC0KXKIg" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_S3VCdP2lEd2RBObC0KXKIg" presentation="default">
+          <element href="RemotingServer.uml#_S4EpUP2lEd2RBObC0KXKIg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_S3VCdf2lEd2RBObC0KXKIg">
+        <property xmi:id="_S3VCdv2lEd2RBObC0KXKIg" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_S3VCd_2lEd2RBObC0KXKIg" presentation="default">
+          <element href="RemotingServer.uml#_S4EpUP2lEd2RBObC0KXKIg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_MI80AP2nEd2RBObC0KXKIg" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_MI80Af2nEd2RBObC0KXKIg" presentation="default">
+            <element href="RemotingServer.uml#_MI80Av2nEd2RBObC0KXKIg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_5P_J8P2mEd2RBObC0KXKIg" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_5P_J8f2mEd2RBObC0KXKIg" presentation="default">
+            <element href="RemotingServer.uml#_5QIT4P2mEd2RBObC0KXKIg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_6zFUYP2mEd2RBObC0KXKIg" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_6zFUYf2mEd2RBObC0KXKIg" presentation="default">
+            <element href="RemotingServer.uml#_6zFUYv2mEd2RBObC0KXKIg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_9SO3YP2mEd2RBObC0KXKIg" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_9SO3Yf2mEd2RBObC0KXKIg" presentation="default">
+            <element href="RemotingServer.uml#_9SO3Yv2mEd2RBObC0KXKIg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_-Ev5cP2mEd2RBObC0KXKIg" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_-Ev5cf2mEd2RBObC0KXKIg" presentation="default">
+            <element href="RemotingServer.uml#_-Ev5cv2mEd2RBObC0KXKIg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_hXaYAP22Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_hXaYAf22Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_hXjh8P22Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="__NUEAP2mEd2RBObC0KXKIg" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="__NUEAf2mEd2RBObC0KXKIg" presentation="default">
+            <element href="RemotingServer.uml#__NUEAv2mEd2RBObC0KXKIg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_xX4yAP22Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_xX4yAf22Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_xX4yAv22Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" xmi:id="_D1bUEP2mEd2RBObC0KXKIg" position="128,23" size="272,-1">
+      <anchorage xmi:id="_qKh-AP23Ed20dZHoTZl_jQ" graphEdge="_qLkf0P23Ed20dZHoTZl_jQ"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_D1bUEf2mEd2RBObC0KXKIg" presentation="default">
+        <element href="RemotingServer.uml#_D1bUGP2mEd2RBObC0KXKIg"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_D1bUEv2mEd2RBObC0KXKIg">
+        <property xmi:id="_D1bUE_2mEd2RBObC0KXKIg" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_D1bUFP2mEd2RBObC0KXKIg" presentation="default">
+          <element href="RemotingServer.uml#_D1bUGP2mEd2RBObC0KXKIg"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_D1bUFf2mEd2RBObC0KXKIg">
+        <property xmi:id="_D1bUFv2mEd2RBObC0KXKIg" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_D1bUF_2mEd2RBObC0KXKIg" presentation="default">
+          <element href="RemotingServer.uml#_D1bUGP2mEd2RBObC0KXKIg"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_G3IVEP2nEd2RBObC0KXKIg" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_G3IVEf2nEd2RBObC0KXKIg" presentation="default">
+            <element href="RemotingServer.uml#_G3IVEv2nEd2RBObC0KXKIg"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_HzeokP2nEd2RBObC0KXKIg" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Hzeokf2nEd2RBObC0KXKIg" presentation="default">
+            <element href="RemotingServer.uml#_Hzeokv2nEd2RBObC0KXKIg"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" xmi:id="_NlXw4P22Ed20dZHoTZl_jQ" position="493,238" size="187,-1">
+      <anchorage xmi:id="_9YDi0P23Ed20dZHoTZl_jQ" graphEdge="_9YDi0f23Ed20dZHoTZl_jQ"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NlXw4f22Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingServer.uml#_Nl0c0P22Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_NlXw4v22Ed20dZHoTZl_jQ">
+        <property xmi:id="_NlXw4_22Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NlXw5P22Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingServer.uml#_Nl0c0P22Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_NlXw5f22Ed20dZHoTZl_jQ">
+        <property xmi:id="_NlXw5v22Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_NlXw5_22Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingServer.uml#_Nl0c0P22Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_6uUgcP23Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_6uUgcf23Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_6uUgcv23Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" xmi:id="_qLkf0P23Ed20dZHoTZl_jQ" anchor="_qKh-AP23Ed20dZHoTZl_jQ _qKh-Af23Ed20dZHoTZl_jQ">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_qLkf0f23Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingServer.uml#_qLkf0_23Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectOffset" xmi:id="_qLkf0v23Ed20dZHoTZl_jQ" id="stereotypeEdgeObject"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" xmi:id="_9YDi0f23Ed20dZHoTZl_jQ" anchor="_qKh-Af23Ed20dZHoTZl_jQ _9YDi0P23Ed20dZHoTZl_jQ">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_9YDi0v23Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingServer.uml#_9YDi1P23Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectOffset" xmi:id="_9YDi0_23Ed20dZHoTZl_jQ" id="stereotypeEdgeObject"/>
+    </contained>
+  </diagrams>
+  <subdiagrams xmi:id="_Co044P24Ed20dZHoTZl_jQ">
+    <model href="RemotingServer.uml#_BFlkgP24Ed20dZHoTZl_jQ"/>
+    <diagrams xmi:id="_Co044f24Ed20dZHoTZl_jQ" position="0,0" size="100,100" name="DataTypes" viewport="0,0">
+      <property xmi:id="_CpRk0P24Ed20dZHoTZl_jQ" key="pageFormatName" value="A4"/>
+      <property xmi:id="_CpRk0f24Ed20dZHoTZl_jQ" key="diagramWidth" value="840"/>
+      <property xmi:id="_CpRk0v24Ed20dZHoTZl_jQ" key="diagramHeight" value="1188"/>
+      <property xmi:id="_CpRk0_24Ed20dZHoTZl_jQ" key="pageMarginName" value="Small Margin"/>
+      <property xmi:id="_CpRk1P24Ed20dZHoTZl_jQ" key="diagramTopMargin" value="20"/>
+      <property xmi:id="_CpRk1f24Ed20dZHoTZl_jQ" key="diagramBottomMargin" value="20"/>
+      <property xmi:id="_CpRk1v24Ed20dZHoTZl_jQ" key="diagramLeftMargin" value="20"/>
+      <property xmi:id="_CpRk1_24Ed20dZHoTZl_jQ" key="diagramRightMargin" value="20"/>
+      <property xmi:id="_CpRk2P24Ed20dZHoTZl_jQ" key="orientation" value="portrait"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Co044v24Ed20dZHoTZl_jQ" presentation="org.topcased.modeler.uml.classdiagram">
+        <element href="RemotingServer.uml#_BFlkgP24Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_Y5amEP24Ed20dZHoTZl_jQ" position="36,73" size="101,-1">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amEf24Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingServer.uml#_qA26GP22Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_Y5amEv24Ed20dZHoTZl_jQ">
+          <property xmi:id="_Y5amE_24Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amFP24Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_qA26GP22Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_Y5amFf24Ed20dZHoTZl_jQ">
+          <property xmi:id="_Y5amFv24Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="38"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amF_24Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_qA26GP22Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_Y5amGP24Ed20dZHoTZl_jQ" position="197,73" size="124,-1">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amGf24Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingServer.uml#_GQ4wSP2uEd20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_Y5amGv24Ed20dZHoTZl_jQ">
+          <property xmi:id="_Y5amG_24Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amHP24Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_GQ4wSP2uEd20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_Y5amHf24Ed20dZHoTZl_jQ">
+          <property xmi:id="_Y5amHv24Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="38"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amH_24Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_GQ4wSP2uEd20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_Y5amIP24Ed20dZHoTZl_jQ" position="381,73" size="124,-1">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amIf24Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingServer.uml#_EykYIP2uEd20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_Y5amIv24Ed20dZHoTZl_jQ">
+          <property xmi:id="_Y5amI_24Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amJP24Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_EykYIP2uEd20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_Y5amJf24Ed20dZHoTZl_jQ">
+          <property xmi:id="_Y5amJv24Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="38"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5amJ_24Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_EykYIP2uEd20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_Y5kXEP24Ed20dZHoTZl_jQ" position="565,73" size="124,-1">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5kXEf24Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingServer.uml#_FX0aSP2uEd20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_Y5kXEv24Ed20dZHoTZl_jQ">
+          <property xmi:id="_Y5kXE_24Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5kXFP24Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_FX0aSP2uEd20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_Y5kXFf24Ed20dZHoTZl_jQ">
+          <property xmi:id="_Y5kXFv24Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="38"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Y5kXF_24Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingServer.uml#_FX0aSP2uEd20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </diagrams>
+  </subdiagrams>
+</diagrams:Diagrams>

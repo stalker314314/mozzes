@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>mozzesApplicationExample</artifactId>
+		<groupId>org.mozzes.application</groupId>
+		<version>trunk-SNAPSHOT</version>
+	</parent>
+	<groupId>org.mozzes.application</groupId>
+	<artifactId>mozzesApplicationExampleSwingClient</artifactId>
+	<name>Mozzes Application Example Swing Client</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.mozzes.application</groupId>
+			<artifactId>mozzesApplicationExampleCommon</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.swing</groupId>
+			<artifactId>mozzesSwing</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.application</groupId>
+			<artifactId>mozzesApplicationRemotingClient</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.application</groupId>
+			<artifactId>mozzesApplicationExampleServer</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.5</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

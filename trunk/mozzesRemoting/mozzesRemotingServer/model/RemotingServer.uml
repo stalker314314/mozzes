@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_qb8akM37EdqwVrslYOdUDA">
+  <packagedElement xmi:type="uml:Package" xmi:id="_w8IxIM37EdqwVrslYOdUDA" name="RemotingServer">
+    <packagedElement xmi:type="uml:Class" xmi:id="_S4EpUP2lEd2RBObC0KXKIg" name="RemotingServer" clientDependency="_9YDi1P23Ed20dZHoTZl_jQ">
+      <ownedOperation xmi:id="_5QIT4P2mEd2RBObC0KXKIg" name="startServer"/>
+      <ownedOperation xmi:id="_6zFUYv2mEd2RBObC0KXKIg" name="stopServer"/>
+      <ownedOperation xmi:id="_9SO3Yv2mEd2RBObC0KXKIg" name="getPort"/>
+      <ownedOperation xmi:id="_-Ev5cv2mEd2RBObC0KXKIg" name="isRunning"/>
+      <ownedOperation xmi:id="__NUEAv2mEd2RBObC0KXKIg" name="addActionMapping">
+        <ownedParameter xmi:id="_RZ6ZgP22Ed20dZHoTZl_jQ" name="mapping" type="_Nl0c0P22Ed20dZHoTZl_jQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_MI80Av2nEd2RBObC0KXKIg" name="RemotingServer">
+        <ownedParameter xmi:id="_8N35kP21Ed20dZHoTZl_jQ" name="port" type="_EykYIP2uEd20dZHoTZl_jQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_hXjh8P22Ed20dZHoTZl_jQ" name="addActionMapping">
+        <ownedParameter xmi:id="_sPKksP22Ed20dZHoTZl_jQ" name="mapping" type="_qA26GP22Ed20dZHoTZl_jQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_xX4yAv22Ed20dZHoTZl_jQ" name="getNumberOfActiveClients"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_D1bUGP2mEd2RBObC0KXKIg" name="RemotingServerFactory" clientDependency="_qLkf0_23Ed20dZHoTZl_jQ">
+      <ownedOperation xmi:id="_G3IVEv2nEd2RBObC0KXKIg" name="getServer" isStatic="true">
+        <ownedParameter xmi:id="_T4dDEP23Ed20dZHoTZl_jQ" name="return" type="_S4EpUP2lEd2RBObC0KXKIg" direction="return"/>
+        <ownedParameter xmi:id="_bCExIP23Ed20dZHoTZl_jQ" name="port" type="_EykYIP2uEd20dZHoTZl_jQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_Hzeokv2nEd2RBObC0KXKIg" name="createServer" isStatic="true">
+        <ownedParameter xmi:id="_YGnFkP23Ed20dZHoTZl_jQ" name="port" type="_EykYIP2uEd20dZHoTZl_jQ"/>
+        <ownedParameter xmi:id="_emEcUP23Ed20dZHoTZl_jQ" name="return" type="_S4EpUP2lEd2RBObC0KXKIg" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Nl0c0P22Ed20dZHoTZl_jQ" name="RemotingActionMapping">
+      <ownedOperation xmi:id="_6uUgcv23Ed20dZHoTZl_jQ" name="addMapping"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_qLkf0_23Ed20dZHoTZl_jQ" name="RemotingServerFactoryRemotingServer" supplier="_S4EpUP2lEd2RBObC0KXKIg" client="_D1bUGP2mEd2RBObC0KXKIg"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_9YDi1P23Ed20dZHoTZl_jQ" name="Dependency1" supplier="_Nl0c0P22Ed20dZHoTZl_jQ" client="_S4EpUP2lEd2RBObC0KXKIg"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_BFlkgP24Ed20dZHoTZl_jQ" name="DataT ypes">
+      <packagedElement xmi:type="uml:DataType" xmi:id="_qA26GP22Ed20dZHoTZl_jQ" name="Properties"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_GQ4wSP2uEd20dZHoTZl_jQ" name="Date"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_EykYIP2uEd20dZHoTZl_jQ" name="int"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_FX0aSP2uEd20dZHoTZl_jQ" name="String"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
