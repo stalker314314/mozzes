@@ -13,7 +13,7 @@ public interface SimpleInternalService {
 	int result = 321;
 
 	/**
-	 * @returns the {@link SimpleInternalService#result} value
+	 * @return the {@link SimpleInternalService#result} value
 	 */
 	int getInteger();
 }
