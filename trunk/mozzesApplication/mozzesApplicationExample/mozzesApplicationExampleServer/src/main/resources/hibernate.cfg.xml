@@ -34,9 +34,9 @@
 		<property name="current_session_context_class">thread</property>
 
 		<!-- Hibernate Annotations (and package-info.java) -->
-		<mapping package="example.common.domain"/> 
-		<mapping class="example.common.domain.Match"/>
-		<mapping class="example.common.domain.Team"/>
+		<mapping package="org.mozzes.application.example.common.domain"/> 
+		<mapping class="org.mozzes.application.example.common.domain.Match"/>
+		<mapping class="org.mozzes.application.example.common.domain.Team"/>
 
 	</session-factory>
 

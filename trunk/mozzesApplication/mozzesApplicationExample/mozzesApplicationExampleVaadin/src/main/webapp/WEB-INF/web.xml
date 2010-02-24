@@ -21,6 +21,6 @@
 	</filter-mapping>
 
 	<listener>
-		<listener-class>example.vaadin.ExampleConfig</listener-class>
+		<listener-class>org.mozzes.application.example.vaadin.ExampleConfig</listener-class>
 	</listener>
 </web-app>
