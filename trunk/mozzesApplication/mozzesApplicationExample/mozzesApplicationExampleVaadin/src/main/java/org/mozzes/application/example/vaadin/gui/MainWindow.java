@@ -5,6 +5,7 @@ import java.util.List;
 import org.mozzes.application.common.client.MozzesClient;
 import org.mozzes.application.example.common.domain.Match;
 import org.mozzes.application.example.common.domain.Team;
+import org.mozzes.application.example.common.service.Administration;
 import org.mozzes.application.example.common.service.MatchAdministration;
 import org.mozzes.application.example.common.service.TeamAdministration;
 
@@ -18,6 +19,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -105,7 +107,7 @@ public class MainWindow extends Window {
 			private static final long serialVersionUID = -5792165786350656817L;
 			@Override
 			public void buttonClick(ClickEvent event) {
-				newTeam(new Team());
+				addWindow(new BeanEditWindow<Team>(MainWindow.this, "New team", new Team(), client.getService(TeamAdministration.class)));
 			}
 		});
 		
@@ -195,13 +197,62 @@ public class MainWindow extends Window {
 		return client.getService(MatchAdministration.class).findAll();
 	}
 	
-	private void newTeam(Team team) {
-		Form teamForm = new Form();
-		teamForm.setItemDataSource(new BeanItem<Team>(team));
+	private static final class BeanEditWindow<T>  extends Window {
+
+		private static final long serialVersionUID = 3432589583281572169L;
 		
+		private final MainWindow mainWindow;
+		private final Administration<T> administration;
+		private final Form beanForm;
+
+		BeanEditWindow(MainWindow mainWindow, String title, T bean, Administration<T> administration) {
+			super(title);
+			setModal(true);
+			this.mainWindow = mainWindow;
+			this.administration = administration;
+			this.beanForm = new Form();
+			
+			beanForm.setItemDataSource(new BeanItem<T>(bean));
+			beanForm.setSizeUndefined();
+
+			Button saveButton = new Button("Save");
+			saveButton.addListener(new ClickListener() {
+				private static final long serialVersionUID = 8515020970178194064L;
+				@Override
+				public void buttonClick(ClickEvent event) {
+					save();
+				}
+			});
+			Button cancelButton = new Button("Cancel");
+			cancelButton.addListener(new ClickListener() {
+				private static final long serialVersionUID = 7606145616074298309L;
+				@Override
+				public void buttonClick(ClickEvent event) {
+					cancel();
+				}
+			});
+			
+			Layout buttonsLayout = new HorizontalLayout();
+			buttonsLayout.addComponent(saveButton);
+			buttonsLayout.addComponent(cancelButton);
+
+			Layout layout = new VerticalLayout();
+			layout.setStyleName(STYLE_LIGHT);
+			layout.setSizeUndefined();
+			layout.addComponent(beanForm);
+			layout.addComponent(buttonsLayout);
+			setContent(layout);
+		}
 		
-		GridLayout layout = new GridLayout(1, 1);
-		layout.addComponent(teamForm);
-		addWindow(new Window("Kreiranje tima", layout));
+		@SuppressWarnings("unchecked")
+		private void save() {
+			administration.save(((BeanItem<T>)beanForm.getItemDataSource()).getBean());
+			mainWindow.removeWindow(this);
+			mainWindow.reloadData();
+		}
+		
+		private void cancel() {
+			mainWindow.removeWindow(this);
+		}
 	}
 }
