@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>mozzesRemoting</artifactId>
+		<groupId>org.mozzes.remoting</groupId>
+		<version>trunk-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mozzes.remoting</groupId>
+	<artifactId>mozzesRemotingServer</artifactId>
+	<name>Mozzes Remoting Server</name>
+	<description>Mozzes remoting framework server</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.mozzes.remoting</groupId>
+			<artifactId>mozzesRemotingCommon</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>

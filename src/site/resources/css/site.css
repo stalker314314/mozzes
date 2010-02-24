@@ -1,0 +1,383 @@
+/*
+* Layout
+*/
+body {
+  padding: 0 2% 1% 2%;
+}
+
+#bodyColumn {
+  margin-right: 1.5em;
+  margin-left: 270px;
+	margin-top: 10px;
+	padding-top: 1px;
+}
+
+#banner {
+  padding: 1.5em 0.5em 0.75em 0.5em;
+  background-color: #336699;
+  border: none;
+}
+
+#bannerLeft, #bannerRight {
+  color:  white; /*#003399; /*336699; */
+  background-color: #336699;
+ font-family: "Trebuchet MS";
+ font-weight: normal;
+ font-size: 22pt;
+ border: none;
+}
+
+#legend li.newWindow {
+  background: url(../images/newwindow.png) left top no-repeat;
+  padding-left: 18px;
+}
+
+#breadcrumbs {
+	border-top: 0px;
+  border-bottom: 1px solid #DDD; /*#336699;*/
+  padding: 2px 1px 2px 0px;
+  font-size: 10pt;
+}
+
+#contentbox {
+	padding: 0px;
+	margin: 0px;
+}
+
+#leftColumn {
+	width: 250px;
+	float:left;
+	overflow: auto;
+  margin: 1.5em 0 0 0px;
+  border: none;
+}
+
+#navcolumn {
+  padding: 0px;
+  border: none;
+}
+
+#section {
+	margin-top: 0px;
+}
+
+h2 { 
+	border: none;
+	padding: 0;
+	margin-top: 0px;
+}
+
+h3 {
+	margin-bottom: 3px;
+	border: none;
+	padding: 0;
+}
+h4 {
+	padding: 4px 4px 4px 6px;
+	border: 1px solid #bbb;
+}
+h5 {
+	padding: 4px 4px 4px 6px;
+}
+
+/*
+* Fonts
+*/
+body {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+}
+
+code{
+  font-family: Courier, monospace;
+  font-size: 13px;
+}
+
+h2 { 
+	font-family: Tahoma, "Trebuchet MS";
+	font-weight: normal;
+	letter-spacing: 1px;
+}
+
+
+h3 {
+	font-family: Tahoma, "Trebuchet MS";
+	font-weight: normal;
+	letter-spacing: 1px;
+}
+h4 {
+	font-weight: normal;
+	font-size: large;
+}
+
+h5 {
+  font-size: normal;
+}
+
+/*
+* Colours
+*/
+#breadcrumbs {
+  color:  #003399;
+	background-color: white;
+}
+
+#leftColumn {
+	background-color: white;
+}
+
+h2 { 
+	color:  #003399; /*336699; */
+	background-color: white;
+}
+
+h3 {
+	color:  #003399; /*336699; */
+	background-color: white;
+}
+h4 {
+	color: #900;
+	background-color: #fff;
+}
+#navcolumn h5 {
+	color: white;
+  background-color: #336699; /* #528BC5; /*#336699;*/
+	font-size: 10pt;
+	font-weight: bold;
+	padding: 3px 2px 3px 4px;
+	letter-spacing: 1px;
+	border: 0px;
+}
+
+
+/*
+* Links
+*/
+a {
+  text-decoration: none;
+  font-family: Verdana;
+  font-size:  10pt;
+  font-weight:  bold;
+  color:#316AC5;
+}
+
+a:link {
+	color:#316AC5;
+}
+
+a:visited  {
+	color:#316AC5;
+}
+
+a:active, a:hover {
+  color:red;
+}
+
+#navcolumn  ul li a {
+	font-size: 8pt;
+	font-weight: bold;
+}
+
+#legend li.externalLink {
+  background: url(../images/external.png) left top no-repeat;
+  padding-left: 18px;
+}
+a.externalLink, a.externalLink:link, a.externalLink:visited, a.externalLink:active, a.externalLink:hover {
+  background: url(../images/external.png) right center no-repeat;
+  padding-right: 18px;
+  color: #336699; /*#2E6FFA;*/
+  font-family: Verdana;
+  font-size:  10pt;
+  font-weight:  bold;
+}
+
+a.externalLink:hover {
+  color: red; /*#2E6FFA;*/
+}
+
+a.newWindow, a.newWindow:link, a.newWindow:visited, a.newWindow:active, a.newWindow:hover {
+  background: url(../images/newwindow.png) right center no-repeat;
+  padding-right: 18px;
+}
+
+/*
+* Table
+*/
+table {
+    width:100%;
+    /* border: 1px solid #000; */
+    border-collapse: collapse;
+	/*border: 1px solid #336699;*/
+}
+
+table.bodyTable th {
+  background-color: #336699; /* #528BC5; /*#336699;*/
+    color: white;
+	font-size:10pt;
+	font-weight: bold;
+	letter-spacing: 1px;
+	font-family: Verdana;
+	border-left: 2px solid white; /*#336699;/*#D9D9D9; /*#336699; */
+	border-right: 2px solid white; /*#336699;/*#D9D9D9; /*#336699; */
+	text-align: left;
+}
+
+table.bodyTable td {
+    border-left: 2px solid WHITE; /*#6699CC; /* #D9D9D9; /*#336699; */
+	border-right: 2px solid WHITE; /*#6699CC; /* #D9D9D9; /*#336699; */
+	font-size: 10pt;
+}
+
+table.bodyTable tr a {
+font-weight:bold;
+
+}
+
+table.bodyTable tr.a a{
+font-weight:bold;
+
+}
+
+table.bodyTable tr.a {
+  background-color: #F7F6F1; /*#EBE8DA; /*#E7E7E7; /*#EBE8DA; /*#FBFAF4; /*#EDEBD5; /*#EDEDED;**/
+}
+
+table.bodyTable tr.b {
+  background-color: white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid #F7F6F1; /*#6699CC; /* #D9D9D9; /*#336699; */
+  padding-bottom: 1px;
+}
+
+dl {
+  padding: 4px 4px 4px 6px;
+  border: 1px solid #aaa;
+  background-color: #ffc;
+}
+dt {
+  color: #900;
+}
+
+/*
+* Navigation
+*/
+#navcolumn a {
+  text-decoration: none;
+  font-family: Verdana;
+  font-size:  10pt;
+  font-weight:  bold;
+  color: #1D69CB;
+}
+#navcolumn a:link {
+  color: #1D69CB;
+}
+#navcolumn a:visited  {
+  color: #1D69CB;
+}
+
+#navcolumn a:hover {
+  color:red;
+}
+
+#navcolumn a:active {
+  color:red;
+}
+
+#navcolumn li strong {
+	display: block;
+	margin: 0;
+	padding: 6px 2px 6px 4px;
+ font-family: Verdana;
+  font-size:  8pt;
+  font-weight:  bold;
+  color: red;
+	background-color: #F9F9F9; /*#F7F6F1; /* #F5F5EF; /*#F5F5F5; /*#E7E7E7; /* #EBE8DA; */
+}
+
+#navcolumn ul {
+	margin: 0 0 0px 0px;
+	padding: 0;
+	border: none;
+	list-style: none;
+}
+
+#navcolumn ul li {
+	text-align: left;
+	margin: 0 0 0 0;
+	padding: 0;
+	border: 0;
+	background-color: white; /*#F7F6F1; /* #F5F5EF; /*#F5F5F5; /*#E7E7E7; /* #EBE8DA; */
+	border-bottom: 1px solid #E0E0E0;
+	
+}
+
+#navcolumn ul li ul li {
+	text-align: left;
+	margin: 0 0 0 0;
+	padding: 0 0 0 2.5em;
+	border: 0;
+	background-color: white; /*#F7F6F1; /* #F5F5EF; /*#F5F5F5; /*#E7E7E7; /* #EBE8DA; */
+	border-bottom: 1px solid #E0E0E0;
+	
+}
+
+#navcolumn ul li :hover{
+	background-color: #F9F9F9; /*#F7F6F1; /* #F5F5EF; /*#F5F5F5; /*#E7E7E7; /* #EBE8DA; */
+}
+
+#navcolumn ul li a {
+	display: block;
+	margin: 0;
+	padding: 6px 2px 6px 4px;
+}
+
+/*
+* Marks
+*/
+.errormark, .warningmark, .donemark, .infomark {
+  background: url(../images/icon_error_sml.gif) no-repeat;
+}
+
+.warningmark {
+  background-image: url(../images/icon_warning_sml.gif);
+}
+
+.donemark {
+  background-image: url(../images/icon_success_sml.gif);
+}
+
+.infomark {
+  background-image: url(../images/icon_info_sml.gif);
+}
+
+/*
+* Others
+*/
+.source {
+  border: 1px solid #999;
+}
+
+#organizationLogo img, #projectLogo img, #projectLogo span{
+  margin: 8px;
+}
+
+#navcolumn li.expanded {
+  background-image: none;
+	border-bottom: 0px;
+}
+
+#navcolumn li.collapsed {
+  background-image: none;
+	border-bottom: 0px;
+}
+
+#navcolumn li.expanded  a {
+  background-image: none;
+}
+
+#navcolumn li.collapsed {
+  background-image: none;
+	border-bottom: 0px;
+
+}
+

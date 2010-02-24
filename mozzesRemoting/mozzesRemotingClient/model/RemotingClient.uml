@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_qb8akM37EdqwVrslYOdUDA">
+  <packagedElement xmi:type="uml:Package" xmi:id="_w8IxIM37EdqwVrslYOdUDA" name="RemotingClient">
+    <packagedElement xmi:type="uml:Class" xmi:id="_vlW7GP3PEd20dZHoTZl_jQ" name="RemotingClient"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_xRZmKP3PEd20dZHoTZl_jQ" name="RemotingClientFactory"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_2BPZaP3PEd20dZHoTZl_jQ" name="RemotingExecutorProviderFactory"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_6d2uov3PEd20dZHoTZl_jQ" name="ondemand"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_7gBWQv3PEd20dZHoTZl_jQ" name="pool"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_9pQ6sv3PEd20dZHoTZl_jQ" name="core">
+      <packagedElement xmi:type="uml:Class" xmi:id="_A4ZJKP3QEd20dZHoTZl_jQ" name="DefaultRemotingClientFactory"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_DMhH6P3QEd20dZHoTZl_jQ" name="RemotingClientImpl"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
