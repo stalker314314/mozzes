@@ -15,6 +15,7 @@ public class Team implements Serializable {
 	private String name;
 	private String webAddress;
 	private byte[] image;
+	private String crestImage;
 
 	public Integer getId() {
 		return id;
@@ -47,7 +48,15 @@ public class Team implements Serializable {
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	
+
+	public String getCrestImage() {
+		return crestImage;
+	}
+
+	public void setCrestImage(String crestImage) {
+		this.crestImage = crestImage;
+	}
+
 	@Override
 	public String toString() {
 		return name;

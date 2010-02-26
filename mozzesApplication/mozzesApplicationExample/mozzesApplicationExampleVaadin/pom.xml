@@ -21,6 +21,11 @@
 			<artifactId>mozzesApplicationVaadin</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mozzes.validation</groupId>
+			<artifactId>mozzesValidation</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

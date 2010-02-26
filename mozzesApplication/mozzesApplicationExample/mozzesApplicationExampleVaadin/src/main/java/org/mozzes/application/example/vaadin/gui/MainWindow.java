@@ -5,7 +5,6 @@ import java.util.List;
 import org.mozzes.application.common.client.MozzesClient;
 import org.mozzes.application.example.common.domain.Match;
 import org.mozzes.application.example.common.domain.Team;
-import org.mozzes.application.example.common.service.Administration;
 import org.mozzes.application.example.common.service.MatchAdministration;
 import org.mozzes.application.example.common.service.TeamAdministration;
 
@@ -16,10 +15,8 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Form;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -31,15 +28,20 @@ import com.vaadin.ui.Button.ClickListener;
 @SessionScoped
 public class MainWindow extends Window {
 
+	private static final String TITLE = "Mozzes example - Vaadin web client";
+
 	private static final long serialVersionUID = -1629403228064679292L;
 
 	private final MozzesClient client;
 	private BeanItemContainer<Team> teamSource = new BeanItemContainer<Team>(Team.class);
 	private BeanItemContainer<Match> matchSource = new BeanItemContainer<Match>(Match.class);
 	
+	private Table teamTable;
+	private Table matchTable;
+	
 	@Inject
 	public MainWindow(MozzesClient client) {
-		super("Hello!");
+		super(TITLE);
 		this.client = client;
 		setTheme("runo");
 		initGui();
@@ -54,7 +56,7 @@ public class MainWindow extends Window {
 		teamLayout.setExpandRatio(teamTable, 1f);
 		teamLayout.setSizeFull();
 
-		Panel teamPanel = new Panel("Timovi");
+		Panel teamPanel = new Panel("Teams");
 		teamPanel.setContent(teamLayout);
 		teamPanel.setSizeFull();
 		
@@ -65,7 +67,7 @@ public class MainWindow extends Window {
 		matchLayout.setExpandRatio(matchTable, 1f);
 		matchLayout.setSizeFull();
 
-		Panel matchPanel = new Panel("Mečevi");
+		Panel matchPanel = new Panel("Matches");
 		matchPanel.setContent(matchLayout);
 		matchPanel.setSizeFull();
 
@@ -74,7 +76,7 @@ public class MainWindow extends Window {
 		mainLayout.addComponent(matchPanel);
 		mainLayout.setSizeFull();
 
-		Panel mainPanel = new Panel("Primer Vaadin klijenta za Mozzes server");
+		Panel mainPanel = new Panel(TITLE);
 		mainPanel.setStyleName(STYLE_LIGHT);
 		mainPanel.setContent(mainLayout);
 		mainPanel.setSizeFull();
@@ -83,15 +85,16 @@ public class MainWindow extends Window {
 	}
 
 	private Table createTeamTable() {
-		Table teamTable = new Table(null, teamSource);
-		teamTable.setVisibleColumns(new Object[]{"name", "image", "webAddress"});
-		teamTable.setColumnHeaders(new String[]{"Naziv", "Grb", "Web"});
+		teamTable = new Table(null, teamSource);
+		teamTable.setVisibleColumns(new Object[]{"name", "crestImage", "webAddress"});
+		teamTable.setColumnHeaders(new String[]{"Name", "Crest", "Web"});
+		teamTable.setSelectable(true);
 		teamTable.setSizeFull();
 		return teamTable;
 	}
 
 	private GridLayout createTeamButtonPanel() {
-		Button refreshTeamsButton = new Button("Osveži timove");
+		Button refreshTeamsButton = new Button("Reload teams");
 		refreshTeamsButton.setIcon(new ThemeResource("icons/32/reload.png"));
 		refreshTeamsButton.addListener(new ClickListener() {
 			private static final long serialVersionUID = -4440833664676514934L;
@@ -101,19 +104,34 @@ public class MainWindow extends Window {
 			}
 		});
 		
-		Button newTeamButton = new Button("Kreiraj tim");
+		Button newTeamButton = new Button("New team");
 		newTeamButton.setIcon(new ThemeResource("icons/32/document-add.png"));
 		newTeamButton.addListener(new ClickListener() {
 			private static final long serialVersionUID = -5792165786350656817L;
 			@Override
 			public void buttonClick(ClickEvent event) {
-				addWindow(new BeanEditWindow<Team>(MainWindow.this, "New team", new Team(), client.getService(TeamAdministration.class)));
+				addWindow(new TeamEditWindow(getApplication(), MainWindow.this, "New team", new Team(), client.getService(TeamAdministration.class)));
 			}
 		});
 		
-		Button editTeamButton = new Button("Izmeni tim");
+		Button editTeamButton = new Button("Edit team");
 		editTeamButton.setIcon(new ThemeResource("icons/32/document-edit.png"));
-		Button deleteTeamButton = new Button("Obriši tim");
+		editTeamButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = -5792165786350656817L;
+			@SuppressWarnings("unchecked")
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Object selected = teamTable.getValue();
+				if (selected != null) {
+					Team selectedTeam = ((BeanItem<Team>)teamTable.getItem(selected)).getBean();
+					addWindow(new TeamEditWindow(getApplication(), MainWindow.this, "Edit team", selectedTeam, client.getService(TeamAdministration.class)));
+					;
+				} else
+					showNotification("No team selected!");
+			}
+		});
+		
+		Button deleteTeamButton = new Button("Delete team");
 		deleteTeamButton.setIcon(new ThemeResource("icons/32/document-delete.png"));
 		
 		GridLayout teamButtonPanel = new GridLayout(4, 1);
@@ -131,15 +149,15 @@ public class MainWindow extends Window {
 	}
 
 	private Table createMatchTable() {
-		Table matchTable = new Table(null, matchSource);
+		matchTable = new Table(null, matchSource);
 		matchTable.setVisibleColumns(new Object[]{"startTime", "homeTeam", "visitorTeam", "result"});
-		matchTable.setColumnHeaders(new String[]{"Vreme", "Domaćin", "Gost", "Rezultat"});
+		matchTable.setColumnHeaders(new String[]{"Start time", "Home team", "Visitor team", "Result"});
 		matchTable.setSizeFull();
 		return matchTable;
 	}
 
 	private GridLayout createMatchButtonPanel() {
-		Button refreshMatchesButton = new Button("Osveži mečeve");
+		Button refreshMatchesButton = new Button("Reload matches");
 		refreshMatchesButton.setIcon(new ThemeResource("icons/32/reload.png"));
 		refreshMatchesButton.addListener(new ClickListener() {
 			private static final long serialVersionUID = -4440833664676514934L;
@@ -149,12 +167,12 @@ public class MainWindow extends Window {
 			}
 		});
 		
-		Button newMatchButton = new Button("Kreiraj meč");
+		Button newMatchButton = new Button("New match");
 		newMatchButton.setIcon(new ThemeResource("icons/32/document-add.png"));
 		
-		Button editMatchButton = new Button("Izmeni meč");
+		Button editMatchButton = new Button("Edit match");
 		editMatchButton.setIcon(new ThemeResource("icons/32/document-edit.png"));
-		Button deleteMatchButton = new Button("Obriši meč");
+		Button deleteMatchButton = new Button("Delete match");
 		deleteMatchButton.setIcon(new ThemeResource("icons/32/document-delete.png"));
 
 		GridLayout matchButtonPanel = new GridLayout(4, 1);
@@ -176,13 +194,13 @@ public class MainWindow extends Window {
 		reloadMatches();
 	}
 
-	private void reloadMatches() {
+	void reloadMatches() {
 		matchSource.removeAllItems();
 		for (Match match : getMatches()) 
 			matchSource.addBean(match);
 	}
 
-	private void reloadTeams() {
+	void reloadTeams() {
 		teamSource.removeAllItems();
 		for (Team team: getTeams()) 
 			teamSource.addBean(team);
@@ -197,62 +215,4 @@ public class MainWindow extends Window {
 		return client.getService(MatchAdministration.class).findAll();
 	}
 	
-	private static final class BeanEditWindow<T>  extends Window {
-
-		private static final long serialVersionUID = 3432589583281572169L;
-		
-		private final MainWindow mainWindow;
-		private final Administration<T> administration;
-		private final Form beanForm;
-
-		BeanEditWindow(MainWindow mainWindow, String title, T bean, Administration<T> administration) {
-			super(title);
-			setModal(true);
-			this.mainWindow = mainWindow;
-			this.administration = administration;
-			this.beanForm = new Form();
-			
-			beanForm.setItemDataSource(new BeanItem<T>(bean));
-			beanForm.setSizeUndefined();
-
-			Button saveButton = new Button("Save");
-			saveButton.addListener(new ClickListener() {
-				private static final long serialVersionUID = 8515020970178194064L;
-				@Override
-				public void buttonClick(ClickEvent event) {
-					save();
-				}
-			});
-			Button cancelButton = new Button("Cancel");
-			cancelButton.addListener(new ClickListener() {
-				private static final long serialVersionUID = 7606145616074298309L;
-				@Override
-				public void buttonClick(ClickEvent event) {
-					cancel();
-				}
-			});
-			
-			Layout buttonsLayout = new HorizontalLayout();
-			buttonsLayout.addComponent(saveButton);
-			buttonsLayout.addComponent(cancelButton);
-
-			Layout layout = new VerticalLayout();
-			layout.setStyleName(STYLE_LIGHT);
-			layout.setSizeUndefined();
-			layout.addComponent(beanForm);
-			layout.addComponent(buttonsLayout);
-			setContent(layout);
-		}
-		
-		@SuppressWarnings("unchecked")
-		private void save() {
-			administration.save(((BeanItem<T>)beanForm.getItemDataSource()).getBean());
-			mainWindow.removeWindow(this);
-			mainWindow.reloadData();
-		}
-		
-		private void cancel() {
-			mainWindow.removeWindow(this);
-		}
-	}
 }
