@@ -20,12 +20,6 @@
  */
 package org.mozzes.application.example.server;
 
-import java.util.Date;
-
-import org.apache.log4j.Logger;
-import org.mozzes.application.example.common.domain.Match;
-import org.mozzes.application.example.common.domain.Result;
-import org.mozzes.application.example.common.domain.Team;
 import org.mozzes.application.example.common.service.MatchAdministration;
 import org.mozzes.application.example.common.service.TeamAdministration;
 import org.mozzes.application.example.server.service.MatchAdministrationImpl;
@@ -46,7 +40,7 @@ public class ExampleServer {
 		MozzesServerConfiguration cfg = new MozzesServerConfiguration();
 		cfg.addApplicationModule(new HibernatePlugin(HibernateConfigurationType.ANNOTATION));
 		cfg.addApplicationModule(new RemotingPlugin(PORT));
-		cfg.addApplicationModule(new RestJerseyModule("http://localhost:8080/", "org.mozzes.application.example.rest.jersey"));
+		cfg.addApplicationModule(new RestJerseyModule("http://localhost:8000/", "org.mozzes.application.example.rest.jersey"));
 
 		cfg.addService(MatchAdministration.class, MatchAdministrationImpl.class);
 		cfg.addService(TeamAdministration.class, TeamAdministrationImpl.class);
@@ -72,7 +66,7 @@ public class ExampleServer {
 
 	}
 
-	private static final Logger log = Logger.getLogger(ExampleServer.class);
+//	private static final Logger log = Logger.getLogger(ExampleServer.class);
 
 	public static void main(String[] args) {
 		new ExampleServer().start();

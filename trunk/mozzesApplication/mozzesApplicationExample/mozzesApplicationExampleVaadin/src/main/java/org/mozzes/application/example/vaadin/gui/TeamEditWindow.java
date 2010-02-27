@@ -94,6 +94,7 @@ public class TeamEditWindow extends Window {
 		Layout layout = new VerticalLayout();
 		layout.setStyleName(STYLE_LIGHT);
 		layout.setSizeUndefined();
+		layout.setMargin(true);
 		layout.addComponent(form);
 		layout.addComponent(actions);
 		setContent(layout);
@@ -112,8 +113,7 @@ public class TeamEditWindow extends Window {
 
 	private void setImageUpload(Team team) {
 		uploadReceiver = new ImageUploadListener(team);
-		imageUpload = new Upload("Upload crest image", uploadReceiver);
-		imageUpload.setButtonCaption("Upload");
+		imageUpload = new Upload(null, uploadReceiver);
 		imageUpload.addListener((Upload.SucceededListener) uploadReceiver);
 		imageUpload.addListener((Upload.FailedListener) uploadReceiver);
 	}
@@ -121,14 +121,14 @@ public class TeamEditWindow extends Window {
 	private void save() {
 		team.setName(String.valueOf(nameField.getValue()));
 		team.setWebAddress(String.valueOf(webField.getValue()));
-		if (uploadReceiver.file != null)
-			team.setCrestImage(uploadReceiver.file.getAbsolutePath());
+		if (uploadReceiver.currentFileName != null)
+			team.setCrestImage(uploadReceiver.currentFileName);
 		administration.save(team);
 		mainWindow.removeWindow(this);
 		mainWindow.reloadTeams();
 	}
 
-	private static final String IMAGE_PATH = "c:" + File.separatorChar + "images" + File.separatorChar;
+	private static final String IMAGE_PATH = ".." + File.separatorChar + "images" + File.separatorChar;
 
 	private class ImageUploadListener implements Upload.SucceededListener, Upload.FailedListener, Upload.Receiver {
 
@@ -136,6 +136,7 @@ public class TeamEditWindow extends Window {
 
 		private final Team team;
 		private File file;
+		private String currentFileName;
 
 		public ImageUploadListener(Team team) {
 			this.team = team;
@@ -147,10 +148,13 @@ public class TeamEditWindow extends Window {
 				return null;
 
 			FileOutputStream fos = null; // Output stream to write to
+
 			if (team.getCrestImage() != null)
-				file = new File(team.getCrestImage());
+				currentFileName = team.getCrestImage();
 			else
-				file = new File(generateImageFileName() + "." + MIMEType.substring(MIMEType.indexOf('/') + 1));
+				currentFileName = generateImageFileName() + "." + MIMEType.substring(MIMEType.indexOf('/') + 1);
+			file = new File(currentFileName);
+
 			try {
 				// Open the file for writing.
 				fos = new FileOutputStream(file);
@@ -164,7 +168,8 @@ public class TeamEditWindow extends Window {
 
 		@Override
 		public void uploadSucceeded(SucceededEvent event) {
-			showNotification("File " + event.getFilename() + " of type '" + event.getMIMEType() + "' uploaded.");
+			showNotification("File " + event.getFilename() + " of type '" + event.getMIMEType() + "' uploaded.",
+					Notification.TYPE_HUMANIZED_MESSAGE);
 			form.removeComponent(crestImage);
 			crestImage = new Embedded("Crest", (new FileResource(file, application)));
 			crestImage.requestRepaint();

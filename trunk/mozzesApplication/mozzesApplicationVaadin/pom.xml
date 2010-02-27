@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>org.mozzes.application</groupId>
 	<artifactId>mozzesApplicationVaadin</artifactId>
-	<name>Mozzes Application Vaadin</name>
+	<name>Mozzes Application Vaadin Plugin</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.mozzes.application</groupId>
