@@ -37,18 +37,18 @@ public class ExampleServer {
 		MozzesServer server = new MozzesServer(createServerConfiguration());
 		server.start();
 
-		Team t1 = new Team();
-		t1.setName("Crvena zvezda");
-		Team t2 = new Team();
-		t2.setName("Partizan");
-
-		t1 = server.getLocalClient().getService(TeamAdministration.class).save(t1);
-		t2 = server.getLocalClient().getService(TeamAdministration.class).save(t2);
-		log.info(server.getLocalClient().getService(TeamAdministration.class).findAll());
-
-		server.getLocalClient().getService(MatchAdministration.class).save(
-				new Match(new Date(), t1, t2, new Result(2, 1)));
-		log.info(server.getLocalClient().getService(MatchAdministration.class).findAll());
+//		Team t1 = new Team();
+//		t1.setName("Crvena zvezda");
+//		Team t2 = new Team();
+//		t2.setName("Partizan");
+//
+//		t1 = server.getLocalClient().getService(TeamAdministration.class).save(t1);
+//		t2 = server.getLocalClient().getService(TeamAdministration.class).save(t2);
+//		log.info(server.getLocalClient().getService(TeamAdministration.class).findAll());
+//
+//		server.getLocalClient().getService(MatchAdministration.class).save(
+//				new Match(new Date(), t1, t2, new Result(2, 1)));
+//		log.info(server.getLocalClient().getService(MatchAdministration.class).findAll());
 
 	}
 

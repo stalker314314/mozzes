@@ -30,6 +30,7 @@
 		<module>mozzesApplicationDemo</module>
 		<module>mozzesApplicationHibernate</module>
 		<module>mozzesApplicationVaadin</module>
+		<module>mozzesApplicationRestJersey</module>
 		<module>mozzesApplicationExample</module>
 	</modules>
 
