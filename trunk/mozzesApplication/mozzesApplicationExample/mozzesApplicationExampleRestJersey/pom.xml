@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.mozzes.application</groupId>
+  <artifactId>mozzesApplicationExampleRestJersey</artifactId>
+  <version>trunk-SNAPSHOT</version>
+      <parent>
+        <artifactId>mozzesApplicationExample</artifactId>
+        <groupId>org.mozzes.application</groupId>
+        <version>trunk-SNAPSHOT</version>
+    </parent>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.mozzes.application</groupId>
+  		<artifactId>mozzesApplicationServer</artifactId>
+  		<version>trunk-SNAPSHOT</version>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.mozzes.rest.jersey</groupId>
+  		<artifactId>mozzesRestJersey</artifactId>
+  		<version>trunk-SNAPSHOT</version>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.mozzes.application</groupId>
+  		<artifactId>mozzesApplicationExampleCommon</artifactId>
+  		<version>trunk-SNAPSHOT</version>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>xstream</groupId>
+  		<artifactId>xstream</artifactId>
+  		<version>1.2.2</version>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
+</project>

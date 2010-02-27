@@ -15,6 +15,7 @@ import org.mozzes.application.hibernate.HibernatePlugin;
 import org.mozzes.application.remoting.server.RemotingPlugin;
 import org.mozzes.application.server.MozzesServer;
 import org.mozzes.application.server.MozzesServerConfiguration;
+import org.mozzes.rest.jersey.RestJerseyModule;
 
 
 
@@ -25,6 +26,7 @@ public class ExampleServer {
 		MozzesServerConfiguration cfg = new MozzesServerConfiguration();
 		cfg.addApplicationModule(new HibernatePlugin(HibernateConfigurationType.ANNOTATION));
 		cfg.addApplicationModule(new RemotingPlugin(PORT));
+		cfg.addApplicationModule(new RestJerseyModule("http://localhost:8080/", "org.mozzes.application.example.rest.jersey"));
 
 		cfg.addService(MatchAdministration.class, MatchAdministrationImpl.class);
 		cfg.addService(TeamAdministration.class, TeamAdministrationImpl.class);
