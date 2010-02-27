@@ -26,6 +26,7 @@ import java.io.OutputStream;
 
 import org.mozzes.application.example.common.domain.Team;
 import org.mozzes.application.example.common.service.Administration;
+import org.mozzes.application.example.server.service.ImageUtils;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.FileResource;
@@ -128,8 +129,6 @@ public class TeamEditWindow extends Window {
 		mainWindow.reloadTeams();
 	}
 
-	private static final String IMAGE_PATH = ".." + File.separatorChar + "images" + File.separatorChar;
-
 	private class ImageUploadListener implements Upload.SucceededListener, Upload.FailedListener, Upload.Receiver {
 
 		private static final long serialVersionUID = 7572703698105220338L;
@@ -152,7 +151,7 @@ public class TeamEditWindow extends Window {
 			if (team.getCrestImage() != null)
 				currentFileName = team.getCrestImage();
 			else
-				currentFileName = generateImageFileName() + "." + MIMEType.substring(MIMEType.indexOf('/') + 1);
+				currentFileName = ImageUtils.generateImageFile() + "." + MIMEType.substring(MIMEType.indexOf('/') + 1);
 			file = new File(currentFileName);
 
 			try {
@@ -170,20 +169,14 @@ public class TeamEditWindow extends Window {
 		public void uploadSucceeded(SucceededEvent event) {
 			showNotification("File " + event.getFilename() + " of type '" + event.getMIMEType() + "' uploaded.",
 					Notification.TYPE_HUMANIZED_MESSAGE);
-			form.removeComponent(crestImage);
-			crestImage = new Embedded("Crest", (new FileResource(file, application)));
+			crestImage.setSource((new FileResource(file, application)));
 			crestImage.requestRepaint();
-			form.addComponent(crestImage);
 		}
 
 		@Override
 		public void uploadFailed(FailedEvent event) {
 			showNotification("Uploading " + event.getFilename() + " of type '" + event.getMIMEType() + "' failed.",
 					Notification.TYPE_ERROR_MESSAGE);
-		}
-
-		private String generateImageFileName() {
-			return IMAGE_PATH + "t" + hashCode() + System.currentTimeMillis();
 		}
 	}
 
