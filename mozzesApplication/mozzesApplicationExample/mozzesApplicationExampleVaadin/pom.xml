@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>org.mozzes.application</groupId>
 	<artifactId>mozzesApplicationExampleVaadin</artifactId>
-	<name>Mozzes Application Example Vaadin</name>
+	<name>Mozzes Application Vaadin Example</name>
 	<packaging>war</packaging>
 	<dependencies>
 		<dependency>

@@ -9,6 +9,7 @@
 	
 	<groupId>org.mozzes.application</groupId>
 	<artifactId>mozzesApplicationExampleRestJersey</artifactId>
+	<name>Mozzes Application REST Example</name>
 	
 	<dependencies>
 		<dependency>
