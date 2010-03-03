@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.mozzes.application.common.client.MozzesClient;
 import org.mozzes.application.example.common.domain.Match;
 import org.mozzes.application.example.common.domain.Team;
+import org.mozzes.application.example.common.exception.ExampleException;
 import org.mozzes.application.example.common.service.MatchAdministration;
 import org.mozzes.application.example.common.service.TeamAdministration;
 
@@ -107,8 +108,8 @@ public class MainWindow extends Window {
 
 	private Table createTeamTable() {
 		teamTable = new Table(null, teamSource);
-		teamTable.setVisibleColumns(new Object[] { "name", "image", "webAddress" });
-		teamTable.setColumnHeaders(new String[] { "Name", "Crest", "Web" });
+		teamTable.setVisibleColumns(new Object[] { "name", "webAddress" });
+		teamTable.setColumnHeaders(new String[] { "Name", "Web address" });
 		teamTable.setSelectable(true);
 		teamTable.setSizeFull();
 		return teamTable;
@@ -168,6 +169,26 @@ public class MainWindow extends Window {
 
 		Button deleteTeamButton = new Button("Delete team");
 		deleteTeamButton.setIcon(new ThemeResource("icons/32/document-delete.png"));
+		deleteTeamButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = -2947855038156930283L;
+			
+			@SuppressWarnings("unchecked")
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Object selected = teamTable.getValue();
+				if (selected != null) {
+					Team selectedTeam = ((BeanItem<Team>) teamTable.getItem(selected)).getBean();
+					try {
+						client.getService(TeamAdministration.class).delete(selectedTeam);
+						reloadTeams();
+						showNotification("Team " + selectedTeam.getName() + " deleted.");
+					} catch (ExampleException e) {
+						log.error(e.getMessage(), e);
+					}
+				} else
+					showNotification("No team selected!");
+			}
+		});
 
 		GridLayout teamButtonPanel = new GridLayout(4, 1);
 		teamButtonPanel.setHeight(40, UNITS_PIXELS);
@@ -187,6 +208,7 @@ public class MainWindow extends Window {
 		matchTable = new Table(null, matchSource);
 		matchTable.setVisibleColumns(new Object[] { "startTime", "homeTeam", "visitorTeam", "result" });
 		matchTable.setColumnHeaders(new String[] { "Start time", "Home team", "Visitor team", "Result" });
+		matchTable.setSelectable(true);
 		matchTable.setSizeFull();
 		return matchTable;
 	}
@@ -205,11 +227,59 @@ public class MainWindow extends Window {
 
 		Button newMatchButton = new Button("New match");
 		newMatchButton.setIcon(new ThemeResource("icons/32/document-add.png"));
+		newMatchButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = -5077272694928231857L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				addWindow(new MatchEditWindow(MainWindow.this, "New match",
+						new Match(), client
+								.getService(MatchAdministration.class), client
+								.getService(TeamAdministration.class).findAll()));
+			}
+		});
 
 		Button editMatchButton = new Button("Edit match");
 		editMatchButton.setIcon(new ThemeResource("icons/32/document-edit.png"));
+		editMatchButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = -5792165786350656817L;
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Object selected = matchTable.getValue();
+				if (selected != null) {
+					Match selectedMatch = ((BeanItem<Match>) matchTable.getItem(selected)).getBean();
+					addWindow(new MatchEditWindow(MainWindow.this, "New match", selectedMatch, client.getService(MatchAdministration.class),
+							client.getService(TeamAdministration.class).findAll()));
+				} else
+					showNotification("No match selected!");
+			}
+		});
+		
+		
 		Button deleteMatchButton = new Button("Delete match");
 		deleteMatchButton.setIcon(new ThemeResource("icons/32/document-delete.png"));
+		deleteMatchButton.addListener(new ClickListener() {
+			private static final long serialVersionUID = 7338030844267083993L;
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public void buttonClick(ClickEvent event) {
+				Object selected = matchTable.getValue();
+				if (selected != null) {
+					Match selectedMatch = ((BeanItem<Match>) matchTable.getItem(selected)).getBean();
+					try {
+						client.getService(MatchAdministration.class).delete(selectedMatch);
+						reloadMatches();
+						showNotification("Match " + selectedMatch + " deleted.");
+					} catch (ExampleException e) {
+						log.error(e.getMessage(), e);
+					}
+				} else
+					showNotification("No match selected!");
+			}
+		});
 
 		GridLayout matchButtonPanel = new GridLayout(4, 1);
 		matchButtonPanel.setHeight(40, UNITS_PIXELS);
