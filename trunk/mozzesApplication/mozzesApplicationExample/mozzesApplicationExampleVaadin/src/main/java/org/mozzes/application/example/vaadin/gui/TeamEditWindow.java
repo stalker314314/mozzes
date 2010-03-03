@@ -21,12 +21,14 @@
 package org.mozzes.application.example.vaadin.gui;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
+import org.apache.log4j.Logger;
 import org.mozzes.application.example.common.domain.Team;
 import org.mozzes.application.example.common.service.Administration;
-import org.mozzes.application.example.server.service.ImageUtils;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.FileResource;
@@ -48,35 +50,36 @@ import com.vaadin.ui.Upload.SucceededEvent;
 public class TeamEditWindow extends Window {
 
 	private static final long serialVersionUID = 3432589583281572169L;
+	private static final Logger log = Logger.getLogger(TeamEditWindow.class);
+	private static final String IMAGE_PATH = ".." + File.separatorChar + "images" + File.separatorChar;
+	private static final String IMAGE_FILE_TYPE = "png";
 
 	private final Application application;
 	private final MainWindow mainWindow;
 	private final Administration<Team> administration;
-	private FormLayout form;
-
-	private Team team;
-	private Upload imageUpload;
+	private final Team team;
+	
 	private TextField nameField = new TextField("Name");
 	private TextField webField = new TextField("Web");
 	private Embedded crestImage;
-	private ImageUploadListener uploadReceiver;
+	private String crestFileName;
 
 	TeamEditWindow(Application application, MainWindow mainWindow, String title, Team team,
-			Administration<Team> administration) {
+			Administration<Team> administration) throws IOException {
 		super(title);
 		setModal(true);
 		this.application = application;
 		this.mainWindow = mainWindow;
 		this.administration = administration;
+		this.team = team;
 		setTeam(team);
-		setImageUpload(team);
 
-		form = new FormLayout();
+		FormLayout form = new FormLayout();
 		form.setSizeUndefined();
 		form.addComponent(nameField);
 		form.addComponent(webField);
 		form.addComponent(crestImage);
-		form.addComponent(imageUpload);
+		form.addComponent(createImageUpload());
 
 		Button saveButton = new Button("Save");
 		saveButton.addListener(new ClickListener() {
@@ -84,7 +87,12 @@ public class TeamEditWindow extends Window {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				save();
+				try {
+					save();
+				} catch (IOException e) {
+					log.error(e.getMessage(), e);
+					showNotification("Unable to save team!", Notification.TYPE_ERROR_MESSAGE);
+				}
 			}
 		});
 
@@ -101,65 +109,99 @@ public class TeamEditWindow extends Window {
 		setContent(layout);
 	}
 
-	private void setTeam(Team team) {
-		this.team = team;
+	private void setTeam(Team team) throws IOException {
 		nameField.setValue(team.getName());
 		webField.setValue(team.getWebAddress());
-		if (team.getCrestImage() != null)
-			crestImage = new Embedded("Crest", new FileResource(new File(team.getCrestImage()), application));
+		
+		crestFileName = IMAGE_PATH + "t" + Thread.currentThread().hashCode()
+				+ System.currentTimeMillis() + "." + IMAGE_FILE_TYPE;
+		if (team.getImage() != null) {
+			saveImage(team.getImage());
+			crestImage = new Embedded("Crest", new FileResource(new File(crestFileName), application));
+		}
 		else
 			crestImage = new Embedded("Crest");
 		crestImage.requestRepaint();
 	}
 
-	private void setImageUpload(Team team) {
-		uploadReceiver = new ImageUploadListener(team);
-		imageUpload = new Upload(null, uploadReceiver);
+	private Upload createImageUpload() {
+		ImageUploadListener uploadReceiver = new ImageUploadListener();
+		Upload imageUpload = new Upload(null, uploadReceiver);
 		imageUpload.addListener((Upload.SucceededListener) uploadReceiver);
 		imageUpload.addListener((Upload.FailedListener) uploadReceiver);
+		return imageUpload;
 	}
 
-	private void save() {
+	private void save() throws IOException {
 		team.setName(String.valueOf(nameField.getValue()));
 		team.setWebAddress(String.valueOf(webField.getValue()));
-		if (uploadReceiver.currentFileName != null)
-			team.setCrestImage(uploadReceiver.currentFileName);
+		team.setImage(loadImage());
 		administration.save(team);
 		mainWindow.removeWindow(this);
 		mainWindow.reloadTeams();
+	}
+	
+	private void saveImage(byte[] image) throws IOException {
+		File file = new File(crestFileName);
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(file);
+			fos.write(image);
+			fos.flush();
+		} finally {
+			if (fos != null)
+				try {
+					fos.close();
+				} catch (IOException ignore) {}
+		}
+	}
+	
+	private byte[] loadImage() throws IOException {
+		File file = new File(crestFileName);
+		if (!file.exists())
+			return null;
+		byte[] returnValue = new byte[(int) file.length()];
+		FileInputStream fos = null;
+		try {
+			fos = new FileInputStream(file);
+			fos.read(returnValue);
+			return returnValue;
+		} finally {
+			if (fos != null)
+				try {
+					fos.close();
+				} catch (IOException ignore) {}
+		}
+		
 	}
 
 	private class ImageUploadListener implements Upload.SucceededListener, Upload.FailedListener, Upload.Receiver {
 
 		private static final long serialVersionUID = 7572703698105220338L;
 
-		private final Team team;
 		private File file;
-		private String currentFileName;
-
-		public ImageUploadListener(Team team) {
-			this.team = team;
-		}
 
 		@Override
-		public OutputStream receiveUpload(String filename, String MIMEType) {
-			if (MIMEType.indexOf("image") == -1)
+		public OutputStream receiveUpload(String filename, String MIMEType) { 
+			if (MIMEType.indexOf("image") == -1) {
+				showNotification("Invalid image type, only " + IMAGE_FILE_TYPE + " images are allowed!", Notification.TYPE_ERROR_MESSAGE);
 				return null;
+			}
+			
+			if (!MIMEType.substring(MIMEType.indexOf('/') + 1).equalsIgnoreCase(IMAGE_FILE_TYPE)) {
+				showNotification("Invalid image type, only " + IMAGE_FILE_TYPE + " images are allowed!", Notification.TYPE_ERROR_MESSAGE);
+				return null;
+			}
 
+			file = new File(crestFileName);
 			FileOutputStream fos = null; // Output stream to write to
 
-			if (team.getCrestImage() != null)
-				currentFileName = team.getCrestImage();
-			else
-				currentFileName = ImageUtils.generateImageFile() + "." + MIMEType.substring(MIMEType.indexOf('/') + 1);
-			file = new File(currentFileName);
-
 			try {
-				// Open the file for writing.
+				file.createNewFile();
 				fos = new FileOutputStream(file);
-			} catch (final java.io.FileNotFoundException e) {
+			} catch (IOException e) {
 				// Error while opening the file. Not reported here.
-				e.printStackTrace();
+				log.error("Unable to open team crest file", e);
 				return null;
 			}
 			return fos; // Return the output stream to write to
