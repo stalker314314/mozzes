@@ -2,49 +2,61 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mozzes</groupId>
+	<artifactId>Mozzes</artifactId>
 	<packaging>pom</packaging>
 
 	<name>Mozzes</name>
+	<version>trunk-SNAPSHOT</version>
 	<description>Mozzes - lightweight Java middleware framework</description>
 	<url>http://www.mozzes.org</url>
 
-	<artifactId>Mozzes</artifactId>
-	<groupId>org.mozzes</groupId>
-	<version>trunk-SNAPSHOT</version>
-
-	<developers>
-		<developer>
-			<id>branko</id>
-			<name>Branko Kokanović</name>
-			<email>branko.kokanovic at gmail</email>
-		</developer>
-		<developer>
-			<id>milos</id>
-			<name>Miloš Popović</name>
-			<email>popac1 at gmail</email>
-		</developer>
-		<developer>
-			<id>perica</id>
-			<name>Perica Milošević</name>
-			<email>perica.milosevic at gmail</email>
-		</developer>
-		<developer>
-			<id>vita</id>
-			<name>Vitomir Kovanović</name>
-			<email>kovanovic at gmail</email>
-		</developer>
-	</developers>
-
-	<issueManagement>
-		<system>Google Code</system>
-		<url>http://code.google.com/p/mozzes/issues/list</url>
-	</issueManagement>
+	<licenses>
+		<license>
+			<name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+		</license>
+	</licenses>
 
 	<scm>
 		<connection>scm:svn:http://mozzes.googlecode.com/svn/trunk/</connection>
 		<developerConnection>scm:svn:https://mozzes.googlecode.com/svn/trunk/</developerConnection>
 		<url>http://code.google.com/p/mozzes/source/browse/#svn/trunk</url>
 	</scm>
+
+	<issueManagement>
+		<system>Google Code</system>
+		<url>http://code.google.com/p/mozzes/issues/list</url>
+	</issueManagement>
+
+	<mailingLists>
+		<mailingList>
+			<name>Mozzes Developers</name>
+		</mailingList>
+	</mailingLists>
+
+	<developers>
+		<developer>
+			<id>branko.kokanovic</id>
+			<name>Branko Kokanović</name>
+			<email>branko.kokanovic at gmail</email>
+		</developer>
+		<developer>
+			<id>popac1</id>
+			<name>Miloš Popović</name>
+			<email>popac1 at gmail</email>
+		</developer>
+		<developer>
+			<id>perica.milosevic</id>
+			<name>Perica Milošević</name>
+			<email>perica.milosevic at gmail</email>
+		</developer>
+		<developer>
+			<id>kovanovic</id>
+			<name>Vitomir Kovanović</name>
+			<email>kovanovic at gmail</email>
+		</developer>
+	</developers>
 
 	<modules>
 		<module>mozzesInvocation</module>
@@ -128,36 +140,22 @@
 					<encoding>${sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.4</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<linkXref>false</linkXref>
-					<sourceEncoding>${sourceEncoding}</sourceEncoding>
-					<minimumTokens>30</minimumTokens>
-					<targetJdk>${javaVersion}</targetJdk>
-					<rulesets>
-						<ruleset>pmd.ruleset</ruleset>
-					</rulesets>
-				</configuration>
-			</plugin>
+			<!--			<plugin>-->
+			<!--				<groupId>org.apache.maven.plugins</groupId>-->
+			<!--				<artifactId>maven-pmd-plugin</artifactId>-->
+			<!--				<version>2.4</version>-->
+			<!--				<configuration>-->
+			<!--					<linkXref>false</linkXref>-->
+			<!--					<sourceEncoding>${sourceEncoding}</sourceEncoding>-->
+			<!--					<minimumTokens>30</minimumTokens>-->
+			<!--					<targetJdk>${javaVersion}</targetJdk>-->
+			<!--					<rulesets>-->
+			<!--						<ruleset>pmd.ruleset</ruleset>-->
+			<!--					</rulesets>-->
+			<!--				</configuration>-->
+			<!--			</plugin>-->
 		</plugins>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>2.4</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 	<reporting>
@@ -169,6 +167,7 @@
 				<configuration>
 					<encoding>${sourceEncoding}</encoding>
 					<charset>${sourceEncoding}</charset>
+					<maxmemory>512m</maxmemory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -176,16 +175,16 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.4</version>
 			</plugin>
-<!--      		 <plugin>-->
-<!--        		<groupId>org.apache.maven.plugins</groupId>-->
-<!--        		<artifactId>maven-pmd-plugin</artifactId>-->
-<!--        		<version>2.4</version>-->
-<!--      		</plugin>-->
-<!--			<plugin>-->
-<!--				<groupId>org.apache.maven.plugins</groupId>-->
-<!--				<artifactId>maven-jxr-plugin</artifactId>-->
-<!--				<version>2.1</version>-->
-<!--			</plugin>-->
+			<!--      		 <plugin>-->
+			<!--        		<groupId>org.apache.maven.plugins</groupId>-->
+			<!--        		<artifactId>maven-pmd-plugin</artifactId>-->
+			<!--        		<version>2.4</version>-->
+			<!--      		</plugin>-->
+			<!--			<plugin>-->
+			<!--				<groupId>org.apache.maven.plugins</groupId>-->
+			<!--				<artifactId>maven-jxr-plugin</artifactId>-->
+			<!--				<version>2.1</version>-->
+			<!--			</plugin>-->
 		</plugins>
 	</reporting>
 
