@@ -25,7 +25,6 @@ import org.mozzes.swing.component.AmountFormatter;
 /**
  * Editor za celije tabele koji omogucava samo unos 
  * pozitivnog broja ili nule
- * @author vaso
  */
 public class PositiveNumberCellEditor extends NumberValidationCellEditor {
 	
@@ -40,7 +39,6 @@ public class PositiveNumberCellEditor extends NumberValidationCellEditor {
 	/**
 	 * Construktor
 	 * @param cellStrLength Max length of the String that will be aceepted as input.
-	 * @author draganm
 	 */
 	public PositiveNumberCellEditor(final AmountFormatter amountFormatter, int cellStrLength) {
 		super(amountFormatter, cellStrLength);

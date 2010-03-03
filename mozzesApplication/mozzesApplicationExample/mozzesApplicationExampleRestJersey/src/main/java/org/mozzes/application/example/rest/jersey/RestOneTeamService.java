@@ -51,7 +51,7 @@ public class RestOneTeamService {
 
 	@GET
 	@Produces( { MediaType.TEXT_XML })
-	public String getCountry(@PathParam("teamId") String teamId) {
+	public String getTeam(@PathParam("teamId") String teamId) {
 		Integer id;
 		try {
 			id = Integer.parseInt(teamId);

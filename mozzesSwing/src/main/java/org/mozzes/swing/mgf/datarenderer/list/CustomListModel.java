@@ -232,12 +232,12 @@ class CustomListModel<T> extends AbstractListModel {
 			fireContentsChanged(this, event.getIndex(), event.getIndex());
 		}
 
-		private void rowsUpdated(@SuppressWarnings("unused") ObjectsUpdatedEvent<T> event) {
+		private void rowsUpdated(ObjectsUpdatedEvent<T> event) {
 			// fireContentsChanged(this, event.getIndex(), event.getIndex() + event.getObjects().size() - 1);
 			fireAllRowsUpdated();
 		}
 
-		private void rowsDeleted(@SuppressWarnings("unused") ObjectsRemovedEvent<T> event) {
+		private void rowsDeleted(ObjectsRemovedEvent<T> event) {
 			// fireIntervalRemoved(this, event.getIndex(), event.getIndex() + event.getObjects().size() - 1);
 			fireIntervalRemoved(this, 0, getLastIndex());
 		}

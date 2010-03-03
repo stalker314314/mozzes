@@ -51,18 +51,13 @@ public class RestJerseyServerListener implements ServerLifecycleListener {
 	private SelectorThread threadSelector;
 
 	@Override
-	public void shutdown() {
-		threadSelector.stopEndpoint();
-	}
-
-	@Override
 	public void startup() throws ServerInitializationException {
 		MozzesGuiceProviderFactory.setGuiceProvider(guiceInjector);
 		
 		final Map<String, String> initParams = new HashMap<String, String>();
 		initParams.put("com.sun.jersey.config.property.packages", configuration.getRootResourcePackage());
 
-		logger.info("Starting grizzly...");
+		logger.info("Starting grizzly on " + configuration.getBaseUri());
 		try {
 			threadSelector = GrizzlyWebContainerFactory.create(configuration.getBaseUri(), initParams);
 		} catch (IllegalArgumentException e) {
@@ -72,5 +67,10 @@ public class RestJerseyServerListener implements ServerLifecycleListener {
 			logger.error("Error starting grizly", e);
 			throw new ServerInitializationException(e);
 		}
+	}
+	
+	@Override
+	public void shutdown() {
+		threadSelector.stopEndpoint();
 	}
 }

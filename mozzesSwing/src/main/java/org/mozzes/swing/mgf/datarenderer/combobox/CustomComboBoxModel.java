@@ -306,7 +306,7 @@ class CustomComboBoxModel<T> extends AbstractListModel implements ComboBoxModel 
 			fireContentsChanged(this, event.getIndex(), event.getIndex());
 		}
 
-		private void rowsUpdated(@SuppressWarnings("unused") ObjectsUpdatedEvent<T> event) {
+		private void rowsUpdated(ObjectsUpdatedEvent<T> event) {
 			// fireContentsChanged(this, event.getIndex(), event.getIndex() + event.getObjects().size() - 1);
 			fireAllRowsUpdated();
 		}
@@ -315,7 +315,7 @@ class CustomComboBoxModel<T> extends AbstractListModel implements ComboBoxModel 
 			fireContentsChanged(this, 0, getLastIndex());
 		}
 
-		private void rowsDeleted(@SuppressWarnings("unused") ObjectsRemovedEvent<T> event) {
+		private void rowsDeleted(ObjectsRemovedEvent<T> event) {
 			fireIntervalRemoved(this, 0, getLastIndex());
 		}
 

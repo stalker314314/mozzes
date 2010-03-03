@@ -25,11 +25,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.mozzes.application.server.session.impl.SessionContext;
+
 import com.google.inject.BindingAnnotation;
 
 /**
  * The Interface MozzesInternal is used in guice configuration for specifying that some internal framework classes(for
- * example {@linkSessionContext}) can be injected only if this annotation is present. <br>
+ * example {@link SessionContext}) can be injected only if this annotation is present. <br>
  * 
  * With this mechanism we provided some level of security that users at least can't inject some internal classes easily.
  * 
