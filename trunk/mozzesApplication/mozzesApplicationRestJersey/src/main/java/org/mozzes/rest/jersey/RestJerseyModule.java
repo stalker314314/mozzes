@@ -27,8 +27,6 @@ import org.mozzes.application.module.ApplicationModule;
 import org.mozzes.application.module.ServerLifecycleListener;
 
 import com.google.inject.Binder;
-import com.google.inject.Provider;
-import com.google.inject.Scopes;
 
 /**
  * Mozzes application module for REST Jersey implementation 
@@ -44,13 +42,7 @@ public class RestJerseyModule extends ApplicationModule {
 
 	@Override
 	public void doCustomBinding(Binder binder) {
-		binder.bind(RestJerseyConfiguration.class).toProvider(new Provider<RestJerseyConfiguration>() {
-			@Override
-			public RestJerseyConfiguration get() {
-				return configuration;
-
-			}
-		}).in(Scopes.SINGLETON);
+		binder.bind(RestJerseyConfiguration.class).toInstance(configuration);
 	}
 
 	@Override

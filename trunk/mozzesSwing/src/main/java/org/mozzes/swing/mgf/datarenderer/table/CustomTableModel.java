@@ -294,12 +294,12 @@ public class CustomTableModel<T> extends AbstractTableModel {
 			fireTableRowsUpdated(event.getIndex(), event.getIndex());
 		}
 
-		private void rowsUpdated(@SuppressWarnings("unused") ObjectsUpdatedEvent<T> event) {
+		private void rowsUpdated(ObjectsUpdatedEvent<T> event) {
 			// fireTableRowsUpdated(event.getIndex(), event.getIndex() + event.getObjects().size() - 1);
 			fireTableRowsUpdated(0, getLastIndex());
 		}
 
-		private void rowsDeleted(@SuppressWarnings("unused") ObjectsRemovedEvent<T> event) {
+		private void rowsDeleted(ObjectsRemovedEvent<T> event) {
 			// fireTableRowsDeleted(event.getIndex(), event.getIndex() + event.getObjects().size() - 1);
 			fireTableDataChanged();
 		}

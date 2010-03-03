@@ -217,7 +217,7 @@ public class AbstractDataSourceTest {
 			}
 		}
 
-		private void handleSourceChanged(@SuppressWarnings("unused") SourceChangedEvent<DummyClass> event) {
+		private void handleSourceChanged(SourceChangedEvent<DummyClass> event) {
 			handleCalled = true;
 		}
 	}

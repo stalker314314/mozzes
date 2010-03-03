@@ -34,20 +34,15 @@ import org.mozzes.swing.component.AmountFormatter;
 
 
 /**
- * [FIN-77] Cell editor koji vrshi validaciju da li su u pitanju brojevi (u
+ * Cell editor koji vrshi validaciju da li su u pitanju brojevi (u
  * zavisnosti od klase u table modelu) i da li su validni sto se odredjuje na
  * osnovu poziva metode isNumberValid() koja se mozhe preklopiti. Ukoliko unos
  * nije validan sprechava se prestanak editovanja cjelije i uokviruje se
  * odgovarajucjom bojom.
  * 
- * @author nenadl
- * 
  */
 public class NumberValidationCellEditor extends GenericEditor {
 
-	/**
-	 * Svuid.
-	 */
 	private static final long serialVersionUID = -7584667054021231532L;
 	
 	/**
@@ -66,7 +61,6 @@ public class NumberValidationCellEditor extends GenericEditor {
 	/**
 	 * Construktor of {@link NumberValidationCellEditor} object
 	 * @param cellStrLength Max length of the String that will be aceepted as input.
-	 * @author draganm
 	 */
 	public NumberValidationCellEditor(final AmountFormatter amountFormatter, int cellStrLength) {
 		super(cellStrLength);

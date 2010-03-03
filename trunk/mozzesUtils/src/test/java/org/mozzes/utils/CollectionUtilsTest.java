@@ -20,19 +20,22 @@
  */
 package org.mozzes.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Test;
-import org.mozzes.utils.CollectionUtils;
 
 public class CollectionUtilsTest {
 
@@ -113,40 +116,6 @@ public class CollectionUtilsTest {
 			public void describeTo(Description description) {}
 		};
 		assertThat(CollectionUtils.asArray(String.class, s), matcher);
-	}
-
-	@Test
-	public void testSubtract() {
-		Collection<String> c1 = null;
-		Collection<String> c2 = null;
-		Collection<String> diff = new ArrayList<String>();
-
-		try {
-			CollectionUtils.subtract(c1, c2);
-			fail();
-		} catch (NullPointerException e) {
-			assertTrue(true);
-		}
-
-		c1 = new ArrayList<String>();
-		assertEquals(c1, CollectionUtils.subtract(c1, c2));
-		assertNotSame(c1, CollectionUtils.subtract(c1, c2));
-
-		c1.add("aaa");
-		assertEquals(c1, CollectionUtils.subtract(c1, c2));
-
-		c2 = new ArrayList<String>();
-		assertEquals(c1, CollectionUtils.subtract(c1, c2));
-
-		c2.add("bbb");
-		assertEquals(c1, CollectionUtils.subtract(c1, c2));
-
-		c2.add("aaa");
-		assertEquals(Collections.EMPTY_LIST, CollectionUtils.subtract(c1, c2));
-
-		c1.add("ccc");
-		diff.add("ccc");
-		assertEquals(diff, CollectionUtils.subtract(c1, c2));
 	}
 
 	@Test
