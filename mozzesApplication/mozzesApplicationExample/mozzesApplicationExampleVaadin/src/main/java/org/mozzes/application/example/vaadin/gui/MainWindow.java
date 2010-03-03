@@ -20,8 +20,10 @@
  */
 package org.mozzes.application.example.vaadin.gui;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.mozzes.application.common.client.MozzesClient;
 import org.mozzes.application.example.common.domain.Match;
 import org.mozzes.application.example.common.domain.Team;
@@ -47,10 +49,10 @@ import com.vaadin.ui.Button.ClickListener;
 @SessionScoped
 public class MainWindow extends Window {
 
-	private static final String TITLE = "Mozzes example - Vaadin web client";
-
 	private static final long serialVersionUID = -1629403228064679292L;
-
+	private static final String TITLE = "Mozzes example - Vaadin web client";
+	private static final Logger log = Logger.getLogger(MainWindow.class);
+	
 	private final MozzesClient client;
 	private BeanItemContainer<Team> teamSource = new BeanItemContainer<Team>(Team.class);
 	private BeanItemContainer<Match> matchSource = new BeanItemContainer<Match>(Match.class);
@@ -105,7 +107,7 @@ public class MainWindow extends Window {
 
 	private Table createTeamTable() {
 		teamTable = new Table(null, teamSource);
-		teamTable.setVisibleColumns(new Object[] { "name", "crestImage", "webAddress" });
+		teamTable.setVisibleColumns(new Object[] { "name", "image", "webAddress" });
 		teamTable.setColumnHeaders(new String[] { "Name", "Crest", "Web" });
 		teamTable.setSelectable(true);
 		teamTable.setSizeFull();
@@ -131,8 +133,13 @@ public class MainWindow extends Window {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				addWindow(new TeamEditWindow(getApplication(), MainWindow.this, "New team", new Team(), client
-						.getService(TeamAdministration.class)));
+				try {
+					addWindow(new TeamEditWindow(getApplication(), MainWindow.this, "New team", new Team(), client
+							.getService(TeamAdministration.class)));
+				} catch (IOException e) {
+					log.error(e.getMessage(), e);
+					showNotification("Unable to create file for team crest image.", Notification.TYPE_ERROR_MESSAGE);
+				}
 			}
 		});
 
@@ -147,9 +154,13 @@ public class MainWindow extends Window {
 				Object selected = teamTable.getValue();
 				if (selected != null) {
 					Team selectedTeam = ((BeanItem<Team>) teamTable.getItem(selected)).getBean();
-					addWindow(new TeamEditWindow(getApplication(), MainWindow.this, "Edit team", selectedTeam, client
-							.getService(TeamAdministration.class)));
-					;
+					try {
+						addWindow(new TeamEditWindow(getApplication(), MainWindow.this, "Edit team", selectedTeam, client
+								.getService(TeamAdministration.class)));
+					} catch (IOException e) {
+						log.error(e.getMessage(), e);
+						showNotification("Unable to create file for team crest image.", Notification.TYPE_ERROR_MESSAGE);
+					}
 				} else
 					showNotification("No team selected!");
 			}
