@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>mozzesInvocation</artifactId>
+		<groupId>org.mozzes.invocation</groupId>
+		<version>trunk-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mozzes.invocation</groupId>
+	<artifactId>mozzesInvocationGuice</artifactId>
+	<name>Mozzes Invocation Guice</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.mozzes.invocation</groupId>
+			<artifactId>mozzesInvocationCommon</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>2.0</version>
+		</dependency>
+	</dependencies>
+</project>

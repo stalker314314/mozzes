@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_JYxl4P28Ed20dZHoTZl_jQ" activeDiagram="_JYxl4f28Ed20dZHoTZl_jQ">
+  <model href="RemotingCommon.uml#_w8IxIM37EdqwVrslYOdUDA"/>
+  <diagrams xmi:id="_JYxl4f28Ed20dZHoTZl_jQ" position="0,0" size="100,100" name="RemotingCommon" viewport="0,45">
+    <property xmi:id="_JY6v0P28Ed20dZHoTZl_jQ" key="pageFormatName" value=""/>
+    <property xmi:id="_JY6v0f28Ed20dZHoTZl_jQ" key="diagramWidth" value="1068"/>
+    <property xmi:id="_JY6v0v28Ed20dZHoTZl_jQ" key="diagramHeight" value="513"/>
+    <property xmi:id="_JY6v0_28Ed20dZHoTZl_jQ" key="pageMarginName" value="A1"/>
+    <property xmi:id="_JY6v1P28Ed20dZHoTZl_jQ" key="diagramTopMargin" value="20"/>
+    <property xmi:id="_JY6v1f28Ed20dZHoTZl_jQ" key="diagramBottomMargin" value="20"/>
+    <property xmi:id="_JY6v1v28Ed20dZHoTZl_jQ" key="diagramLeftMargin" value="20"/>
+    <property xmi:id="_JY6v1_28Ed20dZHoTZl_jQ" key="diagramRightMargin" value="20"/>
+    <property xmi:id="_JY6v2P28Ed20dZHoTZl_jQ" key="orientation" value="portrait"/>
+    <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_JYxl4v28Ed20dZHoTZl_jQ" presentation="org.topcased.modeler.uml.classdiagram">
+      <element href="RemotingCommon.uml#_w8IxIM37EdqwVrslYOdUDA"/>
+    </semanticModel>
+    <contained xsi:type="di:GraphNode" xmi:id="_JwBBMP28Ed20dZHoTZl_jQ" position="338,48" size="614,-1">
+      <anchorage xmi:id="_c17ssf29Ed20dZHoTZl_jQ" graphEdge="_c17ssv29Ed20dZHoTZl_jQ _gp34Yf29Ed20dZHoTZl_jQ _hp81Uf29Ed20dZHoTZl_jQ __dLYEf2-Ed20dZHoTZl_jQ"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_JwBBMf28Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_JwBBOP28Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_JwBBMv28Ed20dZHoTZl_jQ">
+        <property xmi:id="_JwBBM_28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_JwBBNP28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_JwBBOP28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_JwBBNf28Ed20dZHoTZl_jQ">
+        <property xmi:id="_JwBBNv28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_JwBBN_28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_JwBBOP28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_CRqj0P29Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_CRqj0f29Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_CRqj0v29Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" xmi:id="_N0zFQP28Ed20dZHoTZl_jQ" position="217,179" size="175,-1">
+      <anchorage xmi:id="_gp34YP29Ed20dZHoTZl_jQ" graphEdge="_gp34Yf29Ed20dZHoTZl_jQ"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_N0zFQf28Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_N0zFSP28Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_N0zFQv28Ed20dZHoTZl_jQ">
+        <property xmi:id="_N0zFQ_28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_N0zFRP28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_N0zFSP28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_N0zFRf28Ed20dZHoTZl_jQ">
+        <property xmi:id="_N0zFRv28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_N0zFR_28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_N0zFSP28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_z16r8P28Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_z16r8f28Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_z16r8v28Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_4iyDsP28Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_4iyDsf28Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_4iyDsv28Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_2MRfUP28Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_2MRfUf28Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_2MRfUv28Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" xmi:id="_SU_S8P28Ed20dZHoTZl_jQ" position="27,49" size="241,-1">
+      <anchorage xmi:id="_c17ssP29Ed20dZHoTZl_jQ" graphEdge="_c17ssv29Ed20dZHoTZl_jQ"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_SU_S8f28Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_SU_S-P28Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_SU_S8v28Ed20dZHoTZl_jQ">
+        <property xmi:id="_SU_S8_28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_SU_S9P28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_SU_S-P28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_SU_S9f28Ed20dZHoTZl_jQ">
+        <property xmi:id="_SU_S9v28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_SU_S9_28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_SU_S-P28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_XXcqwP29Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_XXcqwf29Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_XXcqwv29Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" xmi:id="_lVQe4P28Ed20dZHoTZl_jQ" position="49,365" size="245,-1">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_lVQe4f28Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_lVQe6P28Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_lVQe4v28Ed20dZHoTZl_jQ">
+        <property xmi:id="_lVQe4_28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_lVQe5P28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_lVQe6P28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_lVQe5f28Ed20dZHoTZl_jQ">
+        <property xmi:id="_lVQe5v28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_lVQe5_28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_lVQe6P28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_UnjZMP3BEd20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_UnjZMf3BEd20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_UnjZMv3BEd20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_VSLDgP3BEd20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_VSLDgf3BEd20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_VSLDgv3BEd20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" xmi:id="_qqgFQP28Ed20dZHoTZl_jQ" position="836,180" size="181,-1">
+      <anchorage xmi:id="__dLYEP2-Ed20dZHoTZl_jQ" graphEdge="__dLYEf2-Ed20dZHoTZl_jQ"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_qqgFQf28Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_qqgFSP28Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_qqgFQv28Ed20dZHoTZl_jQ">
+        <property xmi:id="_qqgFQ_28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_qqgFRP28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_qqgFSP28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_qqgFRf28Ed20dZHoTZl_jQ">
+        <property xmi:id="_qqgFRv28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_qqgFR_28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_qqgFSP28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphNode" xmi:id="_tKPeIP28Ed20dZHoTZl_jQ" position="463,181" size="275,-1">
+      <anchorage xmi:id="_hp81UP29Ed20dZHoTZl_jQ" graphEdge="_hp81Uf29Ed20dZHoTZl_jQ"/>
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_tKPeIf28Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_tKPeKP28Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:GraphNode" xmi:id="_tKPeIv28Ed20dZHoTZl_jQ">
+        <property xmi:id="_tKPeI_28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="37"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_tKPeJP28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_tKPeKP28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_tKPeJf28Ed20dZHoTZl_jQ">
+        <property xmi:id="_tKPeJv28Ed20dZHoTZl_jQ" key="eStructuralFeatureID" value="47"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_tKPeJ_28Ed20dZHoTZl_jQ" presentation="default">
+          <element href="RemotingCommon.uml#_tKPeKP28Ed20dZHoTZl_jQ"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_Mg3Q0P2_Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_Mg3Q0f2_Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_Mg3Q0v2_Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_OexvAP2_Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_OexvAf2_Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_OexvAv2_Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_kGYwoP2_Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_kGYwof2_Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_kGihoP2_Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_k_KLsP2_Ed20dZHoTZl_jQ" position="0,0" size="-1,-1">
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_k_KLsf2_Ed20dZHoTZl_jQ" presentation="default">
+            <element href="RemotingCommon.uml#_k_KLsv2_Ed20dZHoTZl_jQ"/>
+          </semanticModel>
+        </contained>
+      </contained>
+    </contained>
+    <contained xsi:type="di:GraphEdge" xmi:id="_c17ssv29Ed20dZHoTZl_jQ" anchor="_c17ssP29Ed20dZHoTZl_jQ _c17ssf29Ed20dZHoTZl_jQ">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_c17ss_29Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_c17stf29Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectOffset" xmi:id="_c17stP29Ed20dZHoTZl_jQ" id="stereotypeEdgeObject"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" xmi:id="_gp34Yf29Ed20dZHoTZl_jQ" anchor="_c17ssf29Ed20dZHoTZl_jQ _gp34YP29Ed20dZHoTZl_jQ">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_gp34Yv29Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_gp34ZP29Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectOffset" xmi:id="_gp34Y_29Ed20dZHoTZl_jQ" id="stereotypeEdgeObject"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" xmi:id="_hp81Uf29Ed20dZHoTZl_jQ" anchor="_c17ssf29Ed20dZHoTZl_jQ _hp81UP29Ed20dZHoTZl_jQ">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_hp81Uv29Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#_hp81VP29Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectOffset" xmi:id="_hp81U_29Ed20dZHoTZl_jQ" id="stereotypeEdgeObject"/>
+    </contained>
+    <contained xsi:type="di:GraphEdge" xmi:id="__dLYEf2-Ed20dZHoTZl_jQ" anchor="_c17ssf29Ed20dZHoTZl_jQ __dLYEP2-Ed20dZHoTZl_jQ">
+      <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="__dLYEv2-Ed20dZHoTZl_jQ" presentation="default">
+        <element href="RemotingCommon.uml#__dLYFP2-Ed20dZHoTZl_jQ"/>
+      </semanticModel>
+      <contained xsi:type="di:EdgeObjectOffset" xmi:id="__dLYE_2-Ed20dZHoTZl_jQ" id="stereotypeEdgeObject"/>
+    </contained>
+  </diagrams>
+</diagrams:Diagrams>

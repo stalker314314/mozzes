@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xmi:id="_qb8akM37EdqwVrslYOdUDA" name="RemotingCommon">
+  <packagedElement xmi:type="uml:Package" xmi:id="_w8IxIM37EdqwVrslYOdUDA" name="RemotingCommon">
+    <packageImport xmi:id="_oRNU0P3LEd20dZHoTZl_jQ">
+      <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_JwBBOP28Ed20dZHoTZl_jQ" name="RemotingActionExecutor" clientDependency="_gp34ZP29Ed20dZHoTZl_jQ _hp81VP29Ed20dZHoTZl_jQ __dLYFP2-Ed20dZHoTZl_jQ" isAbstract="true">
+      <ownedOperation xmi:id="_CRqj0v29Ed20dZHoTZl_jQ" name="execute">
+        <ownedParameter xmi:id="_DvGLIP29Ed20dZHoTZl_jQ" name="action" type="_N0zFSP28Ed20dZHoTZl_jQ"/>
+        <ownedParameter xmi:id="_JTirIP29Ed20dZHoTZl_jQ" name="return" type="_tKPeKP28Ed20dZHoTZl_jQ" direction="return"/>
+        <ownedParameter xmi:id="_Abn9UP2_Ed20dZHoTZl_jQ" name="exception" type="_qqgFSP28Ed20dZHoTZl_jQ" isException="true"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_N0zFSP28Ed20dZHoTZl_jQ" name="RemotingAction">
+      <ownedOperation xmi:id="_z16r8v28Ed20dZHoTZl_jQ" name="getActionName">
+        <ownedParameter xmi:id="_4Ofj0P2-Ed20dZHoTZl_jQ" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_2MRfUv28Ed20dZHoTZl_jQ" name="getParam">
+        <ownedParameter xmi:id="_3q_jQP3AEd20dZHoTZl_jQ" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_4iyDsv28Ed20dZHoTZl_jQ" name="getParams">
+        <ownedParameter xmi:id="_45-e4P3AEd20dZHoTZl_jQ" name="return" type="_e-aKOP2_Ed20dZHoTZl_jQ" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_SU_S-P28Ed20dZHoTZl_jQ" name="RemotingActionExecutorProvider" clientDependency="_c17stf29Ed20dZHoTZl_jQ">
+      <ownedOperation xmi:id="_XXcqwv29Ed20dZHoTZl_jQ" name="get">
+        <ownedParameter xmi:id="_X0NfQP29Ed20dZHoTZl_jQ" name="return" type="_JwBBOP28Ed20dZHoTZl_jQ" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_lVQe6P28Ed20dZHoTZl_jQ" name="RemotingConfiguration">
+      <ownedOperation xmi:id="_UnjZMv3BEd20dZHoTZl_jQ" name="getHost">
+        <ownedParameter xmi:id="_Zv1hoP3BEd20dZHoTZl_jQ" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_VSLDgv3BEd20dZHoTZl_jQ" name="getPort">
+        <ownedParameter xmi:id="_-viqcP3IEd20dZHoTZl_jQ" name="return" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qqgFSP28Ed20dZHoTZl_jQ" name="RemotingException"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_tKPeKP28Ed20dZHoTZl_jQ" name="RemotingResponse">
+      <ownedOperation xmi:id="_Mg3Q0v2_Ed20dZHoTZl_jQ" name="RemotingResponse"/>
+      <ownedOperation xmi:id="_OexvAv2_Ed20dZHoTZl_jQ" name="RemotingResponse">
+        <ownedParameter xmi:id="_PrEjAP2_Ed20dZHoTZl_jQ" name="params" type="_e-aKOP2_Ed20dZHoTZl_jQ"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_kGihoP2_Ed20dZHoTZl_jQ" name="getParams">
+        <ownedParameter xmi:id="_74al8P3AEd20dZHoTZl_jQ" name="return" type="_e-aKOP2_Ed20dZHoTZl_jQ" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_k_KLsv2_Ed20dZHoTZl_jQ" name="getParam">
+        <ownedParameter xmi:id="_mZ6ScP2_Ed20dZHoTZl_jQ" name="key">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaObject"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_c17stf29Ed20dZHoTZl_jQ" name="Dependency1" supplier="_JwBBOP28Ed20dZHoTZl_jQ" client="_SU_S-P28Ed20dZHoTZl_jQ"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_gp34ZP29Ed20dZHoTZl_jQ" name="Dependency2" supplier="_N0zFSP28Ed20dZHoTZl_jQ" client="_JwBBOP28Ed20dZHoTZl_jQ"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_hp81VP29Ed20dZHoTZl_jQ" name="Dependency3" supplier="_tKPeKP28Ed20dZHoTZl_jQ" client="_JwBBOP28Ed20dZHoTZl_jQ"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="__dLYFP2-Ed20dZHoTZl_jQ" name="Dependency4" supplier="_qqgFSP28Ed20dZHoTZl_jQ" client="_JwBBOP28Ed20dZHoTZl_jQ"/>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_e-aKOP2_Ed20dZHoTZl_jQ" name="Map"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_GnW7QP3JEd20dZHoTZl_jQ" name="PrimitiveTypes">
+    <elementImport xmi:id="_XtS98P3IEd20dZHoTZl_jQ" alias="">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBigDecimal"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS98f3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBigInteger"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS98v3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS98_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBooleanObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS99P3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByte"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS99f3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByteArray"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS99v3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByteObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS99_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EChar"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS9-P3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ECharacterObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS9-f3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS9-v3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDiagnosticChain"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS9-_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS9_P3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDoubleObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS9_f3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EEList"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS9_v3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EEnumerator"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS9__3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFeatureMap"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-AP3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFeatureMapEntry"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Af3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloat"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Av3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EFloatObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-A_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-BP3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EIntegerObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Bf3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaClass"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Bv3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EJavaObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-B_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-CP3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELongObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Cf3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EMap"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Cv3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EResource"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-C_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EResourceSet"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-DP3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EShort"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Df3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EShortObject"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Dv3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-D_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ETreeIterator"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-EP3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Ef3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Ev3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#char"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-E_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-FP3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Ff3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Fv3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-F_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-GP3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Gf3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-Gv3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </elementImport>
+    <elementImport xmi:id="_XtS-G_3IEd20dZHoTZl_jQ">
+      <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+    </elementImport>
+  </packagedElement>
+</uml:Model>

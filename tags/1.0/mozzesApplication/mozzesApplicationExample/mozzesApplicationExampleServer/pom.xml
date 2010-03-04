@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>mozzesApplicationExample</artifactId>
+		<groupId>org.mozzes.application</groupId>
+		<version>trunk-SNAPSHOT</version>
+	</parent>
+	<groupId>org.mozzes.application</groupId>
+	<artifactId>mozzesApplicationExampleServer</artifactId>
+	<name>Mozzes Application Example Server</name>
+	<dependencies>
+		<dependency>
+			<groupId>org.mozzes.application</groupId>
+			<artifactId>mozzesApplicationExampleCommon</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.application</groupId>
+			<artifactId>mozzesApplicationServer</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.application</groupId>
+			<artifactId>mozzesApplicationHibernate</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.application</groupId>
+			<artifactId>mozzesApplicationRemotingServer</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mozzes.application</groupId>
+			<artifactId>mozzesApplicationExampleRestJersey</artifactId>
+			<version>trunk-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>
