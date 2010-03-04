@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 
 	<name>Mozzes</name>
-	<version>trunk-SNAPSHOT</version>
+	<version>1.0</version>
 	<description>Mozzes - lightweight Java middleware framework</description>
 	<url>http://www.mozzes.org</url>
 
