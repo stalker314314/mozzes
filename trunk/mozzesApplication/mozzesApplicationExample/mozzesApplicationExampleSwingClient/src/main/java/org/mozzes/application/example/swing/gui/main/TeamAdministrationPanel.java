@@ -21,7 +21,8 @@
 package org.mozzes.application.example.swing.gui.main;
 
 import org.mozzes.application.example.common.domain.Team;
-import org.mozzes.application.example.swing.Server;
+import org.mozzes.application.example.common.service.TeamAdministration;
+import org.mozzes.application.example.swing.ApplicationContext;
 import org.mozzes.application.example.swing.gui.AbstractCRUDPanel;
 import org.mozzes.application.example.swing.gui.edit.TeamCreateEditDialog;
 import org.mozzes.swing.mgf.datamodel.DataModel;
@@ -32,12 +33,12 @@ public class TeamAdministrationPanel extends AbstractCRUDPanel<Team> {
 	private static final long serialVersionUID = 1L;
 
 	public TeamAdministrationPanel() {
-		super(Server.getTeamAdministrationService(), new TeamCreateEditDialog());
+		super(ApplicationContext.getService(TeamAdministration.class), new TeamCreateEditDialog());
 	}
 
 	@Override
 	protected void initModel(DataModel<Team> model) {
-		model.addField(new PropertyField<Team, String>(String.class, "name", "Naziv"));
-		model.addField(new PropertyField<Team, String>(String.class, "webAddress", "Web adresa"));
+		model.addField(new PropertyField<Team, String>(String.class, "name", "Name"));
+		model.addField(new PropertyField<Team, String>(String.class, "webAddress", "Web address"));
 	}
 }

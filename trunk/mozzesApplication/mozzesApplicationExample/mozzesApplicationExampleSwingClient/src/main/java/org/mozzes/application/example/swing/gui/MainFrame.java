@@ -38,10 +38,10 @@ public class MainFrame extends JFrame {
 
 	private void initTabs() {
 		TeamAdministrationPanel teamAdministration = new TeamAdministrationPanel();
-		tabs.addTab("Timovi", teamAdministration);
+		tabs.addTab("Teams", teamAdministration);
 
 		MatchAdministrationPanel matchAdministration = new MatchAdministrationPanel();
-		tabs.addTab("Mecevi", matchAdministration);
+		tabs.addTab("Matches", matchAdministration);
 	}
 
 }

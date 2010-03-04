@@ -34,7 +34,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.mozzes.application.example.common.service.Administration;
-import org.mozzes.application.example.swing.ExampleSwingApplication;
+import org.mozzes.application.example.swing.ExampleSwingClient;
 import org.mozzes.swing.mgf.datasource.BeanDataSource;
 import org.mozzes.swing.mgf.datasource.impl.BeanCopyDataSource;
 import org.mozzes.validation.ValidationUtils;
@@ -108,7 +108,7 @@ public abstract class AbstractCreateEditDialog<T> extends JDialog {
 	}
 
 	private static Frame getFrame() {
-		return ExampleSwingApplication.getApplicationMainFrame();
+		return ExampleSwingClient.getApplicationMainFrame();
 	}
 
 	private void initLayout() {
