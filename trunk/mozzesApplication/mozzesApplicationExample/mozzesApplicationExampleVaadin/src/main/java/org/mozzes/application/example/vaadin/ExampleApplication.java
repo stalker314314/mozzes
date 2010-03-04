@@ -37,5 +37,5 @@ public class ExampleApplication extends Application {
 	public void init() {
 		setMainWindow(mainWindow);
 	}
-
+	
 }

@@ -20,6 +20,7 @@
  */
 package org.mozzes.application.example.vaadin.gui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -67,6 +68,7 @@ public class MainWindow extends Window {
 		this.client = client;
 		setTheme("runo");
 		initGui();
+		deleteTempFiles();
 		reloadData();
 	}
 
@@ -318,6 +320,18 @@ public class MainWindow extends Window {
 
 	private List<Match> getMatches() {
 		return client.getService(MatchAdministration.class).findAll();
+	}
+	
+	private void deleteTempFiles() {
+		File imagesFolder = new File(TeamEditWindow.IMAGE_PATH);
+		if (imagesFolder.exists()) {
+			File[] files = imagesFolder.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				if (!files[i].isDirectory()) 
+					files[i].delete();
+			}
+		} else
+			imagesFolder.mkdir();
 	}
 
 }
