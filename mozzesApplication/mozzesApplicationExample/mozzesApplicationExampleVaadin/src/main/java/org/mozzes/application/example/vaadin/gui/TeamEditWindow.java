@@ -51,8 +51,9 @@ public class TeamEditWindow extends Window {
 
 	private static final long serialVersionUID = 3432589583281572169L;
 	private static final Logger log = Logger.getLogger(TeamEditWindow.class);
-	private static final String IMAGE_PATH = ".." + File.separatorChar + "images" + File.separatorChar;
-	private static final String IMAGE_FILE_TYPE = "png";
+	
+	public static final String IMAGE_PATH = ".." + File.separatorChar + "images";
+	public static final String IMAGE_FILE_TYPE = "png";
 
 	private final Application application;
 	private final MainWindow mainWindow;
@@ -113,7 +114,7 @@ public class TeamEditWindow extends Window {
 		nameField.setValue(team.getName());
 		webField.setValue(team.getWebAddress());
 		
-		crestFileName = IMAGE_PATH + "t" + Thread.currentThread().hashCode()
+		crestFileName = IMAGE_PATH + File.separatorChar + "t" + Thread.currentThread().hashCode()
 				+ System.currentTimeMillis() + "." + IMAGE_FILE_TYPE;
 		if (team.getImage() != null) {
 			saveImage(team.getImage());
