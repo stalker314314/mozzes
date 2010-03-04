@@ -51,9 +51,10 @@ public abstract class AbstractCRUDPanel<T> extends JPanel {
 	private final DataModel<T> model = new DefaultDataModel<T>();
 	private final TableBuilder<T> table;
 
-	private JButton btnNew = new JButton("Novi");
-	private JButton btnEdit = new JButton("Izmeni");
-	private JButton btnDelete = new JButton("Izbrisi");
+	private JButton btnReload = new JButton("Reload");
+	private JButton btnNew = new JButton("New");
+	private JButton btnEdit = new JButton("Edit");
+	private JButton btnDelete = new JButton("Delete");
 
 	private final AbstractCreateEditDialog<T> editDialog;
 
@@ -80,6 +81,12 @@ public abstract class AbstractCRUDPanel<T> extends JPanel {
 			@Override
 			public void selectionChanged(SelectionListDataSource<T> source, SelectionChangedEvent<T> event) {
 				setButtonsState();
+			}
+		});
+		btnReload.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				reload();
 			}
 		});
 		btnDelete.addActionListener(new ActionListener() {
@@ -117,15 +124,24 @@ public abstract class AbstractCRUDPanel<T> extends JPanel {
 		setLayout(new BorderLayout());
 		add(table.getRenderComponent(), BorderLayout.CENTER);
 
-		JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		buttons.add(btnNew);
-		buttons.add(btnEdit);
-		buttons.add(btnDelete);
-		add(buttons, BorderLayout.SOUTH);
+		JPanel pnlCrudButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		pnlCrudButtons.add(btnNew);
+		pnlCrudButtons.add(btnEdit);
+		pnlCrudButtons.add(btnDelete);
+		
+		JPanel pnlButtons = new JPanel(new BorderLayout());
+		pnlButtons.add(btnReload, BorderLayout.WEST);
+		pnlButtons.add(pnlCrudButtons, BorderLayout.CENTER);
+		
+		add(pnlButtons, BorderLayout.SOUTH);
 	}
 
 	private void loadData() {
 		source.setData(service.findAll());
+	}
+	
+	private void reload() {
+		loadData();
 	}
 
 	private void addNewItem() {
@@ -149,8 +165,8 @@ public abstract class AbstractCRUDPanel<T> extends JPanel {
 		if (selected == null || selected.isEmpty())
 			return;
 		int result = JOptionPane.showConfirmDialog(this,
-				"Da li ste sigurni da zelite da obrisete objekate.",
-				"Potvrda brisanja", JOptionPane.YES_NO_OPTION);
+				"Are you sure you want to delete objects?",
+				"Delete confirmation", JOptionPane.YES_NO_OPTION);
 		if (result != JOptionPane.YES_OPTION)
 			return;
 		try {
@@ -160,7 +176,7 @@ public abstract class AbstractCRUDPanel<T> extends JPanel {
 			}
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Greska!",
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error!",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}

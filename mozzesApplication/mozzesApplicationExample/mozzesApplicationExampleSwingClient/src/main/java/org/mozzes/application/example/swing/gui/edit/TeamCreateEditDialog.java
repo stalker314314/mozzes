@@ -33,7 +33,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.mozzes.application.example.common.domain.Team;
-import org.mozzes.application.example.swing.Server;
+import org.mozzes.application.example.common.service.TeamAdministration;
+import org.mozzes.application.example.swing.ApplicationContext;
 import org.mozzes.application.example.swing.gui.AbstractCreateEditDialog;
 import org.mozzes.application.example.swing.gui.ImagePanel;
 import org.mozzes.swing.mgf.binding.Binder;
@@ -61,7 +62,7 @@ public class TeamCreateEditDialog extends AbstractCreateEditDialog<Team> {
 	private ImagePanel imagePanel = new ImagePanel();
 
 	public TeamCreateEditDialog() {
-		super(Server.getTeamAdministrationService(), new Team());
+		super(ApplicationContext.getService(TeamAdministration.class), new Team());
 		initialize();
 		setSize(new Dimension(640, 480));
 		setLocationRelativeTo(null);

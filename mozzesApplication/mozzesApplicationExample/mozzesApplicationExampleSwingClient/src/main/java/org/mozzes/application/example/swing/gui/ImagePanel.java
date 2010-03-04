@@ -112,7 +112,7 @@ class ImageFilter extends FileFilter {
 
 	@Override
 	public String getDescription() {
-		return "Slike";
+		return "Images";
 	}
 
 	private String takeExtension(File f) {

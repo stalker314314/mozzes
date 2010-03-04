@@ -32,16 +32,15 @@ import org.mozzes.swing.mgf.localization.Localization;
 
 
 
-public class ExampleSwingApplication {
+public class ExampleSwingClient {
 	private static final Dimension WINDOW_SIZE = new Dimension(800, 600);
 	private static JFrame applicationMainFrame;
 
 	public static void main(String[] args) {
-		// ExampleServer.main(null);
 		org.mozzes.swing.mgf.localization.Localization.getValue(
 				org.mozzes.swing.mgf.localization.LocalizationKey.INVALID_NUMBER_FORMAT_MESSAGE);
-		Localization.initialize("sr");
-		setAmadeusLookAndFeel();
+		Localization.initialize("en");
+		setLookAndFeel();
 		showMainFrame();
 	}
 
@@ -59,7 +58,7 @@ public class ExampleSwingApplication {
 		});
 	}
 
-	public static void setAmadeusLookAndFeel() {
+	public static void setLookAndFeel() {
 		try {
 			// In Java version 7 Nimbus will move to plaf.nimbus
 			// That's way we are loading it like this (and for falling back to default)

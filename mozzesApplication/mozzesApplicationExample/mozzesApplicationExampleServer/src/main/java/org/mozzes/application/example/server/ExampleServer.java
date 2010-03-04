@@ -20,6 +20,7 @@
  */
 package org.mozzes.application.example.server;
 
+import org.mozzes.application.example.common.ExampleConstants;
 import org.mozzes.application.example.common.service.MatchAdministration;
 import org.mozzes.application.example.common.service.TeamAdministration;
 import org.mozzes.application.example.server.service.MatchAdministrationImpl;
@@ -34,12 +35,11 @@ import org.mozzes.rest.jersey.RestJerseyModule;
 
 
 public class ExampleServer {
-	private static final int PORT = 1234;
 
 	public MozzesServerConfiguration createServerConfiguration() {
 		MozzesServerConfiguration cfg = new MozzesServerConfiguration();
 		cfg.addApplicationModule(new HibernatePlugin(HibernateConfigurationType.ANNOTATION));
-		cfg.addApplicationModule(new RemotingPlugin(PORT));
+		cfg.addApplicationModule(new RemotingPlugin(ExampleConstants.PORT));
 		cfg.addApplicationModule(new RestJerseyModule("http://localhost:8000/", "org.mozzes.application.example.rest.jersey"));
 
 		cfg.addService(MatchAdministration.class, MatchAdministrationImpl.class);
@@ -50,23 +50,7 @@ public class ExampleServer {
 	private void start() {
 		MozzesServer server = new MozzesServer(createServerConfiguration());
 		server.start();
-
-//		Team t1 = new Team();
-//		t1.setName("Crvena zvezda");
-//		Team t2 = new Team();
-//		t2.setName("Partizan");
-//
-//		t1 = server.getLocalClient().getService(TeamAdministration.class).save(t1);
-//		t2 = server.getLocalClient().getService(TeamAdministration.class).save(t2);
-//		log.info(server.getLocalClient().getService(TeamAdministration.class).findAll());
-//
-//		server.getLocalClient().getService(MatchAdministration.class).save(
-//				new Match(new Date(), t1, t2, new Result(2, 1)));
-//		log.info(server.getLocalClient().getService(MatchAdministration.class).findAll());
-
 	}
-
-//	private static final Logger log = Logger.getLogger(ExampleServer.class);
 
 	public static void main(String[] args) {
 		new ExampleServer().start();

@@ -34,7 +34,9 @@ import org.jdesktop.swingx.JXDatePicker;
 import org.mozzes.application.example.common.domain.Match;
 import org.mozzes.application.example.common.domain.Result;
 import org.mozzes.application.example.common.domain.Team;
-import org.mozzes.application.example.swing.Server;
+import org.mozzes.application.example.common.service.MatchAdministration;
+import org.mozzes.application.example.common.service.TeamAdministration;
+import org.mozzes.application.example.swing.ApplicationContext;
 import org.mozzes.application.example.swing.gui.AbstractCreateEditDialog;
 import org.mozzes.swing.mgf.binding.Binder;
 import org.mozzes.swing.mgf.datamodel.fields.PropertyField;
@@ -45,10 +47,10 @@ import org.mozzes.swing.mgf.datarenderer.combobox.ComboBoxRenderModel;
 public class MatchCreateEditDialog extends AbstractCreateEditDialog<Match> {
 	private static final long serialVersionUID = 1L;
 
-	private JLabel lblHome = new JLabel("Domacin:");
-	private JLabel lblGuest = new JLabel("Gost:");
-	private JLabel lblStartTime = new JLabel("Vreme pocetka:");
-	private JLabel lblResult = new JLabel("Rezultat:");
+	private JLabel lblHome = new JLabel("Home team:");
+	private JLabel lblGuest = new JLabel("Visitor team:");
+	private JLabel lblStartTime = new JLabel("Start time:");
+	private JLabel lblResult = new JLabel("Result:");
 
 	private ComboBoxRenderModel<Team> cmbHome = new ComboBoxRenderModel<Team>(Team.class);
 	private ComboBoxRenderModel<Team> cmbGuest = new ComboBoxRenderModel<Team>(Team.class);
@@ -58,7 +60,7 @@ public class MatchCreateEditDialog extends AbstractCreateEditDialog<Match> {
 	private JTextField txtResultVisitor = new JTextField();
 
 	public MatchCreateEditDialog() {
-		super(Server.getMatchAdministrationService(), getEmptyMatch());
+		super(ApplicationContext.getService(MatchAdministration.class), getEmptyMatch());
 
 		initialize();
 
@@ -78,7 +80,7 @@ public class MatchCreateEditDialog extends AbstractCreateEditDialog<Match> {
 	}
 
 	private void loadData() {
-		List<Team> teams = Server.getTeamAdministrationService().findAll();
+		List<Team> teams = ApplicationContext.getService(TeamAdministration.class).findAll();
 		cmbHome.setValues(teams, true);
 		cmbGuest.setValues(teams, true);
 	}
