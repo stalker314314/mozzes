@@ -31,7 +31,7 @@
 		<plugins>
 			<!--
 				A simple Jetty test server at
-				http://localhost:8080/mozzesClientAppClientVaadin can be launched
+				http://localhost:8080/example can be launched
 				with the Maven goal jetty:run and stopped with jetty:stop
 			-->
 			<plugin>
@@ -46,18 +46,10 @@
 						automatic redeployment
 					-->
 					<scanIntervalSeconds>0</scanIntervalSeconds>
-					<!-- make sure Jetty also finds the widgetset -->
 					<webAppConfig>
 						<contextPath>/example</contextPath>
 						<baseResource implementation="org.mortbay.resource.ResourceCollection">
-							<!--
-								Workaround for Maven/Jetty issue
-								http://jira.codehaus.org/browse/JETTY-680
-							-->
-								<resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources>
-							<!--
 							<resourcesAsCSV>src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>
-							-->
 						</baseResource>
 					</webAppConfig>
 				</configuration>
