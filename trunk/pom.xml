@@ -65,7 +65,6 @@
 		<module>mozzesUtils</module>
 		<module>mozzesApplication</module>
 		<module>mozzesValidation</module>
-		<module>mozzesSwing</module>
 		<module>mozzesEvent</module>
 	</modules>
 
