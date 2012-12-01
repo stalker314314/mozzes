@@ -22,11 +22,14 @@ package org.mozzes.remoting.server;
 
 import java.util.HashMap;
 
+import org.mozzes.remoting.server.netty.NettyRemotingServer;
+import org.mozzes.remoting.server.netty.NettyServerConfiguration;
+
 /**
  * Fabrika RemotingServer-a.
  * <p>
  * Ukoliko vec postoji RemotingServer pokrenut na nekom portu onda fabrika vraca postojecu instancu i ne kreira novi
- * RemotingServer. Implementacija je thread-safe
+ * RemotingServer. Implementacija je thread-safe.
  * 
  * @author Perica Milosevic
  * @version 1.8.2
@@ -53,6 +56,7 @@ public class RemotingServerFactory {
 
         return getServer(Integer.valueOf(port));
     }
+    
 
     /**
      * Isto kao i {@link #getServer(int)}
@@ -76,9 +80,41 @@ public class RemotingServerFactory {
     private static synchronized RemotingServer createServer(Integer port) {
         RemotingServer returnValue = servers.get(port);
         if (returnValue == null) {
-            returnValue = new RemotingServer(port.intValue());
-            servers.put(port, returnValue);
+        	returnValue = new RemotingServer(port.intValue());
+    		servers.put(port, returnValue);        		                       
         }
         return returnValue;
     }
+    
+    /**
+     * Returns instance of Netty remoting server. This method doesn't know state of remoting server.
+     * Client have to start or stop remoting server.
+     * 
+     * @param nettyServerConfiguration - configuration for Netty remoting server
+     * @return Netty remoting server
+     */
+    public static RemotingServer getNettyServer(NettyServerConfiguration nettyServerConfiguration) {
+    	return getNettyServerInstance(nettyServerConfiguration);
+    }
+    
+    /**
+     * Returns instance of Netty remoting server.
+     * 
+     * @param nettyServerConfiguration - configuration for Netty remoting server
+     * @return instance of Netty remoting server
+     */
+    private static synchronized RemotingServer getNettyServerInstance(NettyServerConfiguration nettyServerConfiguration) {
+    	
+    	Integer nettyPort = nettyServerConfiguration.getNettyPort();
+    	RemotingServer remotingServer = servers.get(nettyPort);
+    	
+    	if (remotingServer == null) {
+    		remotingServer = new NettyRemotingServer(nettyServerConfiguration);            
+            servers.put(nettyPort, remotingServer);
+    	}
+    	
+    	return remotingServer;
+    }
+    
+    
 }

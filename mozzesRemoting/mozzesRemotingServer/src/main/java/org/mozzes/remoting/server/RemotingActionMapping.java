@@ -219,7 +219,8 @@ public class RemotingActionMapping {
             setExecutorClass(executorClass);
         }
 
-        public RemotingActionExecutor get() {
+        @Override
+		public RemotingActionExecutor get() {
             try {
                 return executorClass.newInstance();
             } catch (InstantiationException e) {

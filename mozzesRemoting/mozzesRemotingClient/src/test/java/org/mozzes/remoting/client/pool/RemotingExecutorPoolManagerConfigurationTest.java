@@ -66,7 +66,7 @@ public class RemotingExecutorPoolManagerConfigurationTest {
         /* adds new configurations */
         for (int i = 1000; i < 2000; i++) {
             try {
-                providerFactory.addProvider("localhost", i, 10);
+                providerFactory.addProvider("localhost", i);
             } catch (Throwable t) {
                 fail();
             }
@@ -91,14 +91,14 @@ public class RemotingExecutorPoolManagerConfigurationTest {
     public void testAddWhenConfigurationExists() {
         RemotingExecutorProviderFactory providerFactory = new RemotingExecutorProviderFactory(
                 new MockupRemotingClientFactory(1));
-        providerFactory.addProvider("localhost", 10000, 10);
+        providerFactory.addProvider("localhost", 10000);
         try {
-            providerFactory.addProvider("localhost", 10000, 10);
+            providerFactory.addProvider("localhost", 10000);
             fail();
         } catch (Throwable t) {
         }
         try {
-            providerFactory.addProvider("localhost", 10000, 10);
+            providerFactory.addProvider("localhost", 10000);
             fail();
         } catch (Throwable t) {
         }

@@ -24,10 +24,10 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import org.mozzes.remoting.common.RemotingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.mozzes.remoting.common.RemotingException;
 
 /**
  * Ovo je glavna klasa u remoting mehanizmu. Server osluskuje i prihvata konekcije na zadatom portu. Nakon uspesno
@@ -55,7 +55,7 @@ public class RemotingServer {
      * 
      * @param port port na kome ce server slusati
      */
-    RemotingServer(int port) {
+    protected RemotingServer(int port) {
         this.port = port;
         this.dispatcher = new RemotingActionDispatcher();
     }
@@ -219,4 +219,12 @@ public class RemotingServer {
             return ++totalClients;
         }
     }
+    
+    /**
+     * Evo i dispatchera.
+     * @return vraca izvrsioca klijentskih akcija.
+     */
+    public RemotingActionDispatcher getDispatcher() {
+		return dispatcher;
+	}
 }

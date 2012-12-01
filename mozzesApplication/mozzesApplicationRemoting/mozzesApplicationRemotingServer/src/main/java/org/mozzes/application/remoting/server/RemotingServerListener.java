@@ -22,15 +22,15 @@ package org.mozzes.application.remoting.server;
 
 import java.io.IOException;
 
-import org.mozzes.application.module.ServerInitializationException;
-import org.mozzes.application.module.ServerLifecycleListener;
-import org.mozzes.remoting.server.RemotingServer;
-import org.mozzes.remoting.server.RemotingServerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import org.mozzes.application.module.ServerInitializationException;
+import org.mozzes.application.module.ServerLifecycleListener;
+import org.mozzes.remoting.server.RemotingServer;
+import org.mozzes.remoting.server.RemotingServerFactory;
 
 /**
  * Listener that waits on the socket for remote invocations that are actually remote invocations of server's services.
@@ -57,12 +57,15 @@ public class RemotingServerListener implements ServerLifecycleListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.mozzes.application.module.ServerListener#serverStarted()
+	 * @see com.mozzes.application.module.ServerListener#serverStarted()
 	 */
 	@Override
 	public void startup() throws ServerInitializationException {
+		InvocationActionMapping mappings = injector.getInstance(InvocationActionMapping.class);
+		
 		RemotingServer remotingServer = RemotingServerFactory.getServer(serverPort);
-		remotingServer.addActionMapping(injector.getInstance(InvocationActionMapping.class));
+		remotingServer.addActionMapping(mappings);
+		
 		try {
 			remotingServer.startServer();
 			logger.info("Remoting server started on port " + serverPort);
@@ -79,7 +82,7 @@ public class RemotingServerListener implements ServerLifecycleListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.mozzes.application.module.ServerListener#serverStopped()
+	 * @see com.mozzes.application.module.ServerListener#serverStopped()
 	 */
 	@Override
 	public void shutdown() {

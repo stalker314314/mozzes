@@ -18,16 +18,18 @@
  * along with mozzes.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 package org.mozzes.application.remoting.client;
 
 import org.mozzes.application.common.client.MozzesClientConfiguration;
 import org.mozzes.application.common.session.SessionIdProvider;
 import org.mozzes.invocation.common.handler.InvocationHandler;
 import org.mozzes.remoting.client.core.DefaultRemotingClientFactory;
-import org.mozzes.remoting.client.pool.RemotingClientPool;
+import org.mozzes.remoting.client.simple.SimpleClientProvider;
+
 import org.mozzes.remoting.common.RemotingActionExecutorProvider;
 import org.mozzes.remoting.common.RemotingConfiguration;
-
+import org.mozzes.remoting.common.RemotingException;
 
 /**
  * The Class RemoteClientConfiguration extends basic {@link MozzesClientConfiguration} with the remoting executor
@@ -37,15 +39,23 @@ import org.mozzes.remoting.common.RemotingConfiguration;
 public class RemoteClientConfiguration extends MozzesClientConfiguration {
 
 	/** The client provider. */
-	private final RemotingActionExecutorProvider clientProvider;
+	private RemotingActionExecutorProvider clientProvider;
 
-	public RemoteClientConfiguration(String serverHost, int serverPort) {
-		this(serverHost, serverPort, 1);
+	/**
+	 * Client configuration that can choose to use pool or not
+	 * @param serverHost Host name to connect to
+	 * @param serverPort Port to connect to
+	 * @throws RemotingException If client configuration can't be created
+	 */
+	public RemoteClientConfiguration(String serverHost, int serverPort, boolean reconnect) throws RemotingException {
+			setClientProvider(
+					new SimpleClientProvider(
+							new RemotingConfiguration(serverHost, Integer.valueOf(serverPort), reconnect),
+							new DefaultRemotingClientFactory()));
 	}
 
-	public RemoteClientConfiguration(String serverHost, int serverPort, int clientPoolSize) {
-		this.clientProvider = new RemotingClientPool(new RemotingConfiguration(serverHost, Integer.valueOf(serverPort)),
-				new DefaultRemotingClientFactory(), clientPoolSize);
+	public void setClientProvider(RemotingActionExecutorProvider clientProvider) {
+		this.clientProvider = clientProvider;
 	}
 
 	/*

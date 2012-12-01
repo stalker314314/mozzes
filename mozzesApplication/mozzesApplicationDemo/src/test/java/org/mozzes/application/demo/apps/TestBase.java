@@ -62,6 +62,7 @@ import org.mozzes.application.remoting.client.RemoteClientConfiguration;
 import org.mozzes.application.remoting.server.RemotingPlugin;
 import org.mozzes.application.server.MozzesServer;
 import org.mozzes.application.server.MozzesServerConfiguration;
+import org.mozzes.remoting.common.RemotingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -206,7 +207,13 @@ public abstract class TestBase {
 		if (isClientLocal())
 			return server.getLocalClient();
 
-		return new MozzesClient(new RemoteClientConfiguration("localhost", 7890));
+		try {
+			return new MozzesClient(new RemoteClientConfiguration("localhost", 7890, true));
+		} catch (RemotingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**

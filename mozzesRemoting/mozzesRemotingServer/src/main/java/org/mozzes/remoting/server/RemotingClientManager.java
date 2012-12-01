@@ -57,6 +57,8 @@ class RemotingClientManager {
     	if (logger.isDebugEnabled()) {
     		logger.debug("add() before synchronized: " + listener.toString());
     	}
+    	
+    	boolean returnValue = false;
         synchronized (activeListeners) {
         	if (logger.isDebugEnabled()) {
         		logger.debug("add() after synchronized: " + listener.toString());
@@ -65,10 +67,12 @@ class RemotingClientManager {
             	if (logger.isDebugEnabled()) {
             		logger.debug("add() active, should be accepted " + listener.toString());
             	}
-                return activeListeners.add(listener);
+            	returnValue = activeListeners.add(listener);
             }
-            return false;
         }
+        if (returnValue)
+        	RemotingClientInfo.addClient(listener.getName());
+        return returnValue;
     }
 
     /**
@@ -77,11 +81,16 @@ class RemotingClientManager {
      * @param listener RemotingClientListener
      */
     void remove(RemotingClientListener listener) {
+    	boolean removed = false;
         synchronized (activeListeners) {
-            if (activeListeners.remove(listener))
+            if (activeListeners.remove(listener)) {
+            	removed = true;
                 if ((!active) && (activeListeners.size() == 0))
                     activeListeners.notifyAll();
+            }
         }
+        if (removed)
+        	RemotingClientInfo.removeClient(listener.getName());
     }
 
     /**

@@ -178,6 +178,7 @@ class RemotingClientListener extends Thread {
 
     private void initClientSocket() throws IOException {
     	clientSocket.setSoTimeout(0);
+    	clientSocket.setKeepAlive(true);
     	remotingProtocol = RemotingProtocol.buildServerSide(clientSocket);
     }
     

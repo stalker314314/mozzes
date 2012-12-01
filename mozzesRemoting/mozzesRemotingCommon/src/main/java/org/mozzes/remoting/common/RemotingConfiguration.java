@@ -28,56 +28,88 @@ package org.mozzes.remoting.common;
  */
 public class RemotingConfiguration {
 
-    /** hostname of remoting server */
-    private final String host;
+	/** hostname of remoting server */
+	private final String host;
 
-    /** port of remoting server */
-    private final Integer port;
+	/** port of remoting server */
+	private final Integer port;
 
-    /**
-     * Construction of remoting configuration with specified hostname and port
-     */
-    public RemotingConfiguration(String host, Integer port) {
-        this.host = host;
-        this.port = port;
+	/** should client try to recconect if connection becomes broken */
+	private boolean reconnect;
+	
+	/**
+	 * Construction of remoting configuration with specified hostname and port
+	 * 
+	 * @param host Hostname to connect to
+	 * @param port Port to connect to
+	 */
+	public RemotingConfiguration(String host, Integer port) {
+	    this(host, port, false);
+	}
+	
+	/**
+	 * Construction of remoting configuration with specified hostname and port
+	 * 
+	 * @param host Hostname to connect to
+	 * @param port Port to connect to
+	 */
+	public RemotingConfiguration(String host, Integer port, boolean reconnect) {
+	    this.reconnect = reconnect;
+	    this.port = port;
+	    this.host = host;
+	}
+
+	/**
+	 * @return should client try to recconect if connection becomes broken
+	 */
+	public boolean isReconnect() {
+        return reconnect;
     }
 
-    public String getHost() {
-        return host;
-    }
+	/**
+	 * @return Hostname to connect to
+	 */
+	public String getHost() {
+		return host;
+	}
 
-    public Integer getPort() {
-        return port;
-    }
+	/**
+	 * @return Port to connect to
+	 */
+	public Integer getPort() {
+		return port;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((host == null) ? 0 : host.hashCode());
-        result = prime * result + ((port == null) ? 0 : port.hashCode());
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		if (host != null)
+			result = prime * result + host.hashCode();
+		if (port != null)
+			result = prime * result + port.hashCode();
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof RemotingConfiguration))
-            return false;
-        final RemotingConfiguration other = (RemotingConfiguration) obj;
-        if (host == null) {
-            if (other.host != null)
-                return false;
-        } else if (!host.equals(other.host))
-            return false;
-        if (port == null) {
-            if (other.port != null)
-                return false;
-        } else if (!port.equals(other.port))
-            return false;
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof RemotingConfiguration))
+			return false;
+		final RemotingConfiguration other = (RemotingConfiguration) obj;
+		if (host == null) {
+			if (other.host != null)
+				return false;
+		} else if (!host.equals(other.host))
+			return false;
+		if (port == null) {
+			if (other.port != null)
+				return false;
+		} else if (!port.equals(other.port))
+			return false;
+		return true;
+	}
 }
