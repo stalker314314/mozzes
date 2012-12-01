@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This class defines protocol of communication between remoting server and client.
  */
-public class RemotingProtocol {
+public final class RemotingProtocol {
 
 	private static final Logger logger = LoggerFactory.getLogger(RemotingProtocol.class);
 
@@ -54,6 +54,7 @@ public class RemotingProtocol {
 	 * that is requested by client.
 	 * 
 	 * @param socket Communication socket
+	 * @return Newly created remoting protocol
 	 * @throws IOException If there is some problem with communication over socket
 	 */
 	public static RemotingProtocol buildServerSide(Socket socket) throws IOException {
@@ -64,6 +65,7 @@ public class RemotingProtocol {
 	 * Creates new remoting protocol instance for client side use. There will be no compression or encryption
 	 * 
 	 * @param socket Communication socket
+	 * @return Newly created remoting protocol
 	 * @throws IOException If there is some problem with communication over socket
 	 */
 	public static RemotingProtocol buildClientSide(Socket socket) throws IOException {
@@ -76,6 +78,7 @@ public class RemotingProtocol {
 	 * @param socket Communication socket
 	 * @param compression Is compression enabled?
 	 * @param encryption Is encryption enabled? THIS FEATURE IS NOT SUPPORTED YET, THERE IS NO ENCRYPTION
+	 * @return Newly created remoting protocol
 	 * @throws IOException If there is some problem with communication over socket
 	 */
 	public static RemotingProtocol buildClientSide(Socket socket, boolean compression, boolean encryption)
@@ -97,8 +100,10 @@ public class RemotingProtocol {
 		createStreams(socket, serverSide);
 		initCommunication(serverSide, compression, encryption);
 		if (logger.isDebugEnabled()) {
-			logger.debug((serverSide ? "Server" : "Client") + " side remoting protocol created (compression = "
-				+ this.compression + ", encryption = " + this.encryption + ")");
+			String type = "Client";
+			if (serverSide) type = "Server";
+			logger.debug(type + " side remoting protocol created (compression = "
+					+ this.compression + ", encryption = " + this.encryption + ")");
 		}
 	}
 
@@ -117,6 +122,9 @@ public class RemotingProtocol {
 
 	/**
 	 * Receives object from socket according to protocol
+	 * @return Received object
+	 * @throws IOException If IO exception occurs
+	 * @throws RemotingException If there is no data in the stream or class cannot be found
 	 */
 	public synchronized Object receive() throws IOException, RemotingException {
 		try {
@@ -147,6 +155,7 @@ public class RemotingProtocol {
 			try {
 				dataInputStream.close();
 			} catch (IOException ex) {
+				// ignore
 			}
 			dataInputStream = null;
 		}
@@ -155,6 +164,7 @@ public class RemotingProtocol {
 			try {
 				dataOutputStream.close();
 			} catch (IOException ex) {
+				// ignore
 			}
 			dataOutputStream = null;
 		}
@@ -171,10 +181,10 @@ public class RemotingProtocol {
 			dataOutputStream = new DataOutputStream(socket.getOutputStream());
 			dataInputStream = new DataInputStream(socket.getInputStream());
 		}
-		logger.debug("createStream() streams created"); 
+		logger.debug("createStream() streams created");
 	}
 
-	private void initCommunication(boolean serverSide, boolean compression, boolean encryption) throws IOException {
+	private void initCommunication(boolean serverSide, boolean aCompression, boolean aEncryption) throws IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("initCommunication() before - serverSide=" + serverSide);
 		}
@@ -182,8 +192,8 @@ public class RemotingProtocol {
 			this.compression = dataInputStream.readBoolean();
 			this.encryption = dataInputStream.readBoolean();
 		} else {
-			this.compression = compression;
-			this.encryption = encryption;
+			this.compression = aCompression;
+			this.encryption = aEncryption;
 			dataOutputStream.writeBoolean(compression);
 			dataOutputStream.writeBoolean(encryption);
 			dataOutputStream.flush();

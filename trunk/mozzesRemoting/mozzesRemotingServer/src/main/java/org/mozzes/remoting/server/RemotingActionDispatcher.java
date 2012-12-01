@@ -33,7 +33,7 @@ import org.mozzes.remoting.common.RemotingException;
  * @author Perica Milosevic
  * @version 1.8.2
  */
-class RemotingActionDispatcher {
+public class RemotingActionDispatcher {
 
     /** maper iz imena remote akcije u fabriku njenog executor-a */
     private RemotingActionMapping actionMapping;
@@ -53,7 +53,7 @@ class RemotingActionDispatcher {
      *             konstruktoru implementacione klase ili ukoliko ime date klase nije mapirano u ime implementacione
      *             klase
      */
-    final RemotingActionExecutor getActionExecutor(RemotingAction rca) throws RemotingException {
+    public final RemotingActionExecutor getActionExecutor(RemotingAction rca) throws RemotingException {
         RemotingActionExecutorProvider executorProvider = actionMapping.getExecutorProvider(rca.getActionName());
 
         if (executorProvider != null) {

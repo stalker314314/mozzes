@@ -20,28 +20,67 @@
  */
 package org.mozzes.remoting.common;
 
+import org.mozzes.remoting.common.netty.Unique;
+
 /**
  * Represents all possible exception that can happen in remoting client/server communication
  * 
  * @author Perica Milosevic
  */
-public class RemotingException extends Exception {
+public class RemotingException extends Exception implements Unique {
     private static final long serialVersionUID = 4540834361558254985L;
+    
+    private Long id;
 
+	/**
+	 * Default constructor
+	 */
     public RemotingException() {
         super();
     }
 
+	/**
+	 * Constructor with both message and a cause
+	 * @param message Exception message
+	 * @param cause Exception cause
+	 */
     public RemotingException(String message, Throwable cause) {
         super(message, cause);
     }
 
+	/**
+	 * Constructor with message
+	 * @param message Exception message
+	 */
     public RemotingException(String message) {
         super(message);
     }
 
+	/**
+	 * Constructor with a cause
+	 * @param cause Exception cause
+	 */
     public RemotingException(Throwable cause) {
         super(cause);
     }
-
+    
+	/**
+	 * Return id of this remoting response. This remoting response id has the same ID as the RemotingAction
+	 * which response is this object.
+	 * @return a unique id which bind this response to remoting action.
+	 */
+	@Override
+	public Long getId() {
+		return id;
+	}
+	
+	/**
+	 * Set id of this remoting response. This remoting response id has the same ID as the RemotingAction which response
+	 * is this object.
+	 * @param id a unique id of the response. Must correspond to id of an remoting action.
+	 */
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

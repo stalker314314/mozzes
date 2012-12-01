@@ -9,7 +9,6 @@
   <name>Mozzes Application Demo</name>
   <description>demo apps using the mozzes application server and client</description>
 
-  <groupId>org.mozzes.application</groupId>
   <artifactId>mozzesApplicationDemo</artifactId>
 
   <dependencies>

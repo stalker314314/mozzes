@@ -26,12 +26,12 @@ import java.net.UnknownHostException;
 
 import org.mozzes.remoting.client.RemotingClient;
 import org.mozzes.remoting.client.RemotingExecutorProviderFactory;
+
 import org.mozzes.remoting.common.RemotingAction;
 import org.mozzes.remoting.common.RemotingConfiguration;
 import org.mozzes.remoting.common.RemotingException;
 import org.mozzes.remoting.common.RemotingProtocol;
 import org.mozzes.remoting.common.RemotingResponse;
-
 
 /**
  * Implementation of remoting client. This client, when provided with configuration connects to remoting server and can
@@ -110,13 +110,14 @@ public class RemotingClientImpl implements RemotingClient {
 		if (connectionEstablished) {
 			connectionEstablished = false;
 
-			if (remotingProtocol != null) 
+			if (remotingProtocol != null)
 				remotingProtocol.close();
 
 			if (clientSocket != null) {
 				try {
 					clientSocket.close();
 				} catch (IOException ex) {
+					// ignore
 				}
 				clientSocket = null;
 			}
@@ -136,11 +137,17 @@ public class RemotingClientImpl implements RemotingClient {
 
 		try {
 			remotingProtocol.send(action);
-		} catch (IOException ex) {
-			throw new RemotingException(ex);
-		}
+			return receiveResponse();
 
-		return receiveResponse();
+		} catch (IOException ex) {
+		    
+		    if(!configuration.isReconnect())
+		        throw new RemotingException(ex);
+		    
+		    connectionEstablished = false;		    
+		    connect();
+		}
+		return execute(action);
 	}
 
 	private RemotingResponse receiveResponse() throws RemotingException {

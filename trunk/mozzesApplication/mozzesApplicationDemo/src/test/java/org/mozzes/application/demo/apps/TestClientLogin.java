@@ -30,6 +30,7 @@ import org.mozzes.application.common.exceptions.AuthorizationFailedException;
 import org.mozzes.application.common.exceptions.ClientLoggingException;
 import org.mozzes.application.demo.mockups.MAuthorizationManager;
 import org.mozzes.application.remoting.client.RemoteClientConfiguration;
+import org.mozzes.remoting.common.RemotingException;
 
 
 /**
@@ -135,11 +136,14 @@ public class TestClientLogin extends TestBase {
 
 		/* second client logging in with the same credentials */
 		try {
-			MozzesClient client2 = new MozzesClient(new RemoteClientConfiguration("localhost", 7890));
+			MozzesClient client2 = new MozzesClient(new RemoteClientConfiguration("localhost", 7890, false));
 			client2.login(validUsername1, validPassword1);
 			client2.logout();
 		} catch (AuthorizationFailedException e) {
 			fail("should log in");
+		} catch (RemotingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		assert client != null;

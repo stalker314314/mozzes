@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import org.mozzes.application.common.client.MozzesClient;
 import org.mozzes.application.example.common.ExampleConstants;
 import org.mozzes.application.remoting.client.RemoteClientConfiguration;
+import org.mozzes.remoting.common.RemotingException;
 
 public class ApplicationContext {
 
@@ -34,8 +35,8 @@ public class ApplicationContext {
 
 	private final MozzesClient client;
 
-	private ApplicationContext() {
-		client = new MozzesClient(new RemoteClientConfiguration(ExampleConstants.HOST, ExampleConstants.PORT));
+	private ApplicationContext() throws RemotingException {
+		client = new MozzesClient(new RemoteClientConfiguration(ExampleConstants.HOST, ExampleConstants.PORT, true));
 	}
 
 	private static ApplicationContext getInstance() {
@@ -43,6 +44,10 @@ public class ApplicationContext {
 			try {
 				instance = new ApplicationContext();
 			} catch (UndeclaredThrowableException e) {
+				JOptionPane.showMessageDialog(ExampleSwingClient.getApplicationMainFrame(),
+						"Server is not starated!");
+				System.exit(1);
+			} catch (RemotingException e) {
 				JOptionPane.showMessageDialog(ExampleSwingClient.getApplicationMainFrame(),
 						"Server is not starated!");
 				System.exit(1);
