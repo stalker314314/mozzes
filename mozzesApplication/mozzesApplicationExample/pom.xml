@@ -93,7 +93,6 @@
 	<modules>
 		<module>mozzesApplicationExampleServer</module>
 		<module>mozzesApplicationExampleCommon</module>
-		<module>mozzesApplicationExampleSwingClient</module>
 		<module>mozzesApplicationExampleVaadin</module>
 		<module>mozzesApplicationExampleRestJersey</module>
 	</modules>
