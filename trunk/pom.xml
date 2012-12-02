@@ -64,7 +64,6 @@
 		<module>mozzesCache</module>
 		<module>mozzesUtils</module>
 		<module>mozzesApplication</module>
-		<module>mozzesValidation</module>
 		<module>mozzesEvent</module>
 	</modules>
 
