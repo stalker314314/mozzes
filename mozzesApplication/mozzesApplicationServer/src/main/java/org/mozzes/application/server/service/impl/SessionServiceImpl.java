@@ -34,40 +34,40 @@ import com.google.inject.Inject;
  */
 public class SessionServiceImpl implements SessionService {
 
-	/** The session context. */
-	private final SessionContext sessionContext;
+  /** The session context. */
+  private final SessionContext sessionContext;
 
-	/** The authorization service. */
-	private final AuthorizationManager authorizationManager;
+  /** The authorization service. */
+  private final AuthorizationManager authorizationManager;
 
-	@Inject
-	SessionServiceImpl(@MozzesInternal SessionContext sessionContext, AuthorizationManager authorizationManager) {
-		this.sessionContext = sessionContext;
-		this.authorizationManager = authorizationManager;
-	}
+  @Inject
+  SessionServiceImpl(@MozzesInternal SessionContext sessionContext, AuthorizationManager authorizationManager) {
+    this.sessionContext = sessionContext;
+    this.authorizationManager = authorizationManager;
+  }
 
-	/*
-	 * @see SessionService#login(String, String)
-	 */
-	@Override
-	public String login(String username, String password) throws AuthorizationFailedException {
-		if (sessionContext.isUserAuthorized())
-			throw new ClientLoggingException("user is already authorized");
+  /*
+   * @see SessionService#login(String, String)
+   */
+  @Override
+  public String login(String username, String password) throws AuthorizationFailedException {
+    if (sessionContext.isUserAuthorized())
+      throw new ClientLoggingException("user is already authorized");
 
-		long sessionExpirationTime = authorizationManager.authorize(username, password);
+    long sessionExpirationTime = authorizationManager.authorize(username, password);
 
-		sessionContext.setUserAuthorized(true);
-		sessionContext.setSessionExpirationTime(sessionExpirationTime);
-		return sessionContext.getSessionId();
-	}
+    sessionContext.setUserAuthorized(true);
+    sessionContext.setSessionExpirationTime(sessionExpirationTime);
+    return sessionContext.getSessionId();
+  }
 
-	/*
-	 * @see SessionService#logout()
-	 */
-	@Override
-	public void logout() {
-		if (!sessionContext.isUserAuthorized())
-			throw new ClientLoggingException("user is not authorized");
-		sessionContext.setUserAuthorized(false);
-	}
+  /*
+   * @see SessionService#logout()
+   */
+  @Override
+  public void logout() {
+    if (!sessionContext.isUserAuthorized())
+      throw new ClientLoggingException("user is not authorized");
+    sessionContext.setUserAuthorized(false);
+  }
 }

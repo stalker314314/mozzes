@@ -26,7 +26,6 @@ import java.util.Map;
 
 import org.mozzes.remoting.common.netty.Unique;
 
-
 /**
  * Encapsulates concrete action remoting client sends to remoting server
  * 
@@ -34,67 +33,70 @@ import org.mozzes.remoting.common.netty.Unique;
  */
 public final class RemotingAction implements Unique, Serializable {
 
-	private static final long serialVersionUID = -806957954023327547L;
+  private static final long serialVersionUID = -806957954023327547L;
 
-	/** Name of the action that clients wants to execute */
-	private final String actionName;
-	
-	private Long id;
+  /** Name of the action that clients wants to execute */
+  private final String actionName;
 
-	/** Action parameters represented as Map */
-	private Map<? extends Object, ? extends Object> actionParams = null;
+  private Long id;
 
-	/**
-	 * Default constructor for action
-	 * 
-	 * @param actionName Name of this action
-	 * @param actionParams Parameters of this action
-	 */
-	public RemotingAction(String actionName, Map<? extends Object, ? extends Object> actionParams) {
-		if (actionName == null)
-			throw new IllegalArgumentException("Invalid action name - null");
+  /** Action parameters represented as Map */
+  private Map<? extends Object, ? extends Object> actionParams = null;
 
-		this.actionName = actionName;
-		this.actionParams = actionParams;
-	}
+  /**
+   * Default constructor for action
+   * 
+   * @param actionName
+   *          Name of this action
+   * @param actionParams
+   *          Parameters of this action
+   */
+  public RemotingAction(String actionName, Map<? extends Object, ? extends Object> actionParams) {
+    if (actionName == null)
+      throw new IllegalArgumentException("Invalid action name - null");
 
-	/**
-	 * @return Name of this action
-	 */
-	public String getActionName() {
-		return actionName;
-	}
+    this.actionName = actionName;
+    this.actionParams = actionParams;
+  }
 
-	/**
-	 * @return Parameters of this action
-	 */
-	public Map<? extends Object, ? extends Object> getParams() {
-		return Collections.unmodifiableMap(actionParams);
-	}
+  /**
+   * @return Name of this action
+   */
+  public String getActionName() {
+    return actionName;
+  }
 
-	/**
-	 * @param key Key to retrieve object from parameters
-	 * @return Specified parameter based on parameter key
-	 */
-	public Object getParam(Object key) {
-		if (actionParams == null)
-			return null;
-		return actionParams.get(key);
-	}
+  /**
+   * @return Parameters of this action
+   */
+  public Map<? extends Object, ? extends Object> getParams() {
+    return Collections.unmodifiableMap(actionParams);
+  }
 
-	@Override
-	public String toString() {
-		return getActionName();
-	}
+  /**
+   * @param key
+   *          Key to retrieve object from parameters
+   * @return Specified parameter based on parameter key
+   */
+  public Object getParam(Object key) {
+    if (actionParams == null)
+      return null;
+    return actionParams.get(key);
+  }
 
-	@Override
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @Override
+  public String toString() {
+    return getActionName();
+  }
 
-	@Override
-	public Long getId() {
-		return id;
-	}
+  @Override
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  @Override
+  public Long getId() {
+    return id;
+  }
 
 }

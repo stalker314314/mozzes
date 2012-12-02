@@ -35,69 +35,68 @@ import org.mozzes.application.server.request.impl.RequestProcessorImpl;
 import org.mozzes.application.server.session.impl.SessionContext;
 import org.mozzes.invocation.guice.InternalInjectorProvider;
 
-
 public class TestRequestProcessor {
 
-	@Test
-	public void test() {
-		try {
+  @Test
+  public void test() {
+    try {
 
-			MockUpSessionManager sessionManager = new MockUpSessionManager();
-			SessionContext sessionContext = sessionManager.requestStarted(null);
+      MockUpSessionManager sessionManager = new MockUpSessionManager();
+      SessionContext sessionContext = sessionManager.requestStarted(null);
 
-			RequestManagerImpl requestManager = new RequestManagerImpl();
-			requestManager.start(sessionContext);
+      RequestManagerImpl requestManager = new RequestManagerImpl();
+      requestManager.start(sessionContext);
 
-			InternalInjectorProvider injectorProvider = new InternalInjectorProvider();
-			HashMap<Class<?>, Object> map = new HashMap<Class<?>, Object>();
-			map.put(ServerService1.class, new ServerService1Impl());
+      InternalInjectorProvider injectorProvider = new InternalInjectorProvider();
+      HashMap<Class<?>, Object> map = new HashMap<Class<?>, Object>();
+      map.put(ServerService1.class, new ServerService1Impl());
 
-			injectorProvider.setInjector(new MockUpInjector(map));
+      injectorProvider.setInjector(new MockUpInjector(map));
 
-			MozzesServerLifeCycleStatus status = new MozzesServerLifeCycleStatus();
-			status.setStarted();
-			RequestProcessorImpl procesor = new RequestProcessorImpl(sessionManager, requestManager, injectorProvider
-					.get(), status);
+      MozzesServerLifeCycleStatus status = new MozzesServerLifeCycleStatus();
+      status.setStarted();
+      RequestProcessorImpl procesor = new RequestProcessorImpl(sessionManager, requestManager, injectorProvider.get(),
+          status);
 
-			MockUpInvocation<ServerService1> invocation = new MockUpInvocation<ServerService1>(ServerService1.class,
-					"service1Method1", null, null);
+      MockUpInvocation<ServerService1> invocation = new MockUpInvocation<ServerService1>(ServerService1.class,
+          "service1Method1", null, null);
 
-			procesor.process(null, invocation);
-			Assert.assertTrue(invocation.isInvoked());
-		} catch (Throwable e) {
-			Assert.fail(e.getMessage());
-		}
-	}
+      procesor.process(null, invocation);
+      Assert.assertTrue(invocation.isInvoked());
+    } catch (Throwable e) {
+      Assert.fail(e.getMessage());
+    }
+  }
 
-	@Test
-	public void testStartRequstWithoutSession() {
-		try {
+  @Test
+  public void testStartRequstWithoutSession() {
+    try {
 
-			MockUpSessionManager sessionManager = new MockUpSessionManager();
+      MockUpSessionManager sessionManager = new MockUpSessionManager();
 
-			RequestManagerImpl requestManager = new RequestManagerImpl();
+      RequestManagerImpl requestManager = new RequestManagerImpl();
 
-			InternalInjectorProvider injectorProvider = new InternalInjectorProvider();
+      InternalInjectorProvider injectorProvider = new InternalInjectorProvider();
 
-			HashMap<Class<?>, Object> map = new HashMap<Class<?>, Object>();
-			map.put(ServerService1.class, new ServerService1Impl());
+      HashMap<Class<?>, Object> map = new HashMap<Class<?>, Object>();
+      map.put(ServerService1.class, new ServerService1Impl());
 
-			injectorProvider.setInjector(new MockUpInjector(map));
+      injectorProvider.setInjector(new MockUpInjector(map));
 
-			MozzesServerLifeCycleStatus status = new MozzesServerLifeCycleStatus();
-			status.setStarted();
-			RequestProcessorImpl procesor = new RequestProcessorImpl(sessionManager, requestManager, injectorProvider
-					.get(), status);
+      MozzesServerLifeCycleStatus status = new MozzesServerLifeCycleStatus();
+      status.setStarted();
+      RequestProcessorImpl procesor = new RequestProcessorImpl(sessionManager, requestManager, injectorProvider.get(),
+          status);
 
-			MockUpInvocation<ServerService1> invocation = new MockUpInvocation<ServerService1>(ServerService1.class,
-					"service1Method1", null, null);
+      MockUpInvocation<ServerService1> invocation = new MockUpInvocation<ServerService1>(ServerService1.class,
+          "service1Method1", null, null);
 
-			procesor.process(null, invocation);
+      procesor.process(null, invocation);
 
-			Assert.assertTrue(invocation.isInvoked());
+      Assert.assertTrue(invocation.isInvoked());
 
-		} catch (Throwable e) {
-			Assert.fail(e.getMessage());
-		}
-	}
+    } catch (Throwable e) {
+      Assert.fail(e.getMessage());
+    }
+  }
 }

@@ -37,159 +37,158 @@ import org.mozzes.application.server.mockups.ServerService1;
 import org.mozzes.application.server.transaction.impl.TransactionContext;
 import org.mozzes.application.server.transaction.impl.TransactionInterceptor;
 
-
 public class TestTransactionInterceptor extends MozzesTestBase {
 
-	private MockUpInvocation<ServerService1> invocation;
-	private TransactionInterceptor interceptor;
-	private MockUpTransactionProvider transactionProvider;
+  private MockUpInvocation<ServerService1> invocation;
+  private TransactionInterceptor interceptor;
+  private MockUpTransactionProvider transactionProvider;
 
-	@Before
-	public void before() {
-		invocation = new MockUpInvocation<ServerService1>(ServerService1.class, "service1Method1", null, null);
-		transactionProvider = new MockUpTransactionProvider();
-		interceptor = new TransactionInterceptor(new MockupTransactionStackProvider(), transactionProvider);
-	}
+  @Before
+  public void before() {
+    invocation = new MockUpInvocation<ServerService1>(ServerService1.class, "service1Method1", null, null);
+    transactionProvider = new MockUpTransactionProvider();
+    interceptor = new TransactionInterceptor(new MockupTransactionStackProvider(), transactionProvider);
+  }
 
-	@Test
-	public void testTransactionInterceptorInvocationSuccessful() {
+  @Test
+  public void testTransactionInterceptorInvocationSuccessful() {
 
-		Object returnVal = null;
-		try {
-			returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler());
-		} catch (Throwable e) {
-			fail("should not throw exception");
-		}
-		assertNotNull(returnVal);
-		assertTrue(invocation.isInvoked());
-		assertTrue(transactionProvider.isStarted());
-		assertTrue(transactionProvider.isCommited());
-	}
+    Object returnVal = null;
+    try {
+      returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler());
+    } catch (Throwable e) {
+      fail("should not throw exception");
+    }
+    assertNotNull(returnVal);
+    assertTrue(invocation.isInvoked());
+    assertTrue(transactionProvider.isStarted());
+    assertTrue(transactionProvider.isCommited());
+  }
 
-	@Test
-	public void testTransactionInterceptorInvocationFailing() {
+  @Test
+  public void testTransactionInterceptorInvocationFailing() {
 
-		Object returnVal = null;
-		try {
-			returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler(true));
-			fail("should throw exception");
-		} catch (Throwable e) {
-			// ignore
-		}
-		assertNull(returnVal);
-		assertTrue(invocation.isInvoked());
-		assertTrue(transactionProvider.isStarted());
-		assertTrue(transactionProvider.isRollbacked());
-	}
+    Object returnVal = null;
+    try {
+      returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler(true));
+      fail("should throw exception");
+    } catch (Throwable e) {
+      // ignore
+    }
+    assertNull(returnVal);
+    assertTrue(invocation.isInvoked());
+    assertTrue(transactionProvider.isStarted());
+    assertTrue(transactionProvider.isRollbacked());
+  }
 
-	@Test
-	public void testTransactionInterceptorBeginFailing() {
+  @Test
+  public void testTransactionInterceptorBeginFailing() {
 
-		transactionProvider.setFailBegin(true);
+    transactionProvider.setFailBegin(true);
 
-		Object returnVal = null;
-		try {
-			returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler());
-			fail("should throw exception");
-		} catch (Throwable e) {
-			// ignore
-		}
-		assertNull(returnVal);
-		assertFalse(invocation.isInvoked());
-		assertTrue(transactionProvider.isStarted());
-		assertTrue(transactionProvider.isRollbacked());
-	}
+    Object returnVal = null;
+    try {
+      returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler());
+      fail("should throw exception");
+    } catch (Throwable e) {
+      // ignore
+    }
+    assertNull(returnVal);
+    assertFalse(invocation.isInvoked());
+    assertTrue(transactionProvider.isStarted());
+    assertTrue(transactionProvider.isRollbacked());
+  }
 
-	@Test
-	public void testTransactionInterceptorRollbackFailing() {
+  @Test
+  public void testTransactionInterceptorRollbackFailing() {
 
-		transactionProvider.setFailRollback(true);
+    transactionProvider.setFailRollback(true);
 
-		Object returnVal = null;
-		try {
-			returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler(true));
-			fail("should throw exception");
-		} catch (Throwable e) {
-			// ignore
-		}
+    Object returnVal = null;
+    try {
+      returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler(true));
+      fail("should throw exception");
+    } catch (Throwable e) {
+      // ignore
+    }
 
-		assertNull(returnVal);
-		assertTrue(invocation.isInvoked());
-		assertTrue(transactionProvider.isStarted());
-		assertTrue(transactionProvider.isRollbacked());
-	}
+    assertNull(returnVal);
+    assertTrue(invocation.isInvoked());
+    assertTrue(transactionProvider.isStarted());
+    assertTrue(transactionProvider.isRollbacked());
+  }
 
-	@Test
-	public void testTransactionInterceptorCommitFailing() {
-		transactionProvider.setFailCommit(true);
+  @Test
+  public void testTransactionInterceptorCommitFailing() {
+    transactionProvider.setFailCommit(true);
 
-		Object returnVal = null;
-		try {
-			returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler());
-			fail("should throw exception");
-		} catch (Throwable e) {
-			// ignore
-		}
+    Object returnVal = null;
+    try {
+      returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler());
+      fail("should throw exception");
+    } catch (Throwable e) {
+      // ignore
+    }
 
-		assertNull(returnVal);
-		assertTrue(invocation.isInvoked());
-		assertTrue(transactionProvider.isStarted());
-		assertTrue(transactionProvider.isCommited());
-	}
+    assertNull(returnVal);
+    assertTrue(invocation.isInvoked());
+    assertTrue(transactionProvider.isStarted());
+    assertTrue(transactionProvider.isCommited());
+  }
 
-	@Test
-	public void testTransactionAlreadyStartedAndDontNeedNewSuccess() {
+  @Test
+  public void testTransactionAlreadyStartedAndDontNeedNewSuccess() {
 
-		MockupTransactionStackProvider stack = new MockupTransactionStackProvider();
-		stack.get().push(new TransactionContext());
+    MockupTransactionStackProvider stack = new MockupTransactionStackProvider();
+    stack.get().push(new TransactionContext());
 
-		interceptor = new TransactionInterceptor(stack, transactionProvider);
+    interceptor = new TransactionInterceptor(stack, transactionProvider);
 
-		Object returnVal = null;
-		try {
-			returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler());
-		} catch (Throwable e) {
-			fail("should not throw exception");
-		}
+    Object returnVal = null;
+    try {
+      returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler());
+    } catch (Throwable e) {
+      fail("should not throw exception");
+    }
 
-		assertNotNull(returnVal);
-		assertTrue(invocation.isInvoked());
-		assertFalse(transactionProvider.isStarted());
-	}
+    assertNotNull(returnVal);
+    assertTrue(invocation.isInvoked());
+    assertFalse(transactionProvider.isStarted());
+  }
 
-	@Test
-	public void testTransactionAlreadyStartedAndDontNeedNewFail() {
+  @Test
+  public void testTransactionAlreadyStartedAndDontNeedNewFail() {
 
-		MockupTransactionStackProvider stack = new MockupTransactionStackProvider();
-		stack.get().push(new TransactionContext());
-		interceptor = new TransactionInterceptor(stack, transactionProvider);
+    MockupTransactionStackProvider stack = new MockupTransactionStackProvider();
+    stack.get().push(new TransactionContext());
+    interceptor = new TransactionInterceptor(stack, transactionProvider);
 
-		Object returnVal = null;
-		try {
-			returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler(true));
-			fail("should throw exception");
-		} catch (Throwable e) {
-			// ignore
-		}
-		assertNull(returnVal);
-		assertTrue(invocation.isInvoked());
-		assertFalse(transactionProvider.isStarted());
-	}
+    Object returnVal = null;
+    try {
+      returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler(true));
+      fail("should throw exception");
+    } catch (Throwable e) {
+      // ignore
+    }
+    assertNull(returnVal);
+    assertTrue(invocation.isInvoked());
+    assertFalse(transactionProvider.isStarted());
+  }
 
-	@Test
-	public void testTransactionInvocationFailedExecptionIgnored() {
+  @Test
+  public void testTransactionInvocationFailedExecptionIgnored() {
 
-		Object returnVal = null;
-		try {
-			returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler(true, true));
-			fail("should throw exception");
-		} catch (Throwable e) {
-			// ignore
-		}
+    Object returnVal = null;
+    try {
+      returnVal = interceptor.invoke(invocation, new MockuUpInvocationHandler(true, true));
+      fail("should throw exception");
+    } catch (Throwable e) {
+      // ignore
+    }
 
-		assertNull(returnVal);
-		assertTrue(invocation.isInvoked());
-		assertTrue(transactionProvider.isStarted());
-		assertTrue(transactionProvider.isCommited());
-	}
+    assertNull(returnVal);
+    assertTrue(invocation.isInvoked());
+    assertTrue(transactionProvider.isStarted());
+    assertTrue(transactionProvider.isCommited());
+  }
 }

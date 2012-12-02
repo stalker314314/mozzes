@@ -33,49 +33,49 @@ import com.google.inject.Inject;
 @ApplicationScoped
 class HibernateUtil {
 
-	private SessionFactory factory;
-	private Configuration configuration;
+  private SessionFactory factory;
+  private Configuration configuration;
 
-	@Inject
-	private HibernateConfigurationType configurationType;
-	
-	Session openSession() {
-		return getSessionFactory().openSession();
-	}
+  @Inject
+  private HibernateConfigurationType configurationType;
 
-	void closeSession(Session session) {
-		session.close();
-	}
+  Session openSession() {
+    return getSessionFactory().openSession();
+  }
 
-	void recreateDatabase() {
-		new SchemaExport(getConfiguration()).create(true, true);
-	}
+  void closeSession(Session session) {
+    session.close();
+  }
 
-	private SessionFactory getSessionFactory() {
-		if (factory == null)
-			createFactory();
-		return factory;
-	}
+  void recreateDatabase() {
+    new SchemaExport(getConfiguration()).create(true, true);
+  }
 
-	private Configuration getConfiguration() {
-		if (configuration == null)
-			createConfiguration();
+  private SessionFactory getSessionFactory() {
+    if (factory == null)
+      createFactory();
+    return factory;
+  }
 
-		return configuration;
-	}
+  private Configuration getConfiguration() {
+    if (configuration == null)
+      createConfiguration();
 
-	private synchronized void createFactory() {
-		if (factory == null)
-			factory = getConfiguration().buildSessionFactory();
-	}
+    return configuration;
+  }
 
-	private synchronized void createConfiguration() {
-		if (configuration == null) {
-			if (configurationType.equals(HibernateConfigurationType.XML))
-				configuration = new Configuration().configure();
-			else
-				configuration = new AnnotationConfiguration().configure();
-				
-		}
-	}
+  private synchronized void createFactory() {
+    if (factory == null)
+      factory = getConfiguration().buildSessionFactory();
+  }
+
+  private synchronized void createConfiguration() {
+    if (configuration == null) {
+      if (configurationType.equals(HibernateConfigurationType.XML))
+        configuration = new Configuration().configure();
+      else
+        configuration = new AnnotationConfiguration().configure();
+
+    }
+  }
 }

@@ -32,61 +32,61 @@ import org.slf4j.LoggerFactory;
  */
 class SessionManagerCleanupThread extends Thread {
 
-	private static final Logger logger = LoggerFactory.getLogger(SessionManagerCleanupThread.class);
+  private static final Logger logger = LoggerFactory.getLogger(SessionManagerCleanupThread.class);
 
-	private ConcurrentMap<String, SessionContext> sessions;
+  private ConcurrentMap<String, SessionContext> sessions;
 
-	private static final long DEFAULT_SESSION_CLEANUP_INTERVAL = 60000; // 1 minute
+  private static final long DEFAULT_SESSION_CLEANUP_INTERVAL = 60000; // 1 minute
 
-	/** time period between two cleanups of expired sessions . */
-	private long runInterval = DEFAULT_SESSION_CLEANUP_INTERVAL;
+  /** time period between two cleanups of expired sessions . */
+  private long runInterval = DEFAULT_SESSION_CLEANUP_INTERVAL;
 
-	private boolean run = true;
-	
-	SessionManagerCleanupThread(ConcurrentMap<String, SessionContext> sessions) {
-		super("SessionManagerCleanupThread");
-		this.sessions = sessions;
-		this.setDaemon(true);
-		this.setPriority(MIN_PRIORITY);
-	}
+  private boolean run = true;
 
-	@Override
-	public void run() {
-		while (run ) {
-			try {
-				try {
-					sleep(runInterval);
-				} catch (InterruptedException e) {
-					interrupted();
-				}
-				cleanup();
-			} catch (Throwable thr) {
-				logger.error("Exception during session cleanup", thr);
-			}
-		}
-	}
+  SessionManagerCleanupThread(ConcurrentMap<String, SessionContext> sessions) {
+    super("SessionManagerCleanupThread");
+    this.sessions = sessions;
+    this.setDaemon(true);
+    this.setPriority(MIN_PRIORITY);
+  }
 
-	/**
-	 * Cleanup the expired sessions.
-	 */
-	private void cleanup() {
-		Set<Entry<String, SessionContext>> entries = sessions.entrySet();
+  @Override
+  public void run() {
+    while (run) {
+      try {
+        try {
+          sleep(runInterval);
+        } catch (InterruptedException e) {
+          interrupted();
+        }
+        cleanup();
+      } catch (Throwable thr) {
+        logger.error("Exception during session cleanup", thr);
+      }
+    }
+  }
 
-		for (Entry<String, SessionContext> sessionEntry : entries) {
-			SessionContext sessionContext = sessionEntry.getValue();
-			if (sessionContext.isExpired()) {
-				logger.debug("Session expired: " + sessionContext);
-				sessionContext.scopeCleanUp();
-				entries.remove(sessionEntry);
-			}
-		}
-	}
-	
-	void stopRunning(){
-		this.run = false;
-	}
-	
-	void setCleanupInterval(long runInterval){
-		this.runInterval = runInterval;
-	}
+  /**
+   * Cleanup the expired sessions.
+   */
+  private void cleanup() {
+    Set<Entry<String, SessionContext>> entries = sessions.entrySet();
+
+    for (Entry<String, SessionContext> sessionEntry : entries) {
+      SessionContext sessionContext = sessionEntry.getValue();
+      if (sessionContext.isExpired()) {
+        logger.debug("Session expired: " + sessionContext);
+        sessionContext.scopeCleanUp();
+        entries.remove(sessionEntry);
+      }
+    }
+  }
+
+  void stopRunning() {
+    this.run = false;
+  }
+
+  void setCleanupInterval(long runInterval) {
+    this.runInterval = runInterval;
+  }
 }

@@ -34,25 +34,25 @@ import com.google.inject.*;
  */
 public class ServiceWithTransactionDataNewTransactionImpl implements ServiceWithTransactionDataNewTransaction {
 
-	@Inject
-	MTransactionData transactionData;
+  @Inject
+  MTransactionData transactionData;
 
-	/**
-	 * @see ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransaction()
-	 */
-	@Override
-	public void incrementTransactionCounterInNewTransaction() {
-		transactionData.increment();
-	}
+  /**
+   * @see ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransaction()
+   */
+  @Override
+  public void incrementTransactionCounterInNewTransaction() {
+    transactionData.increment();
+  }
 
-	/**
-	 * This is not OK..Transactional should be in the interface
-	 * 
-	 * @see ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransactionBad()
-	 */
-	@Transactional
-	@Override
-	public void incrementTransactionCounterInNewTransactionBad() {
-		transactionData.increment();
-	}
+  /**
+   * This is not OK..Transactional should be in the interface
+   * 
+   * @see ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransactionBad()
+   */
+  @Transactional
+  @Override
+  public void incrementTransactionCounterInNewTransactionBad() {
+    transactionData.increment();
+  }
 }

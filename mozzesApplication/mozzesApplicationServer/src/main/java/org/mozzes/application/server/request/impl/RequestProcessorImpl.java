@@ -41,110 +41,112 @@ import com.google.inject.Injector;
  */
 public class RequestProcessorImpl implements RequestProcessor {
 
-	private static final Logger logger = LoggerFactory.getLogger(RequestProcessorImpl.class);
+  private static final Logger logger = LoggerFactory.getLogger(RequestProcessorImpl.class);
 
-	/** Responsible for session layer support. */
-	private final SessionManager sessionManager;
+  /** Responsible for session layer support. */
+  private final SessionManager sessionManager;
 
-	/** Responsible for request layer support. */
-	private final RequestManager requestManager;
+  /** Responsible for request layer support. */
+  private final RequestManager requestManager;
 
-	private final Injector injector;
+  private final Injector injector;
 
-	private final MozzesServerLifeCycleStatus serverStatus;
+  private final MozzesServerLifeCycleStatus serverStatus;
 
-	@Inject
-	RequestProcessorImpl(@MozzesInternal SessionManager sessionManager, RequestManager requestManager,
-							Injector injector, MozzesServerLifeCycleStatus serverStatus) {
-		this.sessionManager = sessionManager;
-		this.requestManager = requestManager;
-		this.injector = injector;
-		this.serverStatus = serverStatus;
-	}
+  @Inject
+  RequestProcessorImpl(@MozzesInternal SessionManager sessionManager, RequestManager requestManager, Injector injector,
+      MozzesServerLifeCycleStatus serverStatus) {
+    this.sessionManager = sessionManager;
+    this.requestManager = requestManager;
+    this.injector = injector;
+    this.serverStatus = serverStatus;
+  }
 
-	/*
-	 * @see IRequestProcessor#process(String,Invocation)
-	 */
-	public <I> Object process(String sessionId, Invocation<I> invocation) throws Throwable {
-		if (sessionId == null && !serverStatus.isStarted())
-			throw new ClientLoggingException("server is not started");
+  /*
+   * @see IRequestProcessor#process(String,Invocation)
+   */
+  public <I> Object process(String sessionId, Invocation<I> invocation) throws Throwable {
+    if (sessionId == null && !serverStatus.isStarted())
+      throw new ClientLoggingException("server is not started");
 
-		if (requestManager.get() == null)
-			return processInvocationInNewRequest(sessionId, invocation);
+    if (requestManager.get() == null)
+      return processInvocationInNewRequest(sessionId, invocation);
 
-		return processInvocation(invocation);
-	}
+    return processInvocation(invocation);
+  }
 
-	private <I> Object processInvocationInNewRequest(String sessionId, Invocation<I> invocation) throws Throwable {
-		// get session context(if exists otherwise create new) and inform that request is in progress
-		SessionContext sc = sessionManager.requestStarted(sessionId);
+  private <I> Object processInvocationInNewRequest(String sessionId, Invocation<I> invocation) throws Throwable {
+    // get session context(if exists otherwise create new) and inform that request is in progress
+    SessionContext sc = sessionManager.requestStarted(sessionId);
 
-		try {
-			// start new request and associate new request context
-			requestManager.start(sc);
-			try {
-				// and then process invocation
-				return processInvocation(invocation);
-			} catch (Throwable thr) {
+    try {
+      // start new request and associate new request context
+      requestManager.start(sc);
+      try {
+        // and then process invocation
+        return processInvocation(invocation);
+      } catch (Throwable thr) {
 
-				throw handleException(invocation, thr);
+        throw handleException(invocation, thr);
 
-			} finally {
-				// always finish request
-				requestManager.finish();
-			}
-		} finally {
-			// inform session context that request is finished
-			sessionManager.requestFinished(sc);
-		}
-	}
+      } finally {
+        // always finish request
+        requestManager.finish();
+      }
+    } finally {
+      // inform session context that request is finished
+      sessionManager.requestFinished(sc);
+    }
+  }
 
-	/**
-	 * Process invocation and return the result of the invocation.
-	 */
-	private <I> Object processInvocation(Invocation<I> invocation) throws Throwable {
-		if (logger.isDebugEnabled())
-			logger.debug("Processing request: " + invocation.getInterface().getName() + "."
-					+ invocation.getMethodName());
-		return invocation.invoke(injector.getInstance(invocation.getInterface()));
-	}
+  /**
+   * Process invocation and return the result of the invocation.
+   */
+  private <I> Object processInvocation(Invocation<I> invocation) throws Throwable {
+    if (logger.isDebugEnabled())
+      logger.debug("Processing request: " + invocation.getInterface().getName() + "." + invocation.getMethodName());
+    return invocation.invoke(injector.getInstance(invocation.getInterface()));
+  }
 
-	/**
-	 * Logs Exception if not declared in method signature
-	 * 
-	 * @param <I> Invocation type - service interface
-	 * @param invocation invocation
-	 * @param thr Exception thrown during method execution
-	 */
-	private <I> Throwable handleException(Invocation<I> invocation, Throwable thr) {
-		if (isDeclaredException(invocation, thr)) {
-			logger.info("Service exception", thr);
-			return thr;
-		}
-		
-		if (thr instanceof RuntimeException) {
-			logger.error("Runtime service exception", thr);
-			return thr;
-		}
-		
-		logger.error("Undeclared service exception", thr);
-		return new UndeclaredServiceException(thr);
-	}
+  /**
+   * Logs Exception if not declared in method signature
+   * 
+   * @param <I>
+   *          Invocation type - service interface
+   * @param invocation
+   *          invocation
+   * @param thr
+   *          Exception thrown during method execution
+   */
+  private <I> Throwable handleException(Invocation<I> invocation, Throwable thr) {
+    if (isDeclaredException(invocation, thr)) {
+      logger.info("Service exception", thr);
+      return thr;
+    }
 
-	private <I> boolean isDeclaredException(Invocation<I> invocation, Throwable thr) {
-		try {
-			Class<?>[] declaredExceptions = invocation.getMethod().getExceptionTypes();
+    if (thr instanceof RuntimeException) {
+      logger.error("Runtime service exception", thr);
+      return thr;
+    }
 
-			for (int i = 0; i < declaredExceptions.length; i++) 
-				if (declaredExceptions[i].isInstance(thr)) 
-					return true;
-			
-		} catch (SecurityException e) {
-			logger.error("Unable to find service method", e);
-		} catch (NoSuchMethodException e) {
-			logger.error("Unable to find service method", e);
-		}
-		
-		return false;
-	}
+    logger.error("Undeclared service exception", thr);
+    return new UndeclaredServiceException(thr);
+  }
+
+  private <I> boolean isDeclaredException(Invocation<I> invocation, Throwable thr) {
+    try {
+      Class<?>[] declaredExceptions = invocation.getMethod().getExceptionTypes();
+
+      for (int i = 0; i < declaredExceptions.length; i++)
+        if (declaredExceptions[i].isInstance(thr))
+          return true;
+
+    } catch (SecurityException e) {
+      logger.error("Unable to find service method", e);
+    } catch (NoSuchMethodException e) {
+      logger.error("Unable to find service method", e);
+    }
+
+    return false;
+  }
 }

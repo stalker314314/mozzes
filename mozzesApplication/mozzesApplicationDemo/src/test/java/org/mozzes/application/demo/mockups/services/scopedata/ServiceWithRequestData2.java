@@ -23,7 +23,6 @@ package org.mozzes.application.demo.mockups.services.scopedata;
 import org.mozzes.application.demo.mockups.scopedata.*;
 import org.mozzes.application.module.scope.*;
 
-
 /**
  * This is the example of the server service interface that's using data in the request context.<br>
  * 
@@ -34,8 +33,8 @@ import org.mozzes.application.module.scope.*;
  */
 public interface ServiceWithRequestData2 {
 
-	/**
-	 * Increment the value of the counter stored in the transaction context
-	 */
-	void incrementRequestCounter();
+  /**
+   * Increment the value of the counter stored in the transaction context
+   */
+  void incrementRequestCounter();
 }

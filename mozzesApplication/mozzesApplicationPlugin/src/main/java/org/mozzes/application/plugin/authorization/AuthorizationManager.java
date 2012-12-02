@@ -27,10 +27,10 @@ import org.mozzes.application.common.exceptions.AuthorizationFailedException;
  */
 public interface AuthorizationManager {
 
-	/**
-	 * Authorize client with the specified username and password.
-	 * 
-	 * @return innactivity time after which user's session should be invalidated
-	 */
-	public long authorize(String username, String password) throws AuthorizationFailedException;
+  /**
+   * Authorize client with the specified username and password.
+   * 
+   * @return innactivity time after which user's session should be invalidated
+   */
+  public long authorize(String username, String password) throws AuthorizationFailedException;
 }

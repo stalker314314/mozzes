@@ -29,10 +29,10 @@ import org.mozzes.application.demo.mockups.services.internal.*;
  */
 public class SimpleInternalServiceImpl implements SimpleInternalService {
 
-	/**
-	 * @see SimpleInternalService#getInteger()
-	 */
-	public int getInteger() {
-		return SimpleInternalService.result;
-	}
+  /**
+   * @see SimpleInternalService#getInteger()
+   */
+  public int getInteger() {
+    return SimpleInternalService.result;
+  }
 }

@@ -27,8 +27,8 @@ import java.util.List;
  */
 public interface InternalLookupService {
 
-	/**
-	 * @return list of server's services available only to the client.
-	 */
-	List<Class<?>> getInternalServices();
+  /**
+   * @return list of server's services available only to the client.
+   */
+  List<Class<?>> getInternalServices();
 }

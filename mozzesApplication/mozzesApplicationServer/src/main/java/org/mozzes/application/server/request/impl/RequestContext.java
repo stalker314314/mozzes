@@ -26,41 +26,40 @@ import org.mozzes.application.server.transaction.impl.TransactionStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * The Class RequestContext is associated with the request and hold's the data important for the request.
- * <br><br>
+ * The Class RequestContext is associated with the request and hold's the data important for the request. <br>
+ * <br>
  * Most importantly it holds the stack transactions running in the request.
  * 
  * @see TransactionStack
  * @see SessionContext
  */
 public class RequestContext extends AbstractContext {
-	
-	private static final Logger logger = LoggerFactory.getLogger(RequestContext.class);
 
-	/** The session context in the request is started. */
-	private final SessionContext sessionContext;
-	
-	/** The stack of transactions running in this request. */
-	private final TransactionStack transactionStack;
+  private static final Logger logger = LoggerFactory.getLogger(RequestContext.class);
 
-	RequestContext(SessionContext sessionContext) {
-		logger.debug("Request context created");
-		this.sessionContext = sessionContext;
-		this.transactionStack = new TransactionStack();
-	}
+  /** The session context in the request is started. */
+  private final SessionContext sessionContext;
 
-	public SessionContext getSessionContext() {
-		return sessionContext;
-	}
-	
-	public TransactionStack getTransactionStack() {
-		return transactionStack;
-	}
+  /** The stack of transactions running in this request. */
+  private final TransactionStack transactionStack;
 
-	@Override
-	protected String getName() {
-		return "RequestContext";
-	}
+  RequestContext(SessionContext sessionContext) {
+    logger.debug("Request context created");
+    this.sessionContext = sessionContext;
+    this.transactionStack = new TransactionStack();
+  }
+
+  public SessionContext getSessionContext() {
+    return sessionContext;
+  }
+
+  public TransactionStack getTransactionStack() {
+    return transactionStack;
+  }
+
+  @Override
+  protected String getName() {
+    return "RequestContext";
+  }
 }

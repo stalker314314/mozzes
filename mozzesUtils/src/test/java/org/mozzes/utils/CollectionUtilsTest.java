@@ -39,110 +39,111 @@ import org.junit.Test;
 
 public class CollectionUtilsTest {
 
-	@Test
-	public void testGetFirstOrNull() {
+  @Test
+  public void testGetFirstOrNull() {
 
-		Collection<String> testData = null;
-		assertEquals(null, CollectionUtils.getFirstOrNull(testData));
+    Collection<String> testData = null;
+    assertEquals(null, CollectionUtils.getFirstOrNull(testData));
 
-		testData = new ArrayList<String>();
-		assertEquals(null, CollectionUtils.getFirstOrNull(testData));
-		testData.add("aaa");
-		assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
+    testData = new ArrayList<String>();
+    assertEquals(null, CollectionUtils.getFirstOrNull(testData));
+    testData.add("aaa");
+    assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
 
-		testData.add("bbb");
-		assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
+    testData.add("bbb");
+    assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
 
-		testData = new HashSet<String>();
-		assertEquals(null, CollectionUtils.getFirstOrNull(testData));
+    testData = new HashSet<String>();
+    assertEquals(null, CollectionUtils.getFirstOrNull(testData));
 
-		testData.add("aaa");
-		assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
+    testData.add("aaa");
+    assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
 
-		testData.add("aaa");
-		assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
+    testData.add("aaa");
+    assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
 
-		testData.add("bbb");
-		assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
-	}
+    testData.add("bbb");
+    assertEquals("aaa", CollectionUtils.getFirstOrNull(testData));
+  }
 
-	@Test
-	public void testAsArray() {
-		Collection<String> s = null;
-		try {
-			CollectionUtils.asArray(String.class, s);
-			fail();
-		} catch (NullPointerException e) {
-			assertTrue(true);
-		}
+  @Test
+  public void testAsArray() {
+    Collection<String> s = null;
+    try {
+      CollectionUtils.asArray(String.class, s);
+      fail();
+    } catch (NullPointerException e) {
+      assertTrue(true);
+    }
 
-		s = new ArrayList<String>();
-		assertArrayEquals(new String[] {}, CollectionUtils.asArray(String.class, s));
-		s.add("aaa");
-		assertArrayEquals(new String[] { "aaa" }, CollectionUtils.asArray(String.class, s));
-		s.add("bbb");
-		assertArrayEquals(new String[] { "aaa", "bbb" }, CollectionUtils.asArray(String.class, s));
-		s.add("aaa");
-		assertArrayEquals(new String[] { "aaa", "bbb", "aaa" }, CollectionUtils.asArray(String.class, s));
+    s = new ArrayList<String>();
+    assertArrayEquals(new String[] {}, CollectionUtils.asArray(String.class, s));
+    s.add("aaa");
+    assertArrayEquals(new String[] { "aaa" }, CollectionUtils.asArray(String.class, s));
+    s.add("bbb");
+    assertArrayEquals(new String[] { "aaa", "bbb" }, CollectionUtils.asArray(String.class, s));
+    s.add("aaa");
+    assertArrayEquals(new String[] { "aaa", "bbb", "aaa" }, CollectionUtils.asArray(String.class, s));
 
-		s = new HashSet<String>();
-		assertArrayEquals(new String[] {}, CollectionUtils.asArray(String.class, s));
-		s.add("aaa");
-		assertArrayEquals(new String[] { "aaa" }, CollectionUtils.asArray(String.class, s));
-		s.add("bbb");
-		assertArrayEquals(new String[] { "aaa", "bbb" }, CollectionUtils.asArray(String.class, s));
-		s.add("aaa");
-		assertArrayEquals(new String[] { "aaa", "bbb" }, CollectionUtils.asArray(String.class, s));
+    s = new HashSet<String>();
+    assertArrayEquals(new String[] {}, CollectionUtils.asArray(String.class, s));
+    s.add("aaa");
+    assertArrayEquals(new String[] { "aaa" }, CollectionUtils.asArray(String.class, s));
+    s.add("bbb");
+    assertArrayEquals(new String[] { "aaa", "bbb" }, CollectionUtils.asArray(String.class, s));
+    s.add("aaa");
+    assertArrayEquals(new String[] { "aaa", "bbb" }, CollectionUtils.asArray(String.class, s));
 
-		s = new HashSet<String>();
-		assertArrayEquals(new String[] {}, CollectionUtils.asArray(String.class, s));
-		s.add("aaa");
-		assertArrayEquals(new String[] { "aaa" }, CollectionUtils.asArray(String.class, s));
-		s.add("bbb");
+    s = new HashSet<String>();
+    assertArrayEquals(new String[] {}, CollectionUtils.asArray(String.class, s));
+    s.add("aaa");
+    assertArrayEquals(new String[] { "aaa" }, CollectionUtils.asArray(String.class, s));
+    s.add("bbb");
 
-		Matcher<String[]> matcher = new BaseMatcher<String[]>() {
+    Matcher<String[]> matcher = new BaseMatcher<String[]>() {
 
-			@Override
-			public boolean matches(Object result) {
-				String[] resultArray = (String[]) result;
-				if (Arrays.equals(new String[] { "aaa", "bbb" }, resultArray)
-						|| Arrays.equals(new String[] { "aaa", "bbb" }, resultArray)) {
-					return true;
-				}
-				return false;
-			}
+      @Override
+      public boolean matches(Object result) {
+        String[] resultArray = (String[]) result;
+        if (Arrays.equals(new String[] { "aaa", "bbb" }, resultArray)
+            || Arrays.equals(new String[] { "aaa", "bbb" }, resultArray)) {
+          return true;
+        }
+        return false;
+      }
 
-			@Override
-			public void describeTo(Description description) {}
-		};
-		assertThat(CollectionUtils.asArray(String.class, s), matcher);
-	}
+      @Override
+      public void describeTo(Description description) {
+      }
+    };
+    assertThat(CollectionUtils.asArray(String.class, s), matcher);
+  }
 
-	@Test
-	public void testCopy() {
-		Collection<String> c = null;
+  @Test
+  public void testCopy() {
+    Collection<String> c = null;
 
-		try {
-			CollectionUtils.copy(c);
-			fail();
-		} catch (NullPointerException e) {
-			assertTrue(true);
-		}
+    try {
+      CollectionUtils.copy(c);
+      fail();
+    } catch (NullPointerException e) {
+      assertTrue(true);
+    }
 
-		c = new ArrayList<String>();
-		assertEquals(c, CollectionUtils.copy(c));
-		assertNotSame(c, CollectionUtils.copy(c));
+    c = new ArrayList<String>();
+    assertEquals(c, CollectionUtils.copy(c));
+    assertNotSame(c, CollectionUtils.copy(c));
 
-		c.add("aaa");
-		assertEquals(c, CollectionUtils.copy(c));
-		assertNotSame(c, CollectionUtils.copy(c));
+    c.add("aaa");
+    assertEquals(c, CollectionUtils.copy(c));
+    assertNotSame(c, CollectionUtils.copy(c));
 
-		c = new HashSet<String>();
-		assertEquals(c, CollectionUtils.copy(c));
-		assertNotSame(c, CollectionUtils.copy(c));
+    c = new HashSet<String>();
+    assertEquals(c, CollectionUtils.copy(c));
+    assertNotSame(c, CollectionUtils.copy(c));
 
-		c.add("aaa");
-		assertEquals(c, CollectionUtils.copy(c));
-		assertNotSame(c, CollectionUtils.copy(c));
-	}
+    c.add("aaa");
+    assertEquals(c, CollectionUtils.copy(c));
+    assertNotSame(c, CollectionUtils.copy(c));
+  }
 }

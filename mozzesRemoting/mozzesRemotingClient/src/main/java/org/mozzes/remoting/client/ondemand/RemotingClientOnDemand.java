@@ -29,7 +29,6 @@ import org.mozzes.remoting.common.RemotingConfiguration;
 import org.mozzes.remoting.common.RemotingException;
 import org.mozzes.remoting.common.RemotingResponse;
 
-
 /**
  * Wrapper around default implementation of {@link RemotingClient}. This on-demand executor enables automatically
  * connecting to remoting server, executing action, and disconnect after that. Only thing clients of this class must do
@@ -57,28 +56,28 @@ import org.mozzes.remoting.common.RemotingResponse;
  * @author Kokan
  */
 class RemotingClientOnDemand implements RemotingActionExecutor {
-    
-    /** Factory we used to create and wrap remoting clients */
-    private final RemotingClientFactory clientFactory;
 
-    private final RemotingConfiguration remotingConfiguration;
+  /** Factory we used to create and wrap remoting clients */
+  private final RemotingClientFactory clientFactory;
 
-    /**
-     * Default constructor for this executor
-     */
-    RemotingClientOnDemand(RemotingConfiguration remotingConfiguration, RemotingClientFactory clientFactory) {
-        this.remotingConfiguration = remotingConfiguration;
-        this.clientFactory = clientFactory;
+  private final RemotingConfiguration remotingConfiguration;
+
+  /**
+   * Default constructor for this executor
+   */
+  RemotingClientOnDemand(RemotingConfiguration remotingConfiguration, RemotingClientFactory clientFactory) {
+    this.remotingConfiguration = remotingConfiguration;
+    this.clientFactory = clientFactory;
+  }
+
+  @Override
+  public RemotingResponse execute(RemotingAction action) throws RemotingException {
+    RemotingClient client = clientFactory.create(remotingConfiguration);
+    try {
+      client.connect();
+      return client.execute(action);
+    } finally {
+      client.disconnect();
     }
-
-    @Override
-    public RemotingResponse execute(RemotingAction action) throws RemotingException {
-        RemotingClient client = clientFactory.create(remotingConfiguration);
-        try {
-            client.connect();
-            return client.execute(action);
-        } finally {
-            client.disconnect();
-        }
-    }
+  }
 }

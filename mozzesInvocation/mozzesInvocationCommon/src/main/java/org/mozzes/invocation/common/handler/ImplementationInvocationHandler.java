@@ -30,22 +30,24 @@ import org.mozzes.invocation.common.Invocation;
  */
 public class ImplementationInvocationHandler<I> implements InvocationHandler<I> {
 
-	/**
-	 * Real interface implementation
-	 */
-	private final I implementation;
+  /**
+   * Real interface implementation
+   */
+  private final I implementation;
 
-	/**
-	 * @param <II> Class which implements interface I
-	 * @param implementation Class II instance
-	 */
-	public <II extends I> ImplementationInvocationHandler(II implementation) {
-		this.implementation = implementation;
-	}
+  /**
+   * @param <II>
+   *          Class which implements interface I
+   * @param implementation
+   *          Class II instance
+   */
+  public <II extends I> ImplementationInvocationHandler(II implementation) {
+    this.implementation = implementation;
+  }
 
-	@Override
-	public Object invoke(Invocation<? super I> invocation) throws Throwable {
-		return invocation.invoke(implementation);
-	}
+  @Override
+  public Object invoke(Invocation<? super I> invocation) throws Throwable {
+    return invocation.invoke(implementation);
+  }
 
 }

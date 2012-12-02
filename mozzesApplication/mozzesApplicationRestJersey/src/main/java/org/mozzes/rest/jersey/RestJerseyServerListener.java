@@ -37,40 +37,41 @@ import com.sun.jersey.api.container.grizzly.GrizzlyWebContainerFactory;
 
 /**
  * Simple Mozzes server listener whose purpose is to start Grizzly embedded server and configure Jersey
+ * 
  * @author stalker
  */
 public class RestJerseyServerListener implements ServerLifecycleListener {
 
-	private static final Logger logger = LoggerFactory.getLogger(RestJerseyServerListener.class);
+  private static final Logger logger = LoggerFactory.getLogger(RestJerseyServerListener.class);
 
-	@Inject
-	private RestJerseyConfiguration configuration;
-	@Inject
-	private Injector guiceInjector;
-	
-	private SelectorThread threadSelector;
+  @Inject
+  private RestJerseyConfiguration configuration;
+  @Inject
+  private Injector guiceInjector;
 
-	@Override
-	public void startup() throws ServerInitializationException {
-		MozzesGuiceProviderFactory.setGuiceProvider(guiceInjector);
-		
-		final Map<String, String> initParams = new HashMap<String, String>();
-		initParams.put("com.sun.jersey.config.property.packages", configuration.getRootResourcePackage());
+  private SelectorThread threadSelector;
 
-		logger.info("Starting grizzly on " + configuration.getBaseUri());
-		try {
-			threadSelector = GrizzlyWebContainerFactory.create(configuration.getBaseUri(), initParams);
-		} catch (IllegalArgumentException e) {
-			logger.error("Error starting grizly", e);
-			throw new ServerInitializationException(e);
-		} catch (IOException e) {
-			logger.error("Error starting grizly", e);
-			throw new ServerInitializationException(e);
-		}
-	}
-	
-	@Override
-	public void shutdown() {
-		threadSelector.stopEndpoint();
-	}
+  @Override
+  public void startup() throws ServerInitializationException {
+    MozzesGuiceProviderFactory.setGuiceProvider(guiceInjector);
+
+    final Map<String, String> initParams = new HashMap<String, String>();
+    initParams.put("com.sun.jersey.config.property.packages", configuration.getRootResourcePackage());
+
+    logger.info("Starting grizzly on " + configuration.getBaseUri());
+    try {
+      threadSelector = GrizzlyWebContainerFactory.create(configuration.getBaseUri(), initParams);
+    } catch (IllegalArgumentException e) {
+      logger.error("Error starting grizly", e);
+      throw new ServerInitializationException(e);
+    } catch (IOException e) {
+      logger.error("Error starting grizly", e);
+      throw new ServerInitializationException(e);
+    }
+  }
+
+  @Override
+  public void shutdown() {
+    threadSelector.stopEndpoint();
+  }
 }

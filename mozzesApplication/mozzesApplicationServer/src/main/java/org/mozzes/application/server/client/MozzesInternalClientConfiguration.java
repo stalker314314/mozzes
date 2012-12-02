@@ -39,49 +39,49 @@ import com.google.inject.Injector;
  */
 public class MozzesInternalClientConfiguration extends MozzesClientConfiguration {
 
-	private final RequestProcessor requestProcessor;
+  private final RequestProcessor requestProcessor;
 
-	@Inject
-	MozzesInternalClientConfiguration(RequestProcessor requestProcessor) {
-		this.requestProcessor = requestProcessor;
-	}
+  @Inject
+  MozzesInternalClientConfiguration(RequestProcessor requestProcessor) {
+    this.requestProcessor = requestProcessor;
+  }
 
-	/**
-	 * @see MozzesClientConfiguration#getServices(com.google.inject.Injector)
-	 */
-	@Override
-	protected List<String> getServices(Injector injector) {
-		List<Class<?>> internalServices = injector.getInstance(InternalLookupService.class).getInternalServices();
-		List<String> list = new ArrayList<String>();
-		for (Class<?> clazz : internalServices) {
-			list.add(clazz.getName());
-		}
-		return list;
-	}
+  /**
+   * @see MozzesClientConfiguration#getServices(com.google.inject.Injector)
+   */
+  @Override
+  protected List<String> getServices(Injector injector) {
+    List<Class<?>> internalServices = injector.getInstance(InternalLookupService.class).getInternalServices();
+    List<String> list = new ArrayList<String>();
+    for (Class<?> clazz : internalServices) {
+      list.add(clazz.getName());
+    }
+    return list;
+  }
 
-	/**
-	 * Binds core Interfaces to their implementations
-	 */
-	@Override
-	protected AbstractModule createDefaultModule(final SessionIdProvider sessionIDProvider) {
-		return new AbstractModule() {
+  /**
+   * Binds core Interfaces to their implementations
+   */
+  @Override
+  protected AbstractModule createDefaultModule(final SessionIdProvider sessionIDProvider) {
+    return new AbstractModule() {
 
-			@Override
-			protected void configure() {
-				bind(InternalLookupService.class).toProvider(
-						getImplementationProvider(InternalLookupService.class, sessionIDProvider));
-			}
-		};
-	}
+      @Override
+      protected void configure() {
+        bind(InternalLookupService.class).toProvider(
+            getImplementationProvider(InternalLookupService.class, sessionIDProvider));
+      }
+    };
+  }
 
-	@Override
-	protected <I> InvocationHandler<I> getInvocationHandler(Class<I> ignore, SessionIdProvider sessionIDProvider) {
-		return new LocalInvocationHandler<I>(requestProcessor, new SessionIdProvider() {
+  @Override
+  protected <I> InvocationHandler<I> getInvocationHandler(Class<I> ignore, SessionIdProvider sessionIDProvider) {
+    return new LocalInvocationHandler<I>(requestProcessor, new SessionIdProvider() {
 
-			@Override
-			public String getSessionId() {
-				return MozzesInternalClient.INTERNAL_CLIENT_ID;
-			}
-		});
-	}
+      @Override
+      public String getSessionId() {
+        return MozzesInternalClient.INTERNAL_CLIENT_ID;
+      }
+    });
+  }
 }

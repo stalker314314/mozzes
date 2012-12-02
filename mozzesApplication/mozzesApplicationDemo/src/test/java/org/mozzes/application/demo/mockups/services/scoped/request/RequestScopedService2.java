@@ -31,13 +31,13 @@ import org.mozzes.application.module.scope.*;
  */
 public interface RequestScopedService2 {
 
-	/**
-	 * this is the method that increments the counter in the service attribute
-	 */
-	void increment();
+  /**
+   * this is the method that increments the counter in the service attribute
+   */
+  void increment();
 
-	/**
-	 * @return value from the service attribute
-	 */
-	int getCounter();
+  /**
+   * @return value from the service attribute
+   */
+  int getCounter();
 }

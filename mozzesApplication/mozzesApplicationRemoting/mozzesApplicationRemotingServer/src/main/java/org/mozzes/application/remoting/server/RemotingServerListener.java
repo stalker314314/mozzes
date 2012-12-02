@@ -37,56 +37,56 @@ import org.mozzes.remoting.server.RemotingServerFactory;
  */
 public class RemotingServerListener implements ServerLifecycleListener {
 
-	private static final Logger logger = LoggerFactory.getLogger(RemotingServerListener.class);
+  private static final Logger logger = LoggerFactory.getLogger(RemotingServerListener.class);
 
-	/** The server port. */
-	@Inject
-	@RemotingServerPort
-	private int serverPort;
+  /** The server port. */
+  @Inject
+  @RemotingServerPort
+  private int serverPort;
 
-	/** The injector. */
-	@Inject
-	private Injector injector;
+  /** The injector. */
+  @Inject
+  private Injector injector;
 
-	/*
-	 * When the Mozzes server is started fire up the remoting server for receiving remoting actions that are actually
-	 * transporting the invocations of the server's services
-	 * 
-	 * @see ServerListener#serverStarted()
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.mozzes.application.module.ServerListener#serverStarted()
-	 */
-	@Override
-	public void startup() throws ServerInitializationException {
-		InvocationActionMapping mappings = injector.getInstance(InvocationActionMapping.class);
-		
-		RemotingServer remotingServer = RemotingServerFactory.getServer(serverPort);
-		remotingServer.addActionMapping(mappings);
-		
-		try {
-			remotingServer.startServer();
-			logger.info("Remoting server started on port " + serverPort);
-		} catch (IOException e) {
-			throw new ServerInitializationException("Unable to start remoting server", e);
-		}
-	}
+  /*
+   * When the Mozzes server is started fire up the remoting server for receiving remoting actions that are actually
+   * transporting the invocations of the server's services
+   * 
+   * @see ServerListener#serverStarted()
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mozzes.application.module.ServerListener#serverStarted()
+   */
+  @Override
+  public void startup() throws ServerInitializationException {
+    InvocationActionMapping mappings = injector.getInstance(InvocationActionMapping.class);
 
-	/*
-	 * When Mozzes server is going down remoting server is going to kill himself
-	 * 
-	 * @see ServerListener#serverStopped()
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.mozzes.application.module.ServerListener#serverStopped()
-	 */
-	@Override
-	public void shutdown() {
-		RemotingServerFactory.getServer(serverPort).stopServer();
-		logger.info("Mozzes remoting server stopped");
-	}
+    RemotingServer remotingServer = RemotingServerFactory.getServer(serverPort);
+    remotingServer.addActionMapping(mappings);
+
+    try {
+      remotingServer.startServer();
+      logger.info("Remoting server started on port " + serverPort);
+    } catch (IOException e) {
+      throw new ServerInitializationException("Unable to start remoting server", e);
+    }
+  }
+
+  /*
+   * When Mozzes server is going down remoting server is going to kill himself
+   * 
+   * @see ServerListener#serverStopped()
+   */
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.mozzes.application.module.ServerListener#serverStopped()
+   */
+  @Override
+  public void shutdown() {
+    RemotingServerFactory.getServer(serverPort).stopServer();
+    logger.info("Mozzes remoting server stopped");
+  }
 }

@@ -32,28 +32,27 @@ import org.mozzes.application.server.MozzesServer;
 import org.mozzes.application.server.MozzesServerConfiguration;
 import org.mozzes.rest.jersey.RestJerseyModule;
 
-
-
 public class ExampleServer {
 
-	public MozzesServerConfiguration createServerConfiguration() {
-		MozzesServerConfiguration cfg = new MozzesServerConfiguration();
-		cfg.addApplicationModule(new HibernatePlugin(HibernateConfigurationType.ANNOTATION));
-		cfg.addApplicationModule(new RemotingPlugin(ExampleConstants.PORT));
-		cfg.addApplicationModule(new RestJerseyModule("http://localhost:8000/", "org.mozzes.application.example.rest.jersey"));
+  public MozzesServerConfiguration createServerConfiguration() {
+    MozzesServerConfiguration cfg = new MozzesServerConfiguration();
+    cfg.addApplicationModule(new HibernatePlugin(HibernateConfigurationType.ANNOTATION));
+    cfg.addApplicationModule(new RemotingPlugin(ExampleConstants.PORT));
+    cfg.addApplicationModule(new RestJerseyModule("http://localhost:8000/",
+        "org.mozzes.application.example.rest.jersey"));
 
-		cfg.addService(MatchAdministration.class, MatchAdministrationImpl.class);
-		cfg.addService(TeamAdministration.class, TeamAdministrationImpl.class);
-		return cfg;
-	}
+    cfg.addService(MatchAdministration.class, MatchAdministrationImpl.class);
+    cfg.addService(TeamAdministration.class, TeamAdministrationImpl.class);
+    return cfg;
+  }
 
-	private void start() {
-		MozzesServer server = new MozzesServer(createServerConfiguration());
-		server.start();
-	}
+  private void start() {
+    MozzesServer server = new MozzesServer(createServerConfiguration());
+    server.start();
+  }
 
-	public static void main(String[] args) {
-		new ExampleServer().start();
-	}
+  public static void main(String[] args) {
+    new ExampleServer().start();
+  }
 
 }

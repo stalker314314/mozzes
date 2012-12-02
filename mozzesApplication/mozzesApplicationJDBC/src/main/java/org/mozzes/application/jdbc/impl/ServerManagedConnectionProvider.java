@@ -30,16 +30,16 @@ import com.google.inject.Provider;
 
 public class ServerManagedConnectionProvider implements DbConnectionProvider {
 
-	private final Provider<ServerManagedTransactionContext> transactionContextProvider;
-	
-	@Inject
-	ServerManagedConnectionProvider(Provider<ServerManagedTransactionContext> transactionContextProvider) {
-		this.transactionContextProvider = transactionContextProvider;
-	}
-	
-	@Override
-	public Connection getDBConnection() throws SQLException {
-		return transactionContextProvider.get().getConnection();
-	}
+  private final Provider<ServerManagedTransactionContext> transactionContextProvider;
+
+  @Inject
+  ServerManagedConnectionProvider(Provider<ServerManagedTransactionContext> transactionContextProvider) {
+    this.transactionContextProvider = transactionContextProvider;
+  }
+
+  @Override
+  public Connection getDBConnection() throws SQLException {
+    return transactionContextProvider.get().getConnection();
+  }
 
 }

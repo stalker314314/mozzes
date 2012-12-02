@@ -24,12 +24,12 @@ import org.mozzes.utils.rulesengine.Rule;
 
 public class TrueRule<C> extends Rule<C> {
 
-	public TrueRule() {
-	}
+  public TrueRule() {
+  }
 
-	@Override
-	public boolean appliesTo(C context) {
-		return true;
-	}
+  @Override
+  public boolean appliesTo(C context) {
+    return true;
+  }
 
 }

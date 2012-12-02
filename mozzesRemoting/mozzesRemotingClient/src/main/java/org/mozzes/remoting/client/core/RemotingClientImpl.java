@@ -60,114 +60,116 @@ import org.mozzes.remoting.common.RemotingResponse;
  */
 public class RemotingClientImpl implements RemotingClient {
 
-	/** Socket to communicate with remoting server */
-	private Socket clientSocket = null;
+  /** Socket to communicate with remoting server */
+  private Socket clientSocket = null;
 
-	/** Communication protocol */
-	private RemotingProtocol remotingProtocol = null;
+  /** Communication protocol */
+  private RemotingProtocol remotingProtocol = null;
 
-	/** Are we connected with remoting server */
-	private boolean connectionEstablished = false;
+  /** Are we connected with remoting server */
+  private boolean connectionEstablished = false;
 
-	/** Client configuration needed for connecting */
-	private final RemotingConfiguration configuration;
+  /** Client configuration needed for connecting */
+  private final RemotingConfiguration configuration;
 
-	RemotingClientImpl(RemotingConfiguration configuration) {
-		this.configuration = configuration;
-	}
+  RemotingClientImpl(RemotingConfiguration configuration) {
+    this.configuration = configuration;
+  }
 
-	/**
-	 * Constructor that takes remoting server address and port
-	 * 
-	 * @param address Address of remoting server
-	 * @param port Remoting server port
-	 */
-	RemotingClientImpl(String address, int port) {
-		this.configuration = new RemotingConfiguration(address, port);
-	}
+  /**
+   * Constructor that takes remoting server address and port
+   * 
+   * @param address
+   *          Address of remoting server
+   * @param port
+   *          Remoting server port
+   */
+  RemotingClientImpl(String address, int port) {
+    this.configuration = new RemotingConfiguration(address, port);
+  }
 
-	@Override
-	public synchronized void connect() throws RemotingException {
-		if (!connectionEstablished) {
-			try {
-				clientSocket = new Socket(configuration.getHost(), configuration.getPort());
-				clientSocket.setSoTimeout(0);
+  @Override
+  public synchronized void connect() throws RemotingException {
+    if (!connectionEstablished) {
+      try {
+        clientSocket = new Socket(configuration.getHost(), configuration.getPort());
+        clientSocket.setSoTimeout(0);
 
-				remotingProtocol = RemotingProtocol.buildClientSide(clientSocket, false, false);
+        remotingProtocol = RemotingProtocol.buildClientSide(clientSocket, false, false);
 
-				connectionEstablished = true;
+        connectionEstablished = true;
 
-			} catch (UnknownHostException ex) {
-				throw new RemotingException("Unknown host: " + configuration.getHost(), ex);
-			} catch (IOException ex) {
-				throw new RemotingException("Connecting unsuccessful with remoting server!", ex);
-			}
-		}
-	}
+      } catch (UnknownHostException ex) {
+        throw new RemotingException("Unknown host: " + configuration.getHost(), ex);
+      } catch (IOException ex) {
+        throw new RemotingException("Connecting unsuccessful with remoting server!", ex);
+      }
+    }
+  }
 
-	@Override
-	public synchronized void disconnect() {
-		if (connectionEstablished) {
-			connectionEstablished = false;
+  @Override
+  public synchronized void disconnect() {
+    if (connectionEstablished) {
+      connectionEstablished = false;
 
-			if (remotingProtocol != null)
-				remotingProtocol.close();
+      if (remotingProtocol != null)
+        remotingProtocol.close();
 
-			if (clientSocket != null) {
-				try {
-					clientSocket.close();
-				} catch (IOException ex) {
-					// ignore
-				}
-				clientSocket = null;
-			}
-		}
-	}
+      if (clientSocket != null) {
+        try {
+          clientSocket.close();
+        } catch (IOException ex) {
+          // ignore
+        }
+        clientSocket = null;
+      }
+    }
+  }
 
-	@Override
-	public synchronized boolean isConnected() {
-		return connectionEstablished;
-	}
+  @Override
+  public synchronized boolean isConnected() {
+    return connectionEstablished;
+  }
 
-	@Override
-	public synchronized RemotingResponse execute(RemotingAction action) throws RemotingException {
+  @Override
+  public synchronized RemotingResponse execute(RemotingAction action) throws RemotingException {
 
-		if (!connectionEstablished)
-			throw new RemotingException("Connection with remoting server is not established!");
+    if (!connectionEstablished)
+      throw new RemotingException("Connection with remoting server is not established!");
 
-		try {
-			remotingProtocol.send(action);
-			return receiveResponse();
+    try {
+      remotingProtocol.send(action);
+      return receiveResponse();
 
-		} catch (IOException ex) {
-		    
-		    if(!configuration.isReconnect())
-		        throw new RemotingException(ex);
-		    
-		    connectionEstablished = false;		    
-		    connect();
-		}
-		return execute(action);
-	}
+    } catch (IOException ex) {
 
-	private RemotingResponse receiveResponse() throws RemotingException {
-		Object serverResponse;
-		try {
-			serverResponse = remotingProtocol.receive();
-		} catch (IOException ex) {
-			throw new RemotingException(ex);
-		}
+      if (!configuration.isReconnect())
+        throw new RemotingException(ex);
 
-		/* we got RemotingResponse as response */
-		if (serverResponse instanceof RemotingResponse)
-			return (RemotingResponse) serverResponse;
+      connectionEstablished = false;
+      connect();
+    }
+    return execute(action);
+  }
 
-		// we got RemotingException as response */
-		else if (serverResponse instanceof RemotingException)
-			throw (RemotingException) serverResponse;
+  private RemotingResponse receiveResponse() throws RemotingException {
+    Object serverResponse;
+    try {
+      serverResponse = remotingProtocol.receive();
+    } catch (IOException ex) {
+      throw new RemotingException(ex);
+    }
 
-		/* unknown response from remoting server */
-		else
-			throw new RemotingException("Unknown reply from remoting server! (" + serverResponse + ")");
-	}
+    /* we got RemotingResponse as response */
+    if (serverResponse instanceof RemotingResponse)
+      return (RemotingResponse) serverResponse;
+
+    // we got RemotingException as response */
+    else if (serverResponse instanceof RemotingException)
+      throw (RemotingException) serverResponse;
+
+    /* unknown response from remoting server */
+    else
+      throw new RemotingException("Unknown reply from remoting server! (" + serverResponse + ")");
+  }
 }

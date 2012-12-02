@@ -30,19 +30,19 @@ import java.util.Comparator;
  */
 public class GTPropertyFilter<ObjectType, PropertyType> extends ComparePropertyFilter<ObjectType, PropertyType> {
 
-	public GTPropertyFilter(String propertyName, PropertyType compareValue) {
-		super(propertyName, compareValue);
-	}
+  public GTPropertyFilter(String propertyName, PropertyType compareValue) {
+    super(propertyName, compareValue);
+  }
 
-	public GTPropertyFilter(String propertyName, PropertyType compareValue, Comparator<PropertyType> comparator) {
-		super(propertyName, compareValue, comparator);
-	}
+  public GTPropertyFilter(String propertyName, PropertyType compareValue, Comparator<PropertyType> comparator) {
+    super(propertyName, compareValue, comparator);
+  }
 
-	public boolean isAcceptable(ObjectType object) {
-		if (object == null)
-			return false;
+  public boolean isAcceptable(ObjectType object) {
+    if (object == null)
+      return false;
 
-		return compareProperty(object) > 0;
-	}
+    return compareProperty(object) > 0;
+  }
 
 }

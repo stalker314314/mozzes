@@ -12,19 +12,21 @@ import org.mozzes.remoting.common.RemotingException;
 
 public class NettyRemoteClientConfiguration extends MozzesClientConfiguration {
 
-	private RemotingActionExecutorProvider clientProvider;
+  private RemotingActionExecutorProvider clientProvider;
 
-	public NettyRemoteClientConfiguration(RemotingConfiguration remotingConfiguration, Integer clientId) throws RemotingException {
-		this.clientProvider = new NettyRemotingClientProvider(new NettyRemotingClient(remotingConfiguration));
-	}
-	
-	public NettyRemoteClientConfiguration(RemotingActionExecutorProvider clientProvider) {
-		this.clientProvider = clientProvider;
-	}
+  public NettyRemoteClientConfiguration(RemotingConfiguration remotingConfiguration, Integer clientId)
+      throws RemotingException {
+    this.clientProvider = new NettyRemotingClientProvider(new NettyRemotingClient(remotingConfiguration));
+  }
 
-	@Override
-	protected <I> InvocationHandler<I> getInvocationHandler(Class<I> invocationInterface, SessionIdProvider sessionIDProvider) {
-		return new RemoteInvocationHandler<I>(clientProvider, sessionIDProvider);
-	}
+  public NettyRemoteClientConfiguration(RemotingActionExecutorProvider clientProvider) {
+    this.clientProvider = clientProvider;
+  }
+
+  @Override
+  protected <I> InvocationHandler<I> getInvocationHandler(Class<I> invocationInterface,
+      SessionIdProvider sessionIDProvider) {
+    return new RemoteInvocationHandler<I>(clientProvider, sessionIDProvider);
+  }
 
 }

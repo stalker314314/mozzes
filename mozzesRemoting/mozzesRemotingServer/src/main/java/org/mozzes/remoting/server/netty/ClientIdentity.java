@@ -7,33 +7,34 @@ package org.mozzes.remoting.server.netty;
  */
 public final class ClientIdentity {
 
-	private final int clientId;
-	private final boolean isAccepted;
-	
-	/**
-	 * Creates client's identity.
-	 * 
-	 * @param clientId - client's ID
-	 * @param isAccepted - {@code true} if identity accepted, {@code false} otherwise
-	 */
-	public ClientIdentity(int clientId, boolean isAccepted) {
-		this.clientId = clientId;
-		this.isAccepted = isAccepted;
-	}
+  private final int clientId;
+  private final boolean isAccepted;
 
-	/**
-	 * @return client's ID
-	 */
-	public int getClientId() {
-		return clientId;
-	}
+  /**
+   * Creates client's identity.
+   * 
+   * @param clientId
+   *          - client's ID
+   * @param isAccepted
+   *          - {@code true} if identity accepted, {@code false} otherwise
+   */
+  public ClientIdentity(int clientId, boolean isAccepted) {
+    this.clientId = clientId;
+    this.isAccepted = isAccepted;
+  }
 
-	/**
-	 * @return {@code true} if identity accepted, {@code false} otherwise
-	 */
-	public boolean isAccepted() {
-		return isAccepted;
-	}
-	
-	
+  /**
+   * @return client's ID
+   */
+  public int getClientId() {
+    return clientId;
+  }
+
+  /**
+   * @return {@code true} if identity accepted, {@code false} otherwise
+   */
+  public boolean isAccepted() {
+    return isAccepted;
+  }
+
 }

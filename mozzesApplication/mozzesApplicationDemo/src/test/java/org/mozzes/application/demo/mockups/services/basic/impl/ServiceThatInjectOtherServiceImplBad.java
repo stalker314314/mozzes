@@ -32,17 +32,17 @@ import com.google.inject.*;
  */
 public class ServiceThatInjectOtherServiceImplBad implements ServiceThatInjectOtherService {
 
-	/**
-	 * THIS IS NOT OK.this shouldn't be injected
-	 */
-	@Inject
-	BasicServiceImpl service1;
+  /**
+   * THIS IS NOT OK.this shouldn't be injected
+   */
+  @Inject
+  BasicServiceImpl service1;
 
-	/**
-	 * @see ServiceThatInjectOtherService#getIntegerFromInjectedService()
-	 */
-	@Override
-	public int getIntegerFromInjectedService() {
-		return service1.getIntegerFromServer().intValue();
-	}
+  /**
+   * @see ServiceThatInjectOtherService#getIntegerFromInjectedService()
+   */
+  @Override
+  public int getIntegerFromInjectedService() {
+    return service1.getIntegerFromServer().intValue();
+  }
 }

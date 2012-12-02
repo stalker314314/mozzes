@@ -36,11 +36,11 @@ import com.google.inject.Inject;
  */
 class InvocationActionMapping extends RemotingActionMapping {
 
-	/**
-	 * Instantiates a new invocation action mapping and adds mapping for remote method invocation calls
-	 */
-	@Inject
-	public InvocationActionMapping(InvocationExecutorProvider executorFactory) {
-		super(KEY_ACTION_NAME, executorFactory);
-	}
+  /**
+   * Instantiates a new invocation action mapping and adds mapping for remote method invocation calls
+   */
+  @Inject
+  public InvocationActionMapping(InvocationExecutorProvider executorFactory) {
+    super(KEY_ACTION_NAME, executorFactory);
+  }
 }

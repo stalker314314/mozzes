@@ -27,12 +27,12 @@ import org.mozzes.application.server.session.impl.SessionContext;
  */
 public interface SessionManager {
 
-	/**
-	 * Returns the session context in which the new request is
-	 */
-	public SessionContext requestStarted(String sessionId);
+  /**
+   * Returns the session context in which the new request is
+   */
+  public SessionContext requestStarted(String sessionId);
 
-	/**
+  /**
      */
-	public void requestFinished(SessionContext sessionContext);
+  public void requestFinished(SessionContext sessionContext);
 }

@@ -41,11 +41,11 @@ import com.google.inject.*;
  */
 public class RequestScopedService3Impl implements RequestScopedService3 {
 
-	@Inject
-	private RequestScopedService2 injectedService;
+  @Inject
+  private RequestScopedService2 injectedService;
 
-	@Override
-	public void incrementInInjectedService() {
-		injectedService.increment();
-	}
+  @Override
+  public void incrementInInjectedService() {
+    injectedService.increment();
+  }
 }

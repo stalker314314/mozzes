@@ -34,14 +34,14 @@ import com.google.inject.*;
  */
 public class ServiceWithRequestData2Impl implements ServiceWithRequestData2 {
 
-	@Inject
-	MRequestData requestData;
+  @Inject
+  MRequestData requestData;
 
-	/**
-	 * @see ServiceWithRequestData2#incrementRequestCounter()
-	 */
-	@Override
-	public void incrementRequestCounter() {
-		requestData.increment();
-	}
+  /**
+   * @see ServiceWithRequestData2#incrementRequestCounter()
+   */
+  @Override
+  public void incrementRequestCounter() {
+    requestData.increment();
+  }
 }

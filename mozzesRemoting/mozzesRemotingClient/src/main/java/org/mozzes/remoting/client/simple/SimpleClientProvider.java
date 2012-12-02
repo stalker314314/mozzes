@@ -35,25 +35,27 @@ import org.mozzes.remoting.common.RemotingException;
  */
 public class SimpleClientProvider implements RemotingActionExecutorProvider {
 
-	private final RemotingClient client;
+  private final RemotingClient client;
 
-	/**
-	 * Default constructor
-	 * 
-	 * @param remotingConfiguration Configuration for which client provider is created
-	 * @param clientFactory Factory for creating clients
-	 * @throws RemotingException If remoting server is not available or any network problem while trying to
-	 * establish connection
-	 */
-	public SimpleClientProvider(RemotingConfiguration remotingConfiguration,
-			RemotingClientFactory clientFactory) throws RemotingException {
-		this.client = clientFactory.create(remotingConfiguration);
-		this.client.connect();
-	}
+  /**
+   * Default constructor
+   * 
+   * @param remotingConfiguration
+   *          Configuration for which client provider is created
+   * @param clientFactory
+   *          Factory for creating clients
+   * @throws RemotingException
+   *           If remoting server is not available or any network problem while trying to establish connection
+   */
+  public SimpleClientProvider(RemotingConfiguration remotingConfiguration, RemotingClientFactory clientFactory)
+      throws RemotingException {
+    this.client = clientFactory.create(remotingConfiguration);
+    this.client.connect();
+  }
 
-	@Override
-	public RemotingActionExecutor get() {
-		return client;
-	}
+  @Override
+  public RemotingActionExecutor get() {
+    return client;
+  }
 
 }

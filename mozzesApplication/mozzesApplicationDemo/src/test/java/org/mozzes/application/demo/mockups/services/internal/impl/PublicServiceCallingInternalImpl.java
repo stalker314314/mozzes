@@ -29,14 +29,14 @@ import com.google.inject.*;
  */
 public class PublicServiceCallingInternalImpl implements PublicServiceCallingInternal {
 
-	@Inject
-	SimpleInternalService internalService;
+  @Inject
+  SimpleInternalService internalService;
 
-	/**
-	 * @see PublicServiceCallingInternal#getFromInternal()
-	 */
-	@Override
-	public int getFromInternal() {
-		return internalService.getInteger();
-	}
+  /**
+   * @see PublicServiceCallingInternal#getFromInternal()
+   */
+  @Override
+  public int getFromInternal() {
+    return internalService.getInteger();
+  }
 }

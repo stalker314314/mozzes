@@ -27,13 +27,13 @@ package org.mozzes.application.demo.mockups.scopedata;
  */
 public abstract class AbstractScopeData {
 
-	private int counter = 0;
+  private int counter = 0;
 
-	public int getCounter() {
-		return counter;
-	}
+  public int getCounter() {
+    return counter;
+  }
 
-	public void increment() {
-		counter++;
-	}
+  public void increment() {
+    counter++;
+  }
 }

@@ -24,37 +24,37 @@ import java.io.Serializable;
 
 public class Result implements Serializable {
 
-	private Integer home;
-	private Integer visitor;
-	
-	public Result() {
-	}
-	
-	public Result(Integer home, Integer visitor) {
-		setHome(home);
-		setVisitor(visitor);
-	}
+  private Integer home;
+  private Integer visitor;
 
-	public Integer getHome() {
-		return home;
-	}
+  public Result() {
+  }
 
-	public void setHome(Integer home) {
-		this.home = home;
-	}
+  public Result(Integer home, Integer visitor) {
+    setHome(home);
+    setVisitor(visitor);
+  }
 
-	public Integer getVisitor() {
-		return visitor;
-	}
+  public Integer getHome() {
+    return home;
+  }
 
-	public void setVisitor(Integer visitor) {
-		this.visitor = visitor;
-	}
+  public void setHome(Integer home) {
+    this.home = home;
+  }
 
-	@Override
-	public String toString() {
-		return home + ":" + visitor;
-	}
+  public Integer getVisitor() {
+    return visitor;
+  }
 
-	private static final long serialVersionUID = -1919160039204696317L;
+  public void setVisitor(Integer visitor) {
+    this.visitor = visitor;
+  }
+
+  @Override
+  public String toString() {
+    return home + ":" + visitor;
+  }
+
+  private static final long serialVersionUID = -1919160039204696317L;
 }

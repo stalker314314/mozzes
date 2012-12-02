@@ -29,21 +29,21 @@ import org.mozzes.application.common.exceptions.MozzesRuntimeException;
  */
 public class TransactionException extends MozzesRuntimeException {
 
-	private static final long serialVersionUID = 8496852023029486159L;
+  private static final long serialVersionUID = 8496852023029486159L;
 
-	public TransactionException() {
-		super();
-	}
+  public TransactionException() {
+    super();
+  }
 
-	public TransactionException(String message, Throwable cause) {
-		super(message, cause);
-	}
+  public TransactionException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-	public TransactionException(String message) {
-		super(message);
-	}
+  public TransactionException(String message) {
+    super(message);
+  }
 
-	public TransactionException(Throwable cause) {
-		super(cause);
-	}
+  public TransactionException(Throwable cause) {
+    super(cause);
+  }
 }

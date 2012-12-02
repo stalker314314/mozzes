@@ -28,13 +28,13 @@ package org.mozzes.utils.filtering;
  */
 public class NotFilter<T> extends FilterWrapper<T> {
 
-	public NotFilter(Filter<T> wrappedFilter) {
-		super(wrappedFilter);
-	}
+  public NotFilter(Filter<T> wrappedFilter) {
+    super(wrappedFilter);
+  }
 
-	@Override
-	public boolean isAcceptable(T object) {
-		return !getWrappedFilter().isAcceptable(object);
-	}
+  @Override
+  public boolean isAcceptable(T object) {
+    return !getWrappedFilter().isAcceptable(object);
+  }
 
 }

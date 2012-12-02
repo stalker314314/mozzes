@@ -64,23 +64,24 @@ import com.sun.jersey.server.spi.component.ResourceComponentProviderFactory;
 
 /**
  * A simple provider that maintains a singleton resource class instance
+ * 
  * @author stalker
  */
-public final class MozzesGuiceProviderFactory implements ResourceComponentProviderFactory  {
+public final class MozzesGuiceProviderFactory implements ResourceComponentProviderFactory {
 
-	private static Injector guiceInjector;
+  private static Injector guiceInjector;
 
-	public static void setGuiceProvider(Injector guiceInjector) {
-		MozzesGuiceProviderFactory.guiceInjector = guiceInjector;
-	}
-	
-	@Override
-	public ResourceComponentProvider getComponentProvider(IoCComponentProvider icp, Class<?> c) {
-		return new MozzesGuiceProvider(guiceInjector);
-	}
+  public static void setGuiceProvider(Injector guiceInjector) {
+    MozzesGuiceProviderFactory.guiceInjector = guiceInjector;
+  }
 
-	@Override
-	public ResourceComponentProvider getComponentProvider(Class<?> c) {
-		return new MozzesGuiceProvider(guiceInjector);
-	}
+  @Override
+  public ResourceComponentProvider getComponentProvider(IoCComponentProvider icp, Class<?> c) {
+    return new MozzesGuiceProvider(guiceInjector);
+  }
+
+  @Override
+  public ResourceComponentProvider getComponentProvider(Class<?> c) {
+    return new MozzesGuiceProvider(guiceInjector);
+  }
 }

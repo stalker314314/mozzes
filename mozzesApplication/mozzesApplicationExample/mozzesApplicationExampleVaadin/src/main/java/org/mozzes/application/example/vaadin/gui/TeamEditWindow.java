@@ -49,178 +49,181 @@ import com.vaadin.ui.Upload.SucceededEvent;
 
 public class TeamEditWindow extends Window {
 
-	private static final long serialVersionUID = 3432589583281572169L;
-	private static final Logger log = Logger.getLogger(TeamEditWindow.class);
-	
-	public static final String IMAGE_PATH = ".." + File.separatorChar + "images";
-	public static final String IMAGE_FILE_TYPE = "png";
+  private static final long serialVersionUID = 3432589583281572169L;
+  private static final Logger log = Logger.getLogger(TeamEditWindow.class);
 
-	private final Application application;
-	private final MainWindow mainWindow;
-	private final Administration<Team> administration;
-	private final Team team;
-	
-	private TextField nameField = new TextField("Name");
-	private TextField webField = new TextField("Web");
-	private Embedded crestImage;
-	private String crestFileName;
+  public static final String IMAGE_PATH = ".." + File.separatorChar + "images";
+  public static final String IMAGE_FILE_TYPE = "png";
 
-	TeamEditWindow(Application application, MainWindow mainWindow, String title, Team team,
-			Administration<Team> administration) throws IOException {
-		super(title);
-		setModal(true);
-		this.application = application;
-		this.mainWindow = mainWindow;
-		this.administration = administration;
-		this.team = team;
-		setTeam(team);
+  private final Application application;
+  private final MainWindow mainWindow;
+  private final Administration<Team> administration;
+  private final Team team;
 
-		FormLayout form = new FormLayout();
-		form.setSizeUndefined();
-		form.addComponent(nameField);
-		form.addComponent(webField);
-		form.addComponent(crestImage);
-		form.addComponent(createImageUpload());
+  private TextField nameField = new TextField("Name");
+  private TextField webField = new TextField("Web");
+  private Embedded crestImage;
+  private String crestFileName;
 
-		Button saveButton = new Button("Save");
-		saveButton.addListener(new ClickListener() {
-			private static final long serialVersionUID = 8515020970178194064L;
+  TeamEditWindow(Application application, MainWindow mainWindow, String title, Team team,
+      Administration<Team> administration) throws IOException {
+    super(title);
+    setModal(true);
+    this.application = application;
+    this.mainWindow = mainWindow;
+    this.administration = administration;
+    this.team = team;
+    setTeam(team);
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				try {
-					save();
-				} catch (IOException e) {
-					log.error(e.getMessage(), e);
-					showNotification("Unable to save team!", Notification.TYPE_ERROR_MESSAGE);
-				}
-			}
-		});
+    FormLayout form = new FormLayout();
+    form.setSizeUndefined();
+    form.addComponent(nameField);
+    form.addComponent(webField);
+    form.addComponent(crestImage);
+    form.addComponent(createImageUpload());
 
-		HorizontalLayout actions = new HorizontalLayout();
-		actions.addComponent(saveButton);
-		actions.setComponentAlignment(saveButton, Alignment.MIDDLE_CENTER);
+    Button saveButton = new Button("Save");
+    saveButton.addListener(new ClickListener() {
+      private static final long serialVersionUID = 8515020970178194064L;
 
-		Layout layout = new VerticalLayout();
-		layout.setStyleName(STYLE_LIGHT);
-		layout.setSizeUndefined();
-		layout.setMargin(true);
-		layout.addComponent(form);
-		layout.addComponent(actions);
-		setContent(layout);
-	}
+      @Override
+      public void buttonClick(ClickEvent event) {
+        try {
+          save();
+        } catch (IOException e) {
+          log.error(e.getMessage(), e);
+          showNotification("Unable to save team!", Notification.TYPE_ERROR_MESSAGE);
+        }
+      }
+    });
 
-	private void setTeam(Team team) throws IOException {
-		nameField.setValue(team.getName());
-		webField.setValue(team.getWebAddress());
-		
-		crestFileName = IMAGE_PATH + File.separatorChar + "t" + Thread.currentThread().hashCode()
-				+ System.currentTimeMillis() + "." + IMAGE_FILE_TYPE;
-		if (team.getImage() != null) {
-			saveImage(team.getImage());
-			crestImage = new Embedded("Crest", new FileResource(new File(crestFileName), application));
-		}
-		else
-			crestImage = new Embedded("Crest");
-		crestImage.requestRepaint();
-	}
+    HorizontalLayout actions = new HorizontalLayout();
+    actions.addComponent(saveButton);
+    actions.setComponentAlignment(saveButton, Alignment.MIDDLE_CENTER);
 
-	private Upload createImageUpload() {
-		ImageUploadListener uploadReceiver = new ImageUploadListener();
-		Upload imageUpload = new Upload(null, uploadReceiver);
-		imageUpload.addListener((Upload.SucceededListener) uploadReceiver);
-		imageUpload.addListener((Upload.FailedListener) uploadReceiver);
-		return imageUpload;
-	}
+    Layout layout = new VerticalLayout();
+    layout.setStyleName(STYLE_LIGHT);
+    layout.setSizeUndefined();
+    layout.setMargin(true);
+    layout.addComponent(form);
+    layout.addComponent(actions);
+    setContent(layout);
+  }
 
-	private void save() throws IOException {
-		team.setName(String.valueOf(nameField.getValue()));
-		team.setWebAddress(String.valueOf(webField.getValue()));
-		team.setImage(loadImage());
-		administration.save(team);
-		mainWindow.removeWindow(this);
-		mainWindow.reloadTeams();
-	}
-	
-	private void saveImage(byte[] image) throws IOException {
-		File file = new File(crestFileName);
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(file);
-			fos.write(image);
-			fos.flush();
-		} finally {
-			if (fos != null)
-				try {
-					fos.close();
-				} catch (IOException ignore) {}
-		}
-	}
-	
-	private byte[] loadImage() throws IOException {
-		File file = new File(crestFileName);
-		if (!file.exists())
-			return null;
-		byte[] returnValue = new byte[(int) file.length()];
-		FileInputStream fos = null;
-		try {
-			fos = new FileInputStream(file);
-			fos.read(returnValue);
-			return returnValue;
-		} finally {
-			if (fos != null)
-				try {
-					fos.close();
-				} catch (IOException ignore) {}
-		}
-		
-	}
+  private void setTeam(Team team) throws IOException {
+    nameField.setValue(team.getName());
+    webField.setValue(team.getWebAddress());
 
-	private class ImageUploadListener implements Upload.SucceededListener, Upload.FailedListener, Upload.Receiver {
+    crestFileName = IMAGE_PATH + File.separatorChar + "t" + Thread.currentThread().hashCode()
+        + System.currentTimeMillis() + "." + IMAGE_FILE_TYPE;
+    if (team.getImage() != null) {
+      saveImage(team.getImage());
+      crestImage = new Embedded("Crest", new FileResource(new File(crestFileName), application));
+    } else
+      crestImage = new Embedded("Crest");
+    crestImage.requestRepaint();
+  }
 
-		private static final long serialVersionUID = 7572703698105220338L;
+  private Upload createImageUpload() {
+    ImageUploadListener uploadReceiver = new ImageUploadListener();
+    Upload imageUpload = new Upload(null, uploadReceiver);
+    imageUpload.addListener((Upload.SucceededListener) uploadReceiver);
+    imageUpload.addListener((Upload.FailedListener) uploadReceiver);
+    return imageUpload;
+  }
 
-		private File file;
+  private void save() throws IOException {
+    team.setName(String.valueOf(nameField.getValue()));
+    team.setWebAddress(String.valueOf(webField.getValue()));
+    team.setImage(loadImage());
+    administration.save(team);
+    mainWindow.removeWindow(this);
+    mainWindow.reloadTeams();
+  }
 
-		@Override
-		public OutputStream receiveUpload(String filename, String MIMEType) { 
-			if (MIMEType.indexOf("image") == -1) {
-				showNotification("Invalid image type, only " + IMAGE_FILE_TYPE + " images are allowed!", Notification.TYPE_ERROR_MESSAGE);
-				return null;
-			}
-			
-			if (!MIMEType.substring(MIMEType.indexOf('/') + 1).equalsIgnoreCase(IMAGE_FILE_TYPE)) {
-				showNotification("Invalid image type, only " + IMAGE_FILE_TYPE + " images are allowed!", Notification.TYPE_ERROR_MESSAGE);
-				return null;
-			}
+  private void saveImage(byte[] image) throws IOException {
+    File file = new File(crestFileName);
+    FileOutputStream fos = null;
+    try {
+      fos = new FileOutputStream(file);
+      fos.write(image);
+      fos.flush();
+    } finally {
+      if (fos != null)
+        try {
+          fos.close();
+        } catch (IOException ignore) {
+        }
+    }
+  }
 
-			file = new File(crestFileName);
-			FileOutputStream fos = null; // Output stream to write to
+  private byte[] loadImage() throws IOException {
+    File file = new File(crestFileName);
+    if (!file.exists())
+      return null;
+    byte[] returnValue = new byte[(int) file.length()];
+    FileInputStream fos = null;
+    try {
+      fos = new FileInputStream(file);
+      fos.read(returnValue);
+      return returnValue;
+    } finally {
+      if (fos != null)
+        try {
+          fos.close();
+        } catch (IOException ignore) {
+        }
+    }
 
-			try {
-				file.createNewFile();
-				fos = new FileOutputStream(file);
-			} catch (IOException e) {
-				// Error while opening the file. Not reported here.
-				log.error("Unable to open team crest file", e);
-				return null;
-			}
-			return fos; // Return the output stream to write to
-		}
+  }
 
-		@Override
-		public void uploadSucceeded(SucceededEvent event) {
-			showNotification("File " + event.getFilename() + " of type '" + event.getMIMEType() + "' uploaded.",
-					Notification.TYPE_HUMANIZED_MESSAGE);
-			crestImage.setSource((new FileResource(file, application)));
-			crestImage.requestRepaint();
-		}
+  private class ImageUploadListener implements Upload.SucceededListener, Upload.FailedListener, Upload.Receiver {
 
-		@Override
-		public void uploadFailed(FailedEvent event) {
-			showNotification("Uploading " + event.getFilename() + " of type '" + event.getMIMEType() + "' failed.",
-					Notification.TYPE_ERROR_MESSAGE);
-		}
-	}
+    private static final long serialVersionUID = 7572703698105220338L;
+
+    private File file;
+
+    @Override
+    public OutputStream receiveUpload(String filename, String MIMEType) {
+      if (MIMEType.indexOf("image") == -1) {
+        showNotification("Invalid image type, only " + IMAGE_FILE_TYPE + " images are allowed!",
+            Notification.TYPE_ERROR_MESSAGE);
+        return null;
+      }
+
+      if (!MIMEType.substring(MIMEType.indexOf('/') + 1).equalsIgnoreCase(IMAGE_FILE_TYPE)) {
+        showNotification("Invalid image type, only " + IMAGE_FILE_TYPE + " images are allowed!",
+            Notification.TYPE_ERROR_MESSAGE);
+        return null;
+      }
+
+      file = new File(crestFileName);
+      FileOutputStream fos = null; // Output stream to write to
+
+      try {
+        file.createNewFile();
+        fos = new FileOutputStream(file);
+      } catch (IOException e) {
+        // Error while opening the file. Not reported here.
+        log.error("Unable to open team crest file", e);
+        return null;
+      }
+      return fos; // Return the output stream to write to
+    }
+
+    @Override
+    public void uploadSucceeded(SucceededEvent event) {
+      showNotification("File " + event.getFilename() + " of type '" + event.getMIMEType() + "' uploaded.",
+          Notification.TYPE_HUMANIZED_MESSAGE);
+      crestImage.setSource((new FileResource(file, application)));
+      crestImage.requestRepaint();
+    }
+
+    @Override
+    public void uploadFailed(FailedEvent event) {
+      showNotification("Uploading " + event.getFilename() + " of type '" + event.getMIMEType() + "' failed.",
+          Notification.TYPE_ERROR_MESSAGE);
+    }
+  }
 
 }

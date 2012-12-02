@@ -31,5 +31,5 @@ import com.google.inject.BindingAnnotation;
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
 @BindingAnnotation
 public @interface RemotingServerPort {
-	// binding annotation
+  // binding annotation
 }

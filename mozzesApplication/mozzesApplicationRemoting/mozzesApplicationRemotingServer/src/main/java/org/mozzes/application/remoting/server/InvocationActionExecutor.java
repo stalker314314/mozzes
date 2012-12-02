@@ -45,37 +45,37 @@ import com.google.inject.Inject;
  */
 class InvocationActionExecutor implements RemotingActionExecutor {
 
-	private final RequestProcessor requestProcessor;
+  private final RequestProcessor requestProcessor;
 
-	@Inject
-	InvocationActionExecutor(RequestProcessor requestProcessor) {
-		this.requestProcessor = requestProcessor;
-	}
+  @Inject
+  InvocationActionExecutor(RequestProcessor requestProcessor) {
+    this.requestProcessor = requestProcessor;
+  }
 
-	/**
-	 * Executes the remoteAction(service invocation)
-	 * 
-	 * @see RemotingActionExecutor#execute(RemotingAction)
-	 */
-	public RemotingResponse execute(RemotingAction action) throws RemotingException {
-		/* extract invocation from remoteAction */
-		Invocation<?> invocation = (Invocation<?>) action.getParam(KEY_METHOD_INVOCATION);
-		String sessionId = (String) action.getParam(KEY_SESSION_ID);
+  /**
+   * Executes the remoteAction(service invocation)
+   * 
+   * @see RemotingActionExecutor#execute(RemotingAction)
+   */
+  public RemotingResponse execute(RemotingAction action) throws RemotingException {
+    /* extract invocation from remoteAction */
+    Invocation<?> invocation = (Invocation<?>) action.getParam(KEY_METHOD_INVOCATION);
+    String sessionId = (String) action.getParam(KEY_SESSION_ID);
 
-		if (invocation == null)
-			throw new RemotingException("Invalid method invocation");
+    if (invocation == null)
+      throw new RemotingException("Invalid method invocation");
 
-		try {
-			/* process the invocation */
-			Object invocationResult = requestProcessor.process(sessionId, invocation);
+    try {
+      /* process the invocation */
+      Object invocationResult = requestProcessor.process(sessionId, invocation);
 
-			/* put in the responseParams invicationResult and return RemotingResponse */
-			HashMap<String, Object> responseParams = new HashMap<String, Object>();
-			responseParams.put(KEY_RESULT, invocationResult);
+      /* put in the responseParams invicationResult and return RemotingResponse */
+      HashMap<String, Object> responseParams = new HashMap<String, Object>();
+      responseParams.put(KEY_RESULT, invocationResult);
 
-			return new RemotingResponse(responseParams);
-		} catch (Throwable e) {
-			throw new RemotingException(e);
-		}
-	}
+      return new RemotingResponse(responseParams);
+    } catch (Throwable e) {
+      throw new RemotingException(e);
+    }
+  }
 }

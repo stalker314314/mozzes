@@ -28,18 +28,18 @@ package org.mozzes.utils.filtering;
  */
 public class EQPropertyFilter<ObjectType, PropertyType> extends PropertyFilter<ObjectType, PropertyType> {
 
-	public EQPropertyFilter(String propertyName, PropertyType compareValue) {
-		super(propertyName, compareValue);
-	}
+  public EQPropertyFilter(String propertyName, PropertyType compareValue) {
+    super(propertyName, compareValue);
+  }
 
-	public boolean isAcceptable(ObjectType object) {
-		if (object == null)
-			return false;
+  public boolean isAcceptable(ObjectType object) {
+    if (object == null)
+      return false;
 
-		if (getCompareValue() == null)
-			return getPropertyValue(object) == null;
+    if (getCompareValue() == null)
+      return getPropertyValue(object) == null;
 
-		return getCompareValue().equals(getPropertyValue(object));
-	}
+    return getCompareValue().equals(getPropertyValue(object));
+  }
 
 }

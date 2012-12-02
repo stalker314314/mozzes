@@ -32,24 +32,24 @@ import com.google.inject.Provider;
  */
 public class InternalInjectorProvider implements Provider<Injector> {
 
-	/**
-	 * The injector.
-	 * 
-	 * @see <a
-	 *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/Injector.html">Injector
-	 *      API</a>
-	 */
-	private Injector injector;
+  /**
+   * The injector.
+   * 
+   * @see <a
+   *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/Injector.html">Injector
+   *      API</a>
+   */
+  private Injector injector;
 
-	/*
-	 * @see Provider#get()
-	 */
-	@Override
-	public Injector get() {
-		return injector;
-	}
+  /*
+   * @see Provider#get()
+   */
+  @Override
+  public Injector get() {
+    return injector;
+  }
 
-	public void setInjector(Injector injector) {
-		this.injector = injector;
-	}
+  public void setInjector(Injector injector) {
+    this.injector = injector;
+  }
 }

@@ -31,29 +31,29 @@ import org.mozzes.application.module.scope.*;
  */
 public interface RequestScopedService {
 
-	/**
-	 * this is the method that increments the counter in the service attribute
-	 */
-	void increment();
+  /**
+   * this is the method that increments the counter in the service attribute
+   */
+  void increment();
 
-	/**
-	 * @return value from the service attribute
-	 */
-	int getCounter();
+  /**
+   * @return value from the service attribute
+   */
+  int getCounter();
 
-	/**
-	 * This method does 3 things:<br>
-	 * <br>
-	 * 1) Calls {@link RequestScopedService2#increment()} on injected service object.<br>
-	 * <br>
-	 * 2) Calls {@link RequestScopedService3#incrementInInjectedService()}(that also calls
-	 * {@link RequestScopedService2#increment()})<br>
-	 * <br>
-	 * 3) Returns value by calling {@link RequestScopedService2#getCounter()}.<br>
-	 * 
-	 * Because the {@link RequestScopedService2} is annotated with {@link RequestScoped} instances in the
-	 * {@link RequestScopedService} and {@link RequestScopedService3} should be the same so the incrementing should
-	 * occur on the same instance
-	 */
-	int incrementInjectedAndReturnValue();
+  /**
+   * This method does 3 things:<br>
+   * <br>
+   * 1) Calls {@link RequestScopedService2#increment()} on injected service object.<br>
+   * <br>
+   * 2) Calls {@link RequestScopedService3#incrementInInjectedService()}(that also calls
+   * {@link RequestScopedService2#increment()})<br>
+   * <br>
+   * 3) Returns value by calling {@link RequestScopedService2#getCounter()}.<br>
+   * 
+   * Because the {@link RequestScopedService2} is annotated with {@link RequestScoped} instances in the
+   * {@link RequestScopedService} and {@link RequestScopedService3} should be the same so the incrementing should occur
+   * on the same instance
+   */
+  int incrementInjectedAndReturnValue();
 }

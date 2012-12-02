@@ -28,11 +28,12 @@ package org.mozzes.utils.filtering;
  */
 public interface FilterChangeListener {
 
-	/**
-	 * Doslo je do promene filtera
-	 * 
-	 * @param filter Promenjeni Filter
-	 */
-	public void filterChanged(Filter<?> filter);
+  /**
+   * Doslo je do promene filtera
+   * 
+   * @param filter
+   *          Promenjeni Filter
+   */
+  public void filterChanged(Filter<?> filter);
 
 }

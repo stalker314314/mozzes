@@ -32,39 +32,40 @@ import org.mozzes.remoting.common.RemotingConfiguration;
 import org.mozzes.remoting.common.RemotingException;
 
 /**
- * The Class RemoteClientConfiguration extends basic {@link MozzesClientConfiguration} with the remoting executor
- * as a {@link InvocationHandler} so this basically means that every action execution will be sent on the remote server
- * for execution.
+ * The Class RemoteClientConfiguration extends basic {@link MozzesClientConfiguration} with the remoting executor as a
+ * {@link InvocationHandler} so this basically means that every action execution will be sent on the remote server for
+ * execution.
  */
 public class RemoteClientConfiguration extends MozzesClientConfiguration {
 
-	/** The client provider. */
-	private RemotingActionExecutorProvider clientProvider;
+  /** The client provider. */
+  private RemotingActionExecutorProvider clientProvider;
 
-	/**
-	 * Client configuration that can choose to use pool or not
-	 * @param serverHost Host name to connect to
-	 * @param serverPort Port to connect to
-	 * @throws RemotingException If client configuration can't be created
-	 */
-	public RemoteClientConfiguration(String serverHost, int serverPort, boolean reconnect) throws RemotingException {
-			setClientProvider(
-					new SimpleClientProvider(
-							new RemotingConfiguration(serverHost, Integer.valueOf(serverPort), reconnect),
-							new DefaultRemotingClientFactory()));
-	}
+  /**
+   * Client configuration that can choose to use pool or not
+   * 
+   * @param serverHost
+   *          Host name to connect to
+   * @param serverPort
+   *          Port to connect to
+   * @throws RemotingException
+   *           If client configuration can't be created
+   */
+  public RemoteClientConfiguration(String serverHost, int serverPort, boolean reconnect) throws RemotingException {
+    setClientProvider(new SimpleClientProvider(new RemotingConfiguration(serverHost, Integer.valueOf(serverPort),
+        reconnect), new DefaultRemotingClientFactory()));
+  }
 
-	public void setClientProvider(RemotingActionExecutorProvider clientProvider) {
-		this.clientProvider = clientProvider;
-	}
+  public void setClientProvider(RemotingActionExecutorProvider clientProvider) {
+    this.clientProvider = clientProvider;
+  }
 
-	/*
-	 * @see MozzesClientConfiguration#getInvocationHandler(Class, SessionIdProvider)
-	 */
-	@Override
-	protected <I> InvocationHandler<I> getInvocationHandler(Class<I> invocationClass,
-			SessionIdProvider sessionIDProvider) {
+  /*
+   * @see MozzesClientConfiguration#getInvocationHandler(Class, SessionIdProvider)
+   */
+  @Override
+  protected <I> InvocationHandler<I> getInvocationHandler(Class<I> invocationClass, SessionIdProvider sessionIDProvider) {
 
-		return new RemoteInvocationHandler<I>(clientProvider, sessionIDProvider);
-	}
+    return new RemoteInvocationHandler<I>(clientProvider, sessionIDProvider);
+  }
 }

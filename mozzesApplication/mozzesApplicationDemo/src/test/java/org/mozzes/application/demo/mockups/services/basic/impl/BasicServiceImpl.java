@@ -30,15 +30,15 @@ import org.mozzes.application.demo.mockups.services.basic.BasicService;
  */
 public class BasicServiceImpl implements BasicService {
 
-	/**
-	 * @see BasicService#getIntegerFromServer()
-	 */
-	@Override
-	public Integer getIntegerFromServer() {
-		return returnedValue;
-	}
+  /**
+   * @see BasicService#getIntegerFromServer()
+   */
+  @Override
+  public Integer getIntegerFromServer() {
+    return returnedValue;
+  }
 
-	@Override
-	public void setA(SimpleOjbect a) {
-	}
+  @Override
+  public void setA(SimpleOjbect a) {
+  }
 }

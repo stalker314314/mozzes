@@ -25,7 +25,6 @@ import org.mozzes.application.server.session.impl.SessionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * The Class RequestManagerImpl is responsible for starting and stopping request's during the session. <br>
  * <br>
@@ -38,37 +37,37 @@ import org.slf4j.LoggerFactory;
  */
 public class RequestManagerImpl implements RequestManager {
 
-	private static final Logger logger = LoggerFactory.getLogger(RequestManagerImpl.class);
+  private static final Logger logger = LoggerFactory.getLogger(RequestManagerImpl.class);
 
-	/** The context of request. */
-	private final ThreadLocal<RequestContext> requestContext = new ThreadLocal<RequestContext>();
-	
-	public RequestManagerImpl() {
-		logger.debug("RequestManager created");
-	}
+  /** The context of request. */
+  private final ThreadLocal<RequestContext> requestContext = new ThreadLocal<RequestContext>();
 
-	/*
-	 * @see RequestManager#start(SessionContext)
-	 */
-	public void start(SessionContext sc) {
-		requestContext.set(new RequestContext(sc));
-		logger.debug("Request started");
-	}
+  public RequestManagerImpl() {
+    logger.debug("RequestManager created");
+  }
 
-	/*
-	 * @see RequestManager#get()
-	 */
-	public RequestContext get() {
-		return requestContext.get();
-	}
+  /*
+   * @see RequestManager#start(SessionContext)
+   */
+  public void start(SessionContext sc) {
+    requestContext.set(new RequestContext(sc));
+    logger.debug("Request started");
+  }
 
-	/*
-	 * @see RequestManager#finish()
-	 */
-	public void finish() {
-		logger.debug("Request context destroyed");
-		get().scopeCleanUp();
-		requestContext.set(null);
-		logger.debug("Request finished");
-	}
+  /*
+   * @see RequestManager#get()
+   */
+  public RequestContext get() {
+    return requestContext.get();
+  }
+
+  /*
+   * @see RequestManager#finish()
+   */
+  public void finish() {
+    logger.debug("Request context destroyed");
+    get().scopeCleanUp();
+    requestContext.set(null);
+    logger.debug("Request finished");
+  }
 }

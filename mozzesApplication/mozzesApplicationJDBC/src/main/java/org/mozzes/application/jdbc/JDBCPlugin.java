@@ -39,27 +39,28 @@ import com.google.inject.Binder;
  */
 public class JDBCPlugin extends TransactionPlugin {
 
-	private final Class<? extends DbConnectionManager> connectionManager;
+  private final Class<? extends DbConnectionManager> connectionManager;
 
-	/**
-	 * Creates {@link JDBCPlugin}
-	 * 
-	 * @param connectionManager Connection manager used to create and close database connections.
-	 */
-	public JDBCPlugin(Class<? extends DbConnectionManager> connectionManager) {
-		super();
-		this.connectionManager = connectionManager;
-	}
+  /**
+   * Creates {@link JDBCPlugin}
+   * 
+   * @param connectionManager
+   *          Connection manager used to create and close database connections.
+   */
+  public JDBCPlugin(Class<? extends DbConnectionManager> connectionManager) {
+    super();
+    this.connectionManager = connectionManager;
+  }
 
-	@Override
-	public Class<? extends TransactionManager> getTransactionManager() {
-		return ServerManagedTransactionManager.class;
-	}
+  @Override
+  public Class<? extends TransactionManager> getTransactionManager() {
+    return ServerManagedTransactionManager.class;
+  }
 
-	@Override
-	public void doCustomBinding(Binder binder) {
-		super.doCustomBinding(binder);
-		binder.bind(DbConnectionManager.class).to(connectionManager);
-		binder.bind(DbConnectionProvider.class).to(ServerManagedConnectionProvider.class);
-	}
+  @Override
+  public void doCustomBinding(Binder binder) {
+    super.doCustomBinding(binder);
+    binder.bind(DbConnectionManager.class).to(connectionManager);
+    binder.bind(DbConnectionProvider.class).to(ServerManagedConnectionProvider.class);
+  }
 }

@@ -32,24 +32,24 @@ import org.mozzes.remoting.common.RemotingException;
  */
 public interface RemotingClient extends RemotingActionExecutor {
 
-	/**
-	 * Connects with remoting server
-	 * 
-	 * @throws RemotingException If remoting server is not available or any network problem while trying to
-	 * establish connection
-	 */
-	void connect() throws RemotingException;
+  /**
+   * Connects with remoting server
+   * 
+   * @throws RemotingException
+   *           If remoting server is not available or any network problem while trying to establish connection
+   */
+  void connect() throws RemotingException;
 
-	/**
-	 * Disconnects from remoting server. If connection was not established, should not do anything. Any stream and
-	 * socket must be closed after this method is executed
-	 */
-	void disconnect();
+  /**
+   * Disconnects from remoting server. If connection was not established, should not do anything. Any stream and socket
+   * must be closed after this method is executed
+   */
+  void disconnect();
 
-	/**
-	 * Query the connection state
-	 * 
-	 * @return <code>true</code> if connection is established, <code>false</code> otherwise
-	 */
-	boolean isConnected();
+  /**
+   * Query the connection state
+   * 
+   * @return <code>true</code> if connection is established, <code>false</code> otherwise
+   */
+  boolean isConnected();
 }

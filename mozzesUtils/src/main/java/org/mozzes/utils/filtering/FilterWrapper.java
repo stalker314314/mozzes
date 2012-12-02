@@ -33,73 +33,73 @@ package org.mozzes.utils.filtering;
  */
 public abstract class FilterWrapper<T> implements Filter<T> {
 
-	/**
-	 * Filter oko koga je napravljen wrapper
-	 */
-	private Filter<T> wrappedFilter = null;
+  /**
+   * Filter oko koga je napravljen wrapper
+   */
+  private Filter<T> wrappedFilter = null;
 
-	public FilterWrapper(Filter<T> wrappedFilter) {
-		setWrappedFilter(wrappedFilter);
-	}
+  public FilterWrapper(Filter<T> wrappedFilter) {
+    setWrappedFilter(wrappedFilter);
+  }
 
-	protected Filter<T> getWrappedFilter() {
-		return wrappedFilter;
-	}
+  protected Filter<T> getWrappedFilter() {
+    return wrappedFilter;
+  }
 
-	public void setWrappedFilter(Filter<T> wrappedFilter) {
-		if (wrappedFilter == null)
-			throw new NullPointerException();
+  public void setWrappedFilter(Filter<T> wrappedFilter) {
+    if (wrappedFilter == null)
+      throw new NullPointerException();
 
-		this.wrappedFilter = wrappedFilter;
-	}
+    this.wrappedFilter = wrappedFilter;
+  }
 
-	/**
-	 * Uklanja wrapovani filter. Nakon uklanjanja ovaj filter ce vracati true za sve objekte.
-	 */
-	public void deleteWrappedFilter() {
-		setWrappedFilter(new FakeFilter<T>());
-	}
+  /**
+   * Uklanja wrapovani filter. Nakon uklanjanja ovaj filter ce vracati true za sve objekte.
+   */
+  public void deleteWrappedFilter() {
+    setWrappedFilter(new FakeFilter<T>());
+  }
 
-	public boolean isAcceptable(T object) {
-		return getWrappedFilter().isAcceptable(object);
-	}
+  public boolean isAcceptable(T object) {
+    return getWrappedFilter().isAcceptable(object);
+  }
 
+  @Override
+  public boolean equals(Object o) {
+    if (!this.getClass().isInstance(o))
+      return false;
 
-	@Override
-	public boolean equals(Object o) {
-		if (!this.getClass().isInstance(o))
-			return false;
+    if (!(o instanceof FilterWrapper<?>))
+      return false;
 
-		if (!(o instanceof FilterWrapper<?>))
-			return false;
-		
-		FilterWrapper<?> that = (FilterWrapper<?>) o;
-		return this.getWrappedFilter().equals(that.getWrappedFilter());
-	}
+    FilterWrapper<?> that = (FilterWrapper<?>) o;
+    return this.getWrappedFilter().equals(that.getWrappedFilter());
+  }
 
-	@Override
-	public int hashCode() {
-		return this.getWrappedFilter().hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return this.getWrappedFilter().hashCode();
+  }
 
-	/**
-	 * Ukoliko wrapovani filter odgovara prosledjenom filteru (equals vraca true) onda ce biti uklonjen <br>
-	 * <br>
-	 * Ukoliko je potrebno bezuslovno uklanjanje wrappovanog filtera onda koristiti metodu deleteWrappedFilter()
-	 * 
-	 * @param filter filter koji ce biti postavljen umesto vrapovanog ukoliko odgovara po kriterijumu (equals = true)
-	 * @return da li je obavljena zamena?
-	 */
-	public boolean removeFilter(Filter<T> filter) {
-		if (getWrappedFilter().equals(filter)) {
-			setWrappedFilter(new FakeFilter<T>());
-			return true;
-		}
+  /**
+   * Ukoliko wrapovani filter odgovara prosledjenom filteru (equals vraca true) onda ce biti uklonjen <br>
+   * <br>
+   * Ukoliko je potrebno bezuslovno uklanjanje wrappovanog filtera onda koristiti metodu deleteWrappedFilter()
+   * 
+   * @param filter
+   *          filter koji ce biti postavljen umesto vrapovanog ukoliko odgovara po kriterijumu (equals = true)
+   * @return da li je obavljena zamena?
+   */
+  public boolean removeFilter(Filter<T> filter) {
+    if (getWrappedFilter().equals(filter)) {
+      setWrappedFilter(new FakeFilter<T>());
+      return true;
+    }
 
-		if (getWrappedFilter() instanceof FilterWrapper<?>)
-			return ((FilterWrapper<T>) getWrappedFilter()).removeFilter(filter);
-		else
-			return false;
-	}
+    if (getWrappedFilter() instanceof FilterWrapper<?>)
+      return ((FilterWrapper<T>) getWrappedFilter()).removeFilter(filter);
+    else
+      return false;
+  }
 
 }

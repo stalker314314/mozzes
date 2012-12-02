@@ -27,8 +27,8 @@ package org.mozzes.application.demo.mockups.services.internal;
  */
 public interface PublicServiceCallingInternal {
 
-	/**
-	 * @return the value from {@link SimpleInternalService#getInteger()}
-	 */
-	int getFromInternal();
+  /**
+   * @return the value from {@link SimpleInternalService#getInteger()}
+   */
+  int getFromInternal();
 }

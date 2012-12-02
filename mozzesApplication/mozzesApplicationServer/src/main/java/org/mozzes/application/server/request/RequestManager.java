@@ -25,19 +25,19 @@ import org.mozzes.application.server.session.impl.SessionContext;
 
 public interface RequestManager {
 
-	/**
-	 * Start a new Request for the given SessionContext(in the current thread).
-	 */
-	public void start(SessionContext sc);
+  /**
+   * Start a new Request for the given SessionContext(in the current thread).
+   */
+  public void start(SessionContext sc);
 
-	/**
-	 * Get the RequestContext of the Request(running in current thread).
-	 */
-	public RequestContext get();
+  /**
+   * Get the RequestContext of the Request(running in current thread).
+   */
+  public RequestContext get();
 
-	/**
-	 * Finish the request(running in current thread).
-	 */
-	public void finish();
+  /**
+   * Finish the request(running in current thread).
+   */
+  public void finish();
 
 }

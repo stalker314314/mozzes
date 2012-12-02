@@ -30,21 +30,24 @@ import org.mozzes.application.common.exceptions.ClientLoggingException;
  */
 public interface SessionService {
 
-	/**
-	 * Login service method is called when client wants to log into the mozzart application server.
-	 * 
-	 * @return sessionId that's been assigned to the user
-	 * 
-	 * @throws AuthorizationFailedException when logging is not successful.
-	 * 
-	 * @throws ClientLoggingException when client is already logged in.
-	 */
-	String login(String username, String password) throws AuthorizationFailedException;
+  /**
+   * Login service method is called when client wants to log into the mozzart application server.
+   * 
+   * @return sessionId that's been assigned to the user
+   * 
+   * @throws AuthorizationFailedException
+   *           when logging is not successful.
+   * 
+   * @throws ClientLoggingException
+   *           when client is already logged in.
+   */
+  String login(String username, String password) throws AuthorizationFailedException;
 
-	/**
-	 * Logout method logs out the user from the server.
-	 * 
-	 * @throws ClientLoggingException when client is not logged in.
-	 */
-	void logout();
+  /**
+   * Logout method logs out the user from the server.
+   * 
+   * @throws ClientLoggingException
+   *           when client is not logged in.
+   */
+  void logout();
 }

@@ -30,18 +30,18 @@ import com.google.inject.Inject;
  */
 class InvocationExecutorProvider implements RemotingActionExecutorProvider {
 
-	private final InvocationActionExecutor executor;
+  private final InvocationActionExecutor executor;
 
-	@Inject
-	public InvocationExecutorProvider(InvocationActionExecutor executor) {
-		this.executor = executor;
-	}
+  @Inject
+  public InvocationExecutorProvider(InvocationActionExecutor executor) {
+    this.executor = executor;
+  }
 
-	/*
-	 * @see RemotingActionExecutorProvider#get()
-	 */
-	@Override
-	public RemotingActionExecutor get() {
-		return executor;
-	}
+  /*
+   * @see RemotingActionExecutorProvider#get()
+   */
+  @Override
+  public RemotingActionExecutor get() {
+    return executor;
+  }
 }

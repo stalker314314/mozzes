@@ -27,21 +27,21 @@ import org.mozzes.application.common.exceptions.MozzesRuntimeException;
  */
 public class SessionException extends MozzesRuntimeException {
 
-	private static final long serialVersionUID = 3422680255426318014L;
+  private static final long serialVersionUID = 3422680255426318014L;
 
-	public SessionException() {
-		super();
-	}
+  public SessionException() {
+    super();
+  }
 
-	public SessionException(String message, Throwable cause) {
-		super(message, cause);
-	}
+  public SessionException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-	public SessionException(String message) {
-		super(message);
-	}
+  public SessionException(String message) {
+    super(message);
+  }
 
-	public SessionException(Throwable cause) {
-		super(cause);
-	}
+  public SessionException(Throwable cause) {
+    super(cause);
+  }
 }

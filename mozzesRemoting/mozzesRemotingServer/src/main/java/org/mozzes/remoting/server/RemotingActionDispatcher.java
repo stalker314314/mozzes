@@ -35,41 +35,42 @@ import org.mozzes.remoting.common.RemotingException;
  */
 public class RemotingActionDispatcher {
 
-    /** maper iz imena remote akcije u fabriku njenog executor-a */
-    private RemotingActionMapping actionMapping;
+  /** maper iz imena remote akcije u fabriku njenog executor-a */
+  private RemotingActionMapping actionMapping;
 
-    RemotingActionDispatcher() {
-        actionMapping = new RemotingActionMapping();
+  RemotingActionDispatcher() {
+    actionMapping = new RemotingActionMapping();
+  }
+
+  /**
+   * Pronalazi i vraca izvrsioca date remote akcije
+   * 
+   * @param rca
+   *          RemoteingAction ciji se izvrsilac trazi
+   * 
+   * @return RemoteingActionExecutor - izvrsilac akcije
+   * 
+   * @throws RemotingException
+   *           Ukoliko se implementacija executor-a ne moze instancirati, ukoliko je zabranjen pristup konstruktoru
+   *           implementacione klase ili ukoliko ime date klase nije mapirano u ime implementacione klase
+   */
+  public final RemotingActionExecutor getActionExecutor(RemotingAction rca) throws RemotingException {
+    RemotingActionExecutorProvider executorProvider = actionMapping.getExecutorProvider(rca.getActionName());
+
+    if (executorProvider != null) {
+      RemotingActionExecutor executor = executorProvider.get();
+      if (executor != null)
+        return executor;
     }
 
-    /**
-     * Pronalazi i vraca izvrsioca date remote akcije
-     * 
-     * @param rca RemoteingAction ciji se izvrsilac trazi
-     * 
-     * @return RemoteingActionExecutor - izvrsilac akcije
-     * 
-     * @throws RemotingException Ukoliko se implementacija executor-a ne moze instancirati, ukoliko je zabranjen pristup
-     *             konstruktoru implementacione klase ili ukoliko ime date klase nije mapirano u ime implementacione
-     *             klase
-     */
-    public final RemotingActionExecutor getActionExecutor(RemotingAction rca) throws RemotingException {
-        RemotingActionExecutorProvider executorProvider = actionMapping.getExecutorProvider(rca.getActionName());
+    throw new RemotingException("No remoting action executor for action: " + rca.getActionName());
+  }
 
-        if (executorProvider != null) {
-            RemotingActionExecutor executor = executorProvider.get();
-            if (executor != null)
-                return executor;
-        }
-
-        throw new RemotingException("No remoting action executor for action: " + rca.getActionName());
-    }
-
-    /**
-     * Dodaje novo mapiranje
-     */
-    void addMapping(RemotingActionMapping actionMapping){
-        this.actionMapping.addMapping(actionMapping);
-    }
+  /**
+   * Dodaje novo mapiranje
+   */
+  void addMapping(RemotingActionMapping actionMapping) {
+    this.actionMapping.addMapping(actionMapping);
+  }
 
 }

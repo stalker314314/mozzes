@@ -35,5 +35,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @ScopeAnnotation
 public @interface SessionScoped {
-	// scope annotation
+  // scope annotation
 }

@@ -29,17 +29,20 @@ import org.mozzes.application.module.ServerLifecycleListener;
  */
 public interface ServerLifeCycleService {
 
-	/**
-	 * This method is called on the server's startup
-	 * 
-	 * @param serverListener listener that will be informed about server startup
-	 * @throws ServerInitializationException when there's some problem with informing the listener@param serverListener
-	 *             list of listeners that will be informed about server startup
-	 */
-	void startup(Class<? extends ServerLifecycleListener> serverListener) throws ServerInitializationException;
+  /**
+   * This method is called on the server's startup
+   * 
+   * @param serverListener
+   *          listener that will be informed about server startup
+   * @throws ServerInitializationException
+   *           when there's some problem with informing the listener@param serverListener list of listeners that will be
+   *           informed about server startup
+   */
+  void startup(Class<? extends ServerLifecycleListener> serverListener) throws ServerInitializationException;
 
-	/**
-	 * @param serverListener list of listeners that will be informed about server shutdown
-	 */
-	void shutdown(Class<? extends ServerLifecycleListener> serverListener);
+  /**
+   * @param serverListener
+   *          list of listeners that will be informed about server shutdown
+   */
+  void shutdown(Class<? extends ServerLifecycleListener> serverListener);
 }

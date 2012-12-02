@@ -20,33 +20,33 @@ import com.google.inject.Injector;
  * @author Vladimir Todorovic
  */
 public class NettyRemotingServerListener implements ServerLifecycleListener {
-	
-	private static final Logger logger = LoggerFactory.getLogger(NettyRemotingServerListener.class);
 
-	@Inject
-	private NettyServerConfiguration nettyServerConfiguration;
+  private static final Logger logger = LoggerFactory.getLogger(NettyRemotingServerListener.class);
 
-	@Inject
-	private Injector injector;
+  @Inject
+  private NettyServerConfiguration nettyServerConfiguration;
 
-	@Override
-	public void startup() throws ServerInitializationException {	
-		InvocationActionMapping mappings = injector.getInstance(InvocationActionMapping.class);
+  @Inject
+  private Injector injector;
 
-		RemotingServer nettyRemotingServer = RemotingServerFactory.getNettyServer(nettyServerConfiguration);
-		nettyRemotingServer.addActionMapping(mappings);
-		
-		try {			
-			nettyRemotingServer.startServer();
-		} catch (IOException e) {
-			throw new ServerInitializationException("Unable to start Netty remoting server", e);
-		}		
-	}
+  @Override
+  public void startup() throws ServerInitializationException {
+    InvocationActionMapping mappings = injector.getInstance(InvocationActionMapping.class);
 
-	@Override
-	public void shutdown() {		
-		RemotingServerFactory.getNettyServer(nettyServerConfiguration).stopServer();
-		logger.info("Netty remoting server stopped");
-	}
+    RemotingServer nettyRemotingServer = RemotingServerFactory.getNettyServer(nettyServerConfiguration);
+    nettyRemotingServer.addActionMapping(mappings);
+
+    try {
+      nettyRemotingServer.startServer();
+    } catch (IOException e) {
+      throw new ServerInitializationException("Unable to start Netty remoting server", e);
+    }
+  }
+
+  @Override
+  public void shutdown() {
+    RemotingServerFactory.getNettyServer(nettyServerConfiguration).stopServer();
+    logger.info("Netty remoting server stopped");
+  }
 
 }

@@ -24,47 +24,46 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Provides info about remote client during execution of requested action. 
+ * Provides info about remote client during execution of requested action.
  */
 public class RemotingClientInfo {
-	
-	private static final ThreadLocal<String> IP_ADDRESS = new ThreadLocal<String>();
-	private static final ThreadLocal<String> CLIENT_ID = new ThreadLocal<String>();
-	
-	private static final Set<String> ACTIVE_CLIENTS = new HashSet<String>();
-	
-	public static String getIpAddress() {
-		return IP_ADDRESS.get();
-	}
-	
-	public static String getClientId() {
-		return CLIENT_ID.get();
-	}
-	
-	public static Set<String> getActiveClients() {
-		Set<String> returnValue = new HashSet<String>();
-		synchronized (ACTIVE_CLIENTS) {
-			returnValue.addAll(ACTIVE_CLIENTS);
-		}
-		return returnValue;
-	}
-	
-	static void setIpAddress(String ipAddress) {
-		IP_ADDRESS.set(ipAddress);
-		CLIENT_ID.set(Thread.currentThread().getName());
-	}
-	
-	static void addClient(String client) {
-		synchronized (ACTIVE_CLIENTS) {
-			ACTIVE_CLIENTS.add(client);
-		}
-	}
-	
-	static void removeClient(String client) {
-		synchronized (ACTIVE_CLIENTS) {
-			ACTIVE_CLIENTS.remove(client);
-		}
-	}
+
+  private static final ThreadLocal<String> IP_ADDRESS = new ThreadLocal<String>();
+  private static final ThreadLocal<String> CLIENT_ID = new ThreadLocal<String>();
+
+  private static final Set<String> ACTIVE_CLIENTS = new HashSet<String>();
+
+  public static String getIpAddress() {
+    return IP_ADDRESS.get();
+  }
+
+  public static String getClientId() {
+    return CLIENT_ID.get();
+  }
+
+  public static Set<String> getActiveClients() {
+    Set<String> returnValue = new HashSet<String>();
+    synchronized (ACTIVE_CLIENTS) {
+      returnValue.addAll(ACTIVE_CLIENTS);
+    }
+    return returnValue;
+  }
+
+  static void setIpAddress(String ipAddress) {
+    IP_ADDRESS.set(ipAddress);
+    CLIENT_ID.set(Thread.currentThread().getName());
+  }
+
+  static void addClient(String client) {
+    synchronized (ACTIVE_CLIENTS) {
+      ACTIVE_CLIENTS.add(client);
+    }
+  }
+
+  static void removeClient(String client) {
+    synchronized (ACTIVE_CLIENTS) {
+      ACTIVE_CLIENTS.remove(client);
+    }
+  }
 
 }
- 

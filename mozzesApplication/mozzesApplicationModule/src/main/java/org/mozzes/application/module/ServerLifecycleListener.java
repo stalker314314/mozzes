@@ -26,13 +26,13 @@ package org.mozzes.application.module;
  */
 public interface ServerLifecycleListener {
 
-	/**
-	 * This method is called when the server is started
-	 */
-	public void startup() throws ServerInitializationException;
+  /**
+   * This method is called when the server is started
+   */
+  public void startup() throws ServerInitializationException;
 
-	/**
-	 * This method is called when the server is stopped
-	 */
-	public void shutdown();
+  /**
+   * This method is called when the server is stopped
+   */
+  public void shutdown();
 }

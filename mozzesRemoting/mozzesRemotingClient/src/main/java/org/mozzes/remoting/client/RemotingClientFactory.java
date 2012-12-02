@@ -32,11 +32,12 @@ import org.mozzes.remoting.common.RemotingConfiguration;
  */
 public interface RemotingClientFactory {
 
-	/**
-	 * Creates remoting client
-	 * 
-	 * @param remotingConfiguration Remoting configuration with which client should be created
-	 * @return RemotingClient
-	 */
-	RemotingClient create(RemotingConfiguration remotingConfiguration);
+  /**
+   * Creates remoting client
+   * 
+   * @param remotingConfiguration
+   *          Remoting configuration with which client should be created
+   * @return RemotingClient
+   */
+  RemotingClient create(RemotingConfiguration remotingConfiguration);
 }

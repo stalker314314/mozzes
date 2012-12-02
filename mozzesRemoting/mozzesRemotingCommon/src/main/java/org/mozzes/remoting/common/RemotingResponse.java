@@ -26,7 +26,6 @@ import java.util.Map;
 
 import org.mozzes.remoting.common.netty.Unique;
 
-
 /**
  * Holds all information remoting server returned back to remoting client as response to executed action
  * 
@@ -34,63 +33,69 @@ import org.mozzes.remoting.common.netty.Unique;
  */
 public class RemotingResponse implements Serializable, Unique {
 
-	private static final long serialVersionUID = 4124876546041436541L;
-	
-	private Long id;
+  private static final long serialVersionUID = 4124876546041436541L;
 
-	/** Response parameters */
-	private Map<? extends Object, ? extends Object> responseParams = null;
+  private Long id;
 
-	/**
-	 * Empty remoting response
-	 */
-	public RemotingResponse() {
-		this(null);
-	}
+  /** Response parameters */
+  private Map<? extends Object, ? extends Object> responseParams = null;
 
-	/**
-	 * Constructor that creates new response with a given parameters
-	 * @param params Response parameters
-	 */
-	public RemotingResponse(Map<? extends Object, ? extends Object> params) {
-		this.responseParams = params;
-	}
+  /**
+   * Empty remoting response
+   */
+  public RemotingResponse() {
+    this(null);
+  }
 
-	/**
-	 * @return Response parameters
-	 */
-	public Map<? extends Object, ? extends Object> getParams() {
-		return Collections.unmodifiableMap(responseParams);
-	}
+  /**
+   * Constructor that creates new response with a given parameters
+   * 
+   * @param params
+   *          Response parameters
+   */
+  public RemotingResponse(Map<? extends Object, ? extends Object> params) {
+    this.responseParams = params;
+  }
 
-	/**
-	 * @param key Key to retreive parameter
-	 * @return Specified parameter based on parameter key
-	 */
-	public Object getParam(Object key) {
-		if (responseParams == null)
-			return null;
-		return responseParams.get(key);
-	}
-	
-	/**
-	 * Return id of this remoting response. This remoting response id has the same ID as the RemotingAction
-	 * which response is this object.
-	 * @return a unique id which bind this response to remoting action.
-	 */
-	@Override
-	public Long getId() {
-		return id;
-	}
-	
-	/**
-	 * Set id of this remoting response. This remoting response id has the same ID as the RemotingAction which response
-	 * is this object.
-	 * @param id a unique id of the response. Must correspond to id of an remoting action.
-	 */
-	@Override
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
+  /**
+   * @return Response parameters
+   */
+  public Map<? extends Object, ? extends Object> getParams() {
+    return Collections.unmodifiableMap(responseParams);
+  }
+
+  /**
+   * @param key
+   *          Key to retreive parameter
+   * @return Specified parameter based on parameter key
+   */
+  public Object getParam(Object key) {
+    if (responseParams == null)
+      return null;
+    return responseParams.get(key);
+  }
+
+  /**
+   * Return id of this remoting response. This remoting response id has the same ID as the RemotingAction which response
+   * is this object.
+   * 
+   * @return a unique id which bind this response to remoting action.
+   */
+  @Override
+  public Long getId() {
+    return id;
+  }
+
+  /**
+   * Set id of this remoting response. This remoting response id has the same ID as the RemotingAction which response is
+   * this object.
+   * 
+   * @param id
+   *          a unique id of the response. Must correspond to id of an remoting action.
+   */
+  @Override
+  public void setId(Long id) {
+    this.id = id;
+  }
+
 }
