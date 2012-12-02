@@ -61,10 +61,8 @@
 	<modules>
 		<module>mozzesInvocation</module>
 		<module>mozzesRemoting</module>
-		<module>mozzesCache</module>
 		<module>mozzesUtils</module>
 		<module>mozzesApplication</module>
-		<module>mozzesEvent</module>
 	</modules>
 
 	<dependencies>
