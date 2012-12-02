@@ -25,21 +25,21 @@ package org.mozzes.application.common.exceptions;
  */
 public class AuthorizationFailedException extends MozzesException {
 
-	private static final long serialVersionUID = 5234925841194197427L;
+  private static final long serialVersionUID = 5234925841194197427L;
 
-	public AuthorizationFailedException() {
-		super();
-	}
+  public AuthorizationFailedException() {
+    super();
+  }
 
-	public AuthorizationFailedException(String message, Throwable cause) {
-		super(message, cause);
-	}
+  public AuthorizationFailedException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-	public AuthorizationFailedException(String message) {
-		super(message);
-	}
+  public AuthorizationFailedException(String message) {
+    super(message);
+  }
 
-	public AuthorizationFailedException(Throwable cause) {
-		super(cause);
-	}
+  public AuthorizationFailedException(Throwable cause) {
+    super(cause);
+  }
 }

@@ -25,17 +25,17 @@ import org.mozzes.application.server.request.RequestManager;
 
 public class RequestContextProvider extends MozzesAbstractProvider<RequestContext> {
 
-	public RequestContextProvider(RequestManager requestManager) {
-		super(requestManager);
-	}
+  public RequestContextProvider(RequestManager requestManager) {
+    super(requestManager);
+  }
 
-	@Override
-	public RequestContext get() {
-		return getRequestManager().get();
-	}
+  @Override
+  public RequestContext get() {
+    return getRequestManager().get();
+  }
 
-	@Override
-	public String toString() {
-		return "RequestContextProvider";
-	}
+  @Override
+  public String toString() {
+    return "RequestContextProvider";
+  }
 }

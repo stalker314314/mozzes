@@ -32,26 +32,26 @@ import java.util.Set;
  */
 public class InFilter<T> implements Filter<T> {
 
-	private Set<T> inSet;
+  private Set<T> inSet;
 
-	/**
-	 * Konstruise InFilter<br>
-	 * <b>[NOTE] inSet ce biti kopiran i bilo kakve izmene nad njim(dodavanje, uklanjanje elemenata)<br>
-	 * izvrsene nakon inicijalizacije se nece reflektovati u filteru, mozete ga modifikovati tako<br>
-	 * sto koristeci metodu {@link InFilter#getInSet()} uzmete referencu na inSet i radite sa njom</b>
-	 */
-	public InFilter(Collection<? extends T> inSet) {
-		if (inSet == null)
-			throw new IllegalArgumentException("Collection required!");
+  /**
+   * Konstruise InFilter<br>
+   * <b>[NOTE] inSet ce biti kopiran i bilo kakve izmene nad njim(dodavanje, uklanjanje elemenata)<br>
+   * izvrsene nakon inicijalizacije se nece reflektovati u filteru, mozete ga modifikovati tako<br>
+   * sto koristeci metodu {@link InFilter#getInSet()} uzmete referencu na inSet i radite sa njom</b>
+   */
+  public InFilter(Collection<? extends T> inSet) {
+    if (inSet == null)
+      throw new IllegalArgumentException("Collection required!");
 
-		this.inSet = new HashSet<T>(inSet);
-	}
+    this.inSet = new HashSet<T>(inSet);
+  }
 
-	public boolean isAcceptable(T object) {
-		return inSet.contains(object);
-	}
+  public boolean isAcceptable(T object) {
+    return inSet.contains(object);
+  }
 
-	public Set<T> getInSet() {
-		return inSet;
-	}
+  public Set<T> getInSet() {
+    return inSet;
+  }
 }

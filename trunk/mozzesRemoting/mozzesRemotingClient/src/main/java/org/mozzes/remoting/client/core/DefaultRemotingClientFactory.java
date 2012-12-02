@@ -24,7 +24,6 @@ import org.mozzes.remoting.client.RemotingClient;
 import org.mozzes.remoting.client.RemotingClientFactory;
 import org.mozzes.remoting.common.RemotingConfiguration;
 
-
 /**
  * Simple remote factory that always returns standard remote client implementation. Users using this class must always
  * explicitly connect before action execution and disconnect (in finally block) after action execution
@@ -33,11 +32,11 @@ import org.mozzes.remoting.common.RemotingConfiguration;
  */
 public class DefaultRemotingClientFactory implements RemotingClientFactory {
 
-    public DefaultRemotingClientFactory() {
-    }
+  public DefaultRemotingClientFactory() {
+  }
 
-    @Override
-    public RemotingClient create(RemotingConfiguration remotingConfiguration) {
-        return new RemotingClientImpl(remotingConfiguration);
-    }
+  @Override
+  public RemotingClient create(RemotingConfiguration remotingConfiguration) {
+    return new RemotingClientImpl(remotingConfiguration);
+  }
 }

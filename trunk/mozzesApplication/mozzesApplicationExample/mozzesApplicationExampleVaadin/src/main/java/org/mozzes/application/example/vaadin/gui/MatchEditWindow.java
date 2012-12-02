@@ -41,79 +41,79 @@ import com.vaadin.ui.Button.ClickListener;
 
 public class MatchEditWindow extends Window {
 
-	private static final long serialVersionUID = 3432589583281572169L;
+  private static final long serialVersionUID = 3432589583281572169L;
 
-	private final MainWindow mainWindow;
-	private final Administration<Match> administration;
-	private final Match match;
+  private final MainWindow mainWindow;
+  private final Administration<Match> administration;
+  private final Match match;
 
-	private DateField startTime = new DateField("Start time");
-	private ComboBox homeTeamCombo = new ComboBox("Home team");
-	private ComboBox visitorTeamCombo = new ComboBox("Visitor team");
+  private DateField startTime = new DateField("Start time");
+  private ComboBox homeTeamCombo = new ComboBox("Home team");
+  private ComboBox visitorTeamCombo = new ComboBox("Visitor team");
 
-	MatchEditWindow(MainWindow mainWindow, String title, Match match,
-			Administration<Match> administration, List<Team> teams) {
-		super(title);
-		setModal(true);
-		this.mainWindow = mainWindow;
-		this.administration = administration;
-		this.match = match;
+  MatchEditWindow(MainWindow mainWindow, String title, Match match, Administration<Match> administration,
+      List<Team> teams) {
+    super(title);
+    setModal(true);
+    this.mainWindow = mainWindow;
+    this.administration = administration;
+    this.match = match;
 
-		startTime.setResolution(DateField.RESOLUTION_MIN);
-		homeTeamCombo.setNewItemsAllowed(false);
-		homeTeamCombo.setNullSelectionAllowed(false);
-		homeTeamCombo.addItem("");
-		visitorTeamCombo.setNewItemsAllowed(false);
-		visitorTeamCombo.setNullSelectionAllowed(false);
-		visitorTeamCombo.addItem("");
-		for (Team team : teams) {
-			homeTeamCombo.addItem(team);
-			visitorTeamCombo.addItem(team);
-		}
-		
-		setMatch(match);
+    startTime.setResolution(DateField.RESOLUTION_MIN);
+    homeTeamCombo.setNewItemsAllowed(false);
+    homeTeamCombo.setNullSelectionAllowed(false);
+    homeTeamCombo.addItem("");
+    visitorTeamCombo.setNewItemsAllowed(false);
+    visitorTeamCombo.setNullSelectionAllowed(false);
+    visitorTeamCombo.addItem("");
+    for (Team team : teams) {
+      homeTeamCombo.addItem(team);
+      visitorTeamCombo.addItem(team);
+    }
 
-		FormLayout form = new FormLayout();
-		form.setSizeUndefined();
-		form.addComponent(startTime);
-		form.addComponent(homeTeamCombo);
-		form.addComponent(visitorTeamCombo);
+    setMatch(match);
 
-		Button saveButton = new Button("Save");
-		saveButton.addListener(new ClickListener() {
-			private static final long serialVersionUID = 8515020970178194064L;
+    FormLayout form = new FormLayout();
+    form.setSizeUndefined();
+    form.addComponent(startTime);
+    form.addComponent(homeTeamCombo);
+    form.addComponent(visitorTeamCombo);
 
-			@Override
-			public void buttonClick(ClickEvent event) {
-				save();
-			}
-		});
+    Button saveButton = new Button("Save");
+    saveButton.addListener(new ClickListener() {
+      private static final long serialVersionUID = 8515020970178194064L;
 
-		HorizontalLayout actions = new HorizontalLayout();
-		actions.addComponent(saveButton);
-		actions.setComponentAlignment(saveButton, Alignment.MIDDLE_CENTER);
+      @Override
+      public void buttonClick(ClickEvent event) {
+        save();
+      }
+    });
 
-		Layout layout = new VerticalLayout();
-		layout.setStyleName(STYLE_LIGHT);
-		layout.setSizeUndefined();
-		layout.setMargin(true);
-		layout.addComponent(form);
-		layout.addComponent(actions);
-		setContent(layout);
-	}
+    HorizontalLayout actions = new HorizontalLayout();
+    actions.addComponent(saveButton);
+    actions.setComponentAlignment(saveButton, Alignment.MIDDLE_CENTER);
 
-	private void setMatch(Match match) {
-		startTime.setValue(match.getStartTime());
-		homeTeamCombo.setValue(match.getHomeTeam());
-		visitorTeamCombo.setValue(match.getVisitorTeam());
-	}
+    Layout layout = new VerticalLayout();
+    layout.setStyleName(STYLE_LIGHT);
+    layout.setSizeUndefined();
+    layout.setMargin(true);
+    layout.addComponent(form);
+    layout.addComponent(actions);
+    setContent(layout);
+  }
 
-	private void save() {
-		match.setStartTime((Date) startTime.getValue());
-		match.setHomeTeam((Team) homeTeamCombo.getValue());
-		match.setVisitorTeam((Team) visitorTeamCombo.getValue());
-		administration.save(match);
-		mainWindow.removeWindow(this);
-		mainWindow.reloadMatches();
-	}
+  private void setMatch(Match match) {
+    startTime.setValue(match.getStartTime());
+    homeTeamCombo.setValue(match.getHomeTeam());
+    visitorTeamCombo.setValue(match.getVisitorTeam());
+  }
+
+  private void save() {
+    match.setStartTime((Date) startTime.getValue());
+    match.setHomeTeam((Team) homeTeamCombo.getValue());
+    match.setVisitorTeam((Team) visitorTeamCombo.getValue());
+    administration.save(match);
+    mainWindow.removeWindow(this);
+    mainWindow.reloadMatches();
+  }
 }

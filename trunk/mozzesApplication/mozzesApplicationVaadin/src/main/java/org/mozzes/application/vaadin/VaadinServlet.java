@@ -33,27 +33,26 @@ import com.vaadin.terminal.gwt.server.AbstractApplicationServlet;
 @Singleton
 final class VaadinServlet extends AbstractApplicationServlet {
 
-	private static final long serialVersionUID = 4139254351629086946L;
+  private static final long serialVersionUID = 4139254351629086946L;
 
-	private final Provider<Application> applicationProvider;
-	private final Class<? extends Application> applicationClass;
-	
-	@SuppressWarnings({ "cast", "unchecked" })
-	@Inject
-    VaadinServlet(Provider<Application> applicationProvider, 
-    		@VaadinAppClass Class applicationClass) {
-		super();
-		this.applicationProvider = applicationProvider;
-		this.applicationClass = (Class<? extends Application>)applicationClass;
-	}
+  private final Provider<Application> applicationProvider;
+  private final Class<? extends Application> applicationClass;
 
-	@Override
-    protected Class<? extends Application> getApplicationClass() {
-        return applicationClass;
-    }
+  @SuppressWarnings({ "cast", "unchecked" })
+  @Inject
+  VaadinServlet(Provider<Application> applicationProvider, @VaadinAppClass Class applicationClass) {
+    super();
+    this.applicationProvider = applicationProvider;
+    this.applicationClass = (Class<? extends Application>) applicationClass;
+  }
 
-    @Override
-    protected Application getNewApplication(HttpServletRequest request) {
-		return applicationProvider.get();
-    }
+  @Override
+  protected Class<? extends Application> getApplicationClass() {
+    return applicationClass;
+  }
+
+  @Override
+  protected Application getNewApplication(HttpServletRequest request) {
+    return applicationProvider.get();
+  }
 }

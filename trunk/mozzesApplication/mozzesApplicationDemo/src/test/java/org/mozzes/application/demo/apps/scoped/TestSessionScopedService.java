@@ -33,7 +33,6 @@ import org.mozzes.application.module.scope.RequestScoped;
 import org.mozzes.application.module.scope.SessionScoped;
 import org.mozzes.application.module.scope.TransactionScoped;
 
-
 /**
  * This test cast is used to demonstrate how the service implementation classes are scoped. If the Service
  * Implementation class is annotated with {@link SessionScoped}, {@link RequestScoped} or {@link TransactionScoped} the
@@ -47,39 +46,39 @@ import org.mozzes.application.module.scope.TransactionScoped;
  */
 public class TestSessionScopedService extends TestBase {
 
-	/**
-	 * Test if the value of the attribute in the {@link SessionScopedServiceImpl} service class is preserved between the
-	 * service calls
-	 */
-	@Test
-	public void testSessionScopedService() {
-		try {
-			// login
-			MozzesClient client = getClient();
-			client.login(validUsername1, validPassword1);
+  /**
+   * Test if the value of the attribute in the {@link SessionScopedServiceImpl} service class is preserved between the
+   * service calls
+   */
+  @Test
+  public void testSessionScopedService() {
+    try {
+      // login
+      MozzesClient client = getClient();
+      client.login(validUsername1, validPassword1);
 
-			callServiceAndTestResult(client);
+      callServiceAndTestResult(client);
 
-			// logout and close the session
-			client.logout();
+      // logout and close the session
+      client.logout();
 
-			// repeat in the new session and now value should be the same
-			client.login(validUsername1, validPassword1);
-			callServiceAndTestResult(client);
+      // repeat in the new session and now value should be the same
+      client.login(validUsername1, validPassword1);
+      callServiceAndTestResult(client);
 
-		} catch (AuthorizationFailedException e) {
-			fail("should login");
-		}
-	}
+    } catch (AuthorizationFailedException e) {
+      fail("should login");
+    }
+  }
 
-	private void callServiceAndTestResult(MozzesClient client) {
+  private void callServiceAndTestResult(MozzesClient client) {
 
-		// get the service class and execute method twice
-		SessionScopedService service = client.getService(SessionScopedService.class);
-		service.increment();
-		service.increment();
+    // get the service class and execute method twice
+    SessionScopedService service = client.getService(SessionScopedService.class);
+    service.increment();
+    service.increment();
 
-		// value should be 2 because both service invocations are in the same session
-		assertEquals(2, service.getCounter());
-	}
+    // value should be 2 because both service invocations are in the same session
+    assertEquals(2, service.getCounter());
+  }
 }

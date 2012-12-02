@@ -16,7 +16,7 @@ import org.jboss.netty.util.TimerTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** 
+/**
  * 
  * Tries to keep client connected all the time<br>
  * Reconnect occurs every 5 seconds
@@ -24,79 +24,81 @@ import org.slf4j.LoggerFactory;
  * @author Bojan Blagojevic <bojan.blagojevic@mozzartbet.com>
  */
 public class UptimeClientHandler extends SimpleChannelUpstreamHandler {
-	
-	private Logger logger = LoggerFactory.getLogger(UptimeClientHandler.class);
-	
-	private final ClientBootstrap bootstrap;
-	private final Timer timer;
-	private long startTime = -1;
-	
-	// Sleep 5 seconds before a reconnection attempt.
-	static final int RECONNECT_DELAY = 5;
 
-	/**
-	 * Set up handler that tries to reconnect client in time manner specified by timer.
-	 * Reconnection occurs only if client is disconnected, obviously.     
-	 * @param bootstrap client bootstrap configuration.
-	 * @param timer timer used to control reconnection.
-	 */
-	public UptimeClientHandler(ClientBootstrap bootstrap, Timer timer) {
-		this.bootstrap = bootstrap;
-		this.timer = timer;
-	}
+  private Logger logger = LoggerFactory.getLogger(UptimeClientHandler.class);
 
-	InetSocketAddress getRemoteAddress() {
-		return (InetSocketAddress) bootstrap.getOption("remoteAddress");
-	}
+  private final ClientBootstrap bootstrap;
+  private final Timer timer;
+  private long startTime = -1;
 
-	@Override
-	public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-		println("Sleeping for: " + RECONNECT_DELAY + "s");
-		timer.newTimeout(new TimerTask() {
-			@Override
-			public void run(Timeout timeout) throws Exception {
-				println("Reconnecting to: " + getRemoteAddress());
-				bootstrap.connect();
-			}
-		}, RECONNECT_DELAY, TimeUnit.SECONDS);
-	}
+  // Sleep 5 seconds before a reconnection attempt.
+  static final int RECONNECT_DELAY = 5;
 
-	@Override
-	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-		if (startTime < 0) {
-			startTime = System.currentTimeMillis();
-		}
-		println("Connected to: " + getRemoteAddress());
-	}
+  /**
+   * Set up handler that tries to reconnect client in time manner specified by timer. Reconnection occurs only if client
+   * is disconnected, obviously.
+   * 
+   * @param bootstrap
+   *          client bootstrap configuration.
+   * @param timer
+   *          timer used to control reconnection.
+   */
+  public UptimeClientHandler(ClientBootstrap bootstrap, Timer timer) {
+    this.bootstrap = bootstrap;
+    this.timer = timer;
+  }
 
-	@Override
-	public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-		println("Disconnected from: " + getRemoteAddress());
-	}
+  InetSocketAddress getRemoteAddress() {
+    return (InetSocketAddress) bootstrap.getOption("remoteAddress");
+  }
 
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
-		Throwable cause = e.getCause();
-		if (cause instanceof ConnectException) {
-			startTime = -1;
-			println("Failed to connect: " + cause.getMessage());
-		}
-		ctx.getChannel().close();
-	}
+  @Override
+  public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+    println("Sleeping for: " + RECONNECT_DELAY + "s");
+    timer.newTimeout(new TimerTask() {
+      @Override
+      public void run(Timeout timeout) throws Exception {
+        println("Reconnecting to: " + getRemoteAddress());
+        bootstrap.connect();
+      }
+    }, RECONNECT_DELAY, TimeUnit.SECONDS);
+  }
 
-	void println(String msg) {
-		if (startTime < 0) {
-			logger.error("[SERVER IS DOWN] {}", msg);
-		} else {
-			logger.debug("[UPTIME: {}] \n{}", (System.currentTimeMillis() - startTime) / 1000, msg);
-		}
-	}
+  @Override
+  public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+    if (startTime < 0) {
+      startTime = System.currentTimeMillis();
+    }
+    println("Connected to: " + getRemoteAddress());
+  }
 
-	@Override
-	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-		println(e.getMessage().toString());
-		super.messageReceived(ctx, e);
-	}
+  @Override
+  public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+    println("Disconnected from: " + getRemoteAddress());
+  }
 
-	
+  @Override
+  public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
+    Throwable cause = e.getCause();
+    if (cause instanceof ConnectException) {
+      startTime = -1;
+      println("Failed to connect: " + cause.getMessage());
+    }
+    ctx.getChannel().close();
+  }
+
+  void println(String msg) {
+    if (startTime < 0) {
+      logger.error("[SERVER IS DOWN] {}", msg);
+    } else {
+      logger.debug("[UPTIME: {}] \n{}", (System.currentTimeMillis() - startTime) / 1000, msg);
+    }
+  }
+
+  @Override
+  public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+    println(e.getMessage().toString());
+    super.messageReceived(ctx, e);
+  }
+
 }

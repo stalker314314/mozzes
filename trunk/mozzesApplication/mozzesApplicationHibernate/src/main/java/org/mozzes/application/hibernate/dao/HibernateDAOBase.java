@@ -27,17 +27,17 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public abstract class HibernateDAOBase {
-	
-	@Inject
-	private Provider<HibernateTransaction> hibernateContext;
 
-	protected Session getSession() {
-		HibernateTransaction hibernateTransaction = hibernateContext.get();
-		
-		if (hibernateTransaction == null)
-			throw new IllegalStateException("Session has not been set on DAO before usage");
-		
-		return hibernateTransaction.getSession();
-	}
+  @Inject
+  private Provider<HibernateTransaction> hibernateContext;
+
+  protected Session getSession() {
+    HibernateTransaction hibernateTransaction = hibernateContext.get();
+
+    if (hibernateTransaction == null)
+      throw new IllegalStateException("Session has not been set on DAO before usage");
+
+    return hibernateTransaction.getSession();
+  }
 
 }

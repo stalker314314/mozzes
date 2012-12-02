@@ -27,11 +27,11 @@ import org.mozzes.utils.filtering.NoResultsFilter;
 
 public class NoResultsFilterTest {
 
-	@Test
-	public void testIsAcceptable() {
-		NoResultsFilter<Integer> noResultsFilter = new NoResultsFilter<Integer>();
-		assertFalse(noResultsFilter.isAcceptable(null));
-		assertFalse(noResultsFilter.isAcceptable(1));
-	}
+  @Test
+  public void testIsAcceptable() {
+    NoResultsFilter<Integer> noResultsFilter = new NoResultsFilter<Integer>();
+    assertFalse(noResultsFilter.isAcceptable(null));
+    assertFalse(noResultsFilter.isAcceptable(1));
+  }
 
 }

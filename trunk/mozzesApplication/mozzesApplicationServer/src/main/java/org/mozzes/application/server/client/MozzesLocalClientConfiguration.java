@@ -33,20 +33,20 @@ import com.google.inject.Inject;
  */
 public class MozzesLocalClientConfiguration extends MozzesClientConfiguration {
 
-	private final RequestProcessor requestProcessor;
+  private final RequestProcessor requestProcessor;
 
-	@Inject
-	MozzesLocalClientConfiguration(RequestProcessor requestProcessor) {
-		this.requestProcessor = requestProcessor;
-	}
+  @Inject
+  MozzesLocalClientConfiguration(RequestProcessor requestProcessor) {
+    this.requestProcessor = requestProcessor;
+  }
 
-	/**
-	 * Invocation is handled by a localInvocationHanlder that simply passes the call to the requestProcessor.
-	 * 
-	 * @see MozzesClientConfiguration#getInvocationHandler(Class, SessionIdProvider)
-	 */
-	@Override
-	protected <I> InvocationHandler<I> getInvocationHandler(Class<I> ignore, SessionIdProvider sessionIDProvider) {
-		return new LocalInvocationHandler<I>(requestProcessor, sessionIDProvider);
-	}
+  /**
+   * Invocation is handled by a localInvocationHanlder that simply passes the call to the requestProcessor.
+   * 
+   * @see MozzesClientConfiguration#getInvocationHandler(Class, SessionIdProvider)
+   */
+  @Override
+  protected <I> InvocationHandler<I> getInvocationHandler(Class<I> ignore, SessionIdProvider sessionIDProvider) {
+    return new LocalInvocationHandler<I>(requestProcessor, sessionIDProvider);
+  }
 }

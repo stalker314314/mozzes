@@ -32,28 +32,28 @@ import com.google.inject.Inject;
 @TransactionScoped
 class ServerManagedTransactionContext {
 
-	private Connection connection;
-	
-	@Inject
-	private DbConnectionManager connectionManager;
+  private Connection connection;
 
-	Connection getConnection() throws SQLException {
-		if (connection == null) {
-			connection = connectionManager.get();
-			connection.setAutoCommit(false);
-		}
-		return (Connection) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-				new Class[] { Connection.class }, new ServerManagedConnection(connection));
-	}
-	
-	Connection getRealConnection() {
-		return connection;
-	}
+  @Inject
+  private DbConnectionManager connectionManager;
 
-	Connection clearConnection() {
-		Connection returnValue = connection;
-		connection = null;
-		return returnValue;
-	}
+  Connection getConnection() throws SQLException {
+    if (connection == null) {
+      connection = connectionManager.get();
+      connection.setAutoCommit(false);
+    }
+    return (Connection) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
+        new Class[] { Connection.class }, new ServerManagedConnection(connection));
+  }
+
+  Connection getRealConnection() {
+    return connection;
+  }
+
+  Connection clearConnection() {
+    Connection returnValue = connection;
+    connection = null;
+    return returnValue;
+  }
 
 }

@@ -54,38 +54,38 @@ import com.google.inject.Binder;
  */
 public class RemotingPlugin extends ApplicationPlugin {
 
-	/** Port on which server accepts connections. */
-	private final int serverPort;
+  /** Port on which server accepts connections. */
+  private final int serverPort;
 
-	/**
-	 * Instantiates a new application remoting module.
-	 */
-	public RemotingPlugin(int serverPort) {
-		if (serverPort < 1)
-			throw new IllegalArgumentException("Illegal server port");
+  /**
+   * Instantiates a new application remoting module.
+   */
+  public RemotingPlugin(int serverPort) {
+    if (serverPort < 1)
+      throw new IllegalArgumentException("Illegal server port");
 
-		this.serverPort = serverPort;
-	}
+    this.serverPort = serverPort;
+  }
 
-	/*
-	 * Here we provide the binding that is needed to accept remote service calls
-	 * 
-	 * @see ApplicationModule#doCustomBinding(Binder)
-	 */
-	@Override
-	public void doCustomBinding(Binder binder) {
-		binder.bind(int.class).annotatedWith(RemotingServerPort.class).toInstance(Integer.valueOf(serverPort));
-	}
+  /*
+   * Here we provide the binding that is needed to accept remote service calls
+   * 
+   * @see ApplicationModule#doCustomBinding(Binder)
+   */
+  @Override
+  public void doCustomBinding(Binder binder) {
+    binder.bind(int.class).annotatedWith(RemotingServerPort.class).toInstance(Integer.valueOf(serverPort));
+  }
 
-	/*
-	 * Create new listener for the remote actions(that contains remove service invocations)
-	 * 
-	 * @see ApplicationModule#getServerListeners()
-	 */
-	@Override
-	public List<Class<? extends ServerLifecycleListener>> getServerListeners() {
-		List<Class<? extends ServerLifecycleListener>> returnValue = new ArrayList<Class<? extends ServerLifecycleListener>>();
-		returnValue.add(RemotingServerListener.class);
-		return returnValue;
-	}
+  /*
+   * Create new listener for the remote actions(that contains remove service invocations)
+   * 
+   * @see ApplicationModule#getServerListeners()
+   */
+  @Override
+  public List<Class<? extends ServerLifecycleListener>> getServerListeners() {
+    List<Class<? extends ServerLifecycleListener>> returnValue = new ArrayList<Class<? extends ServerLifecycleListener>>();
+    returnValue.add(RemotingServerListener.class);
+    return returnValue;
+  }
 }

@@ -27,140 +27,143 @@ import org.mozzes.remoting.common.RemotingResponse;
  */
 public class MozzesServerHandler extends SimpleChannelUpstreamHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(MozzesServerHandler.class);
+  private static final Logger logger = LoggerFactory.getLogger(MozzesServerHandler.class);
 
-	private final RemotingActionDispatcher dispatcher;
+  private final RemotingActionDispatcher dispatcher;
 
-	/**
-	 * Creates handler that executes remoting actions on Mozzes server.
-	 * 
-	 * @param dispatcher - dispatches remoting action to the action executor
-	 */
-	public MozzesServerHandler(RemotingActionDispatcher dispatcher) {
-		this.dispatcher = dispatcher;
-	}
+  /**
+   * Creates handler that executes remoting actions on Mozzes server.
+   * 
+   * @param dispatcher
+   *          - dispatches remoting action to the action executor
+   */
+  public MozzesServerHandler(RemotingActionDispatcher dispatcher) {
+    this.dispatcher = dispatcher;
+  }
 
-	@Override
-	public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-		// HERE: Add all accepted channels to the group
-		// so that they are closed properly on shutdown
-		// If the added channel is closed before shutdown,
-		// it will be removed from the group automatically.
-		NettyRemotingServer.clientChannelGroup.add(ctx.getChannel());
-		super.channelOpen(ctx, e);
-	}
+  @Override
+  public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+    // HERE: Add all accepted channels to the group
+    // so that they are closed properly on shutdown
+    // If the added channel is closed before shutdown,
+    // it will be removed from the group automatically.
+    NettyRemotingServer.clientChannelGroup.add(ctx.getChannel());
+    super.channelOpen(ctx, e);
+  }
 
-	@Override
-	public void handleUpstream(ChannelHandlerContext ctx, ChannelEvent e) throws Exception {
-		if (e instanceof ChannelStateEvent) {
-			logger.info(e.toString());
-		}
-		super.handleUpstream(ctx, e);
-	}
+  @Override
+  public void handleUpstream(ChannelHandlerContext ctx, ChannelEvent e) throws Exception {
+    if (e instanceof ChannelStateEvent) {
+      logger.info(e.toString());
+    }
+    super.handleUpstream(ctx, e);
+  }
 
-	@Override
-	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-		logger.info("Client {} connected.", InetAddress.getLocalHost().getHostName());
-		super.channelConnected(ctx, e);
-	}
+  @Override
+  public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+    logger.info("Client {} connected.", InetAddress.getLocalHost().getHostName());
+    super.channelConnected(ctx, e);
+  }
 
-	@Override
-	public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-		// ako ih dodajemo onda ih i brisemo.
-		NettyRemotingServer.clientChannelGroup.remove(e.getChannel());
-		super.channelDisconnected(ctx, e);
-		
-		Object channelAttachment = ctx.getChannel().getAttachment();
-		
-		if (channelAttachment != null) {
-			ClientIdentity clientIdentity = (ClientIdentity) channelAttachment;
-			
-			if (clientIdentity.isAccepted()) {
-				NettyRemotingServer.connectedClients.remove(clientIdentity.getClientId());
-			}
-		}
-	}
+  @Override
+  public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+    // ako ih dodajemo onda ih i brisemo.
+    NettyRemotingServer.clientChannelGroup.remove(e.getChannel());
+    super.channelDisconnected(ctx, e);
 
-	@Override
-	public void messageReceived(ChannelHandlerContext ctx, MessageEvent messageEvent) {
-		long started = System.currentTimeMillis();	
-		
-		RemotingAction remoteAction = (RemotingAction) messageEvent.getMessage();
-		Long requestId = remoteAction.getId();
-		
-		try {
-			Object channelAttachment = ctx.getChannel().getAttachment();
-			
-			if (channelAttachment != null) {
-				ClientIdentity clientIdentity = (ClientIdentity) channelAttachment;
-				
-				if (!clientIdentity.isAccepted()) {
-					logger.error("Client {} is already in use.", clientIdentity.getClientId());
-					throw new RemotingException(new IllegalStateException(
-							"Client ID is already in use. Client ID: " + clientIdentity.getClientId()));
-				}
-			}
-				
-			RemotingResponse remotingResponse = execute(remoteAction);			
-			remotingResponse.setId(requestId);			
-		
-			logger.debug("processAction() before sending result");			
-			messageEvent.getChannel().write(remotingResponse);
-			logger.debug("processAction() after sending result");
-		} catch (ClassCastException ex) {
-			logger.error("Unknown class received from client", ex);	
-			
-			RemotingException exception = new RemotingException(ex);
-			exception.setId(requestId);
-			messageEvent.getChannel().write(exception);	
-			
-			logger.debug("processAction() after sending class cast exception");
-		} catch (RemotingException exception) {
-			// doslo je do greske prilikom izvrsavanja akcije
-			logger.debug("processAction() before sending remoting exception", exception);
-			exception.setId(requestId);
-			messageEvent.getChannel().write(exception);
-			logger.debug("processAction() after sending remoting exception");
-		}
-		
-		logger.debug("request processing took {} ms.", (System.currentTimeMillis() - started));
-	}
+    Object channelAttachment = ctx.getChannel().getAttachment();
 
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
-		logger.error("Unexpected exception from downstream.", e.getCause());
-		logger.info("exceptionCaught, num of clients in group is " + NettyRemotingServer.clientChannelGroup.size());
-	}
+    if (channelAttachment != null) {
+      ClientIdentity clientIdentity = (ClientIdentity) channelAttachment;
 
-	/**
-	 * Execute remote action logic.
-	 * 
-	 * @param request request that came from client.
-	 * @return action execution response.
-	 * @throws RemotingException if action execution fails, exception is thrown to indicate that error.
-	 */
-	private RemotingResponse execute(RemotingAction request) throws RemotingException {
-		logger.debug("Request received: {}", request);
+      if (clientIdentity.isAccepted()) {
+        NettyRemotingServer.connectedClients.remove(clientIdentity.getClientId());
+      }
+    }
+  }
 
-		RemotingActionExecutor actionExecutor = dispatcher.getActionExecutor(request);
+  @Override
+  public void messageReceived(ChannelHandlerContext ctx, MessageEvent messageEvent) {
+    long started = System.currentTimeMillis();
 
-		// izvrsavanje akcije
-		RemotingResponse response = null;
-		try {
-			logger.debug("processAction() before executing action");
-			response = actionExecutor.execute(request);
-		} catch (RemotingException ex) {
-			throw ex;
-		} catch (Throwable thr) {
-			throw new RemotingException(thr);
-		}
+    RemotingAction remoteAction = (RemotingAction) messageEvent.getMessage();
+    Long requestId = remoteAction.getId();
 
-		// akcija mora da vrati neki response klijentu
-		if (response == null) {
-			response = new RemotingResponse(new HashMap<Object, Object>());
-		}
+    try {
+      Object channelAttachment = ctx.getChannel().getAttachment();
 
-		return response;
-	}
+      if (channelAttachment != null) {
+        ClientIdentity clientIdentity = (ClientIdentity) channelAttachment;
+
+        if (!clientIdentity.isAccepted()) {
+          logger.error("Client {} is already in use.", clientIdentity.getClientId());
+          throw new RemotingException(new IllegalStateException("Client ID is already in use. Client ID: "
+              + clientIdentity.getClientId()));
+        }
+      }
+
+      RemotingResponse remotingResponse = execute(remoteAction);
+      remotingResponse.setId(requestId);
+
+      logger.debug("processAction() before sending result");
+      messageEvent.getChannel().write(remotingResponse);
+      logger.debug("processAction() after sending result");
+    } catch (ClassCastException ex) {
+      logger.error("Unknown class received from client", ex);
+
+      RemotingException exception = new RemotingException(ex);
+      exception.setId(requestId);
+      messageEvent.getChannel().write(exception);
+
+      logger.debug("processAction() after sending class cast exception");
+    } catch (RemotingException exception) {
+      // doslo je do greske prilikom izvrsavanja akcije
+      logger.debug("processAction() before sending remoting exception", exception);
+      exception.setId(requestId);
+      messageEvent.getChannel().write(exception);
+      logger.debug("processAction() after sending remoting exception");
+    }
+
+    logger.debug("request processing took {} ms.", (System.currentTimeMillis() - started));
+  }
+
+  @Override
+  public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
+    logger.error("Unexpected exception from downstream.", e.getCause());
+    logger.info("exceptionCaught, num of clients in group is " + NettyRemotingServer.clientChannelGroup.size());
+  }
+
+  /**
+   * Execute remote action logic.
+   * 
+   * @param request
+   *          request that came from client.
+   * @return action execution response.
+   * @throws RemotingException
+   *           if action execution fails, exception is thrown to indicate that error.
+   */
+  private RemotingResponse execute(RemotingAction request) throws RemotingException {
+    logger.debug("Request received: {}", request);
+
+    RemotingActionExecutor actionExecutor = dispatcher.getActionExecutor(request);
+
+    // izvrsavanje akcije
+    RemotingResponse response = null;
+    try {
+      logger.debug("processAction() before executing action");
+      response = actionExecutor.execute(request);
+    } catch (RemotingException ex) {
+      throw ex;
+    } catch (Throwable thr) {
+      throw new RemotingException(thr);
+    }
+
+    // akcija mora da vrati neki response klijentu
+    if (response == null) {
+      response = new RemotingResponse(new HashMap<Object, Object>());
+    }
+
+    return response;
+  }
 
 }

@@ -31,25 +31,26 @@ import org.mozzes.remoting.common.RemotingConfiguration;
  * @author Kokan
  */
 public class RemotingOnDemandClientProvider implements RemotingActionExecutorProvider {
-	/** Client factory that we provide to on-demand client */
-	private final RemotingClientFactory clientFactory;
+  /** Client factory that we provide to on-demand client */
+  private final RemotingClientFactory clientFactory;
 
-	private final RemotingConfiguration remotingConfiguration;
+  private final RemotingConfiguration remotingConfiguration;
 
-	/**
-	 * Default constructor that takes client factory
-	 * 
-	 * @param remotingConfiguration Remote configuration with which on demand client should be created
-	 * @param clientFactory Facory for creating on demand clients
-	 */
-	public RemotingOnDemandClientProvider(RemotingConfiguration remotingConfiguration,
-			RemotingClientFactory clientFactory) {
-		this.clientFactory = clientFactory;
-		this.remotingConfiguration = remotingConfiguration;
-	}
+  /**
+   * Default constructor that takes client factory
+   * 
+   * @param remotingConfiguration
+   *          Remote configuration with which on demand client should be created
+   * @param clientFactory
+   *          Facory for creating on demand clients
+   */
+  public RemotingOnDemandClientProvider(RemotingConfiguration remotingConfiguration, RemotingClientFactory clientFactory) {
+    this.clientFactory = clientFactory;
+    this.remotingConfiguration = remotingConfiguration;
+  }
 
-	@Override
-	public RemotingActionExecutor get() {
-		return new RemotingClientOnDemand(remotingConfiguration, clientFactory);
-	}
+  @Override
+  public RemotingActionExecutor get() {
+    return new RemotingClientOnDemand(remotingConfiguration, clientFactory);
+  }
 }

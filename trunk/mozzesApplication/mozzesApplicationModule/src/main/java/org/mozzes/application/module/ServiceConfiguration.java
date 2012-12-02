@@ -38,56 +38,56 @@ import com.google.inject.Key;
  */
 public class ServiceConfiguration<I> {
 
-	/** The interface that specifies the service behavior. */
-	private final Class<I> serviceInterface;
+  /** The interface that specifies the service behavior. */
+  private final Class<I> serviceInterface;
 
-	/** Class that implements I interface */
-	private final Class<? extends I> serviceImplementation;
+  /** Class that implements I interface */
+  private final Class<? extends I> serviceImplementation;
 
-	/** Is the service internal */
-	private final boolean internal;
+  /** Is the service internal */
+  private final boolean internal;
 
-	public ServiceConfiguration(Class<I> serviceInterface, Class<? extends I> serviceImplementation) {
-		this(serviceInterface, serviceImplementation, false);
-	}
+  public ServiceConfiguration(Class<I> serviceInterface, Class<? extends I> serviceImplementation) {
+    this(serviceInterface, serviceImplementation, false);
+  }
 
-	public ServiceConfiguration(Class<I> serviceInterface, Class<? extends I> serviceImplementation, boolean internal) {
-		this.serviceInterface = serviceInterface;
-		this.serviceImplementation = serviceImplementation;
-		this.internal = internal;
-	}
+  public ServiceConfiguration(Class<I> serviceInterface, Class<? extends I> serviceImplementation, boolean internal) {
+    this.serviceInterface = serviceInterface;
+    this.serviceImplementation = serviceImplementation;
+    this.internal = internal;
+  }
 
-	public Key<? extends I> bind(Binder binder) {
-		return bindImplementation(binder, serviceImplementation);
-	}
+  public Key<? extends I> bind(Binder binder) {
+    return bindImplementation(binder, serviceImplementation);
+  }
 
-	public Class<I> getServiceInterface() {
-		return serviceInterface;
-	}
-	
-	public Class<? extends I> getServiceImplementation() {
-		return serviceImplementation;
-	}
+  public Class<I> getServiceInterface() {
+    return serviceInterface;
+  }
 
-	public boolean isInternal() {
-		return internal;
-	}
+  public Class<? extends I> getServiceImplementation() {
+    return serviceImplementation;
+  }
 
-	private <IMPL> Key<IMPL> bindImplementation(Binder binder, Class<IMPL> implementationClass) {
-		Key<IMPL> serviceImplementationKey = Key.get(implementationClass, ServiceImplementation.class);
-		binder.bind(serviceImplementationKey).to(implementationClass);
-		return serviceImplementationKey;
-	}
+  public boolean isInternal() {
+    return internal;
+  }
 
-	/**
-	 * The Interface ServiceImplementation is annotation that serves as a guard for service implementation. If someone
-	 * wants to inject the serviceImplementation class rather than serviceInterface he would need this annotation but
-	 * this annotation is private so it's impossible to directly inject implementation surpassing interface.
-	 */
-	@Target(ElementType.TYPE)
-	@Retention(RetentionPolicy.RUNTIME)
-	@BindingAnnotation
-	private @interface ServiceImplementation {
-		// binding annotation
-	}
+  private <IMPL> Key<IMPL> bindImplementation(Binder binder, Class<IMPL> implementationClass) {
+    Key<IMPL> serviceImplementationKey = Key.get(implementationClass, ServiceImplementation.class);
+    binder.bind(serviceImplementationKey).to(implementationClass);
+    return serviceImplementationKey;
+  }
+
+  /**
+   * The Interface ServiceImplementation is annotation that serves as a guard for service implementation. If someone
+   * wants to inject the serviceImplementation class rather than serviceInterface he would need this annotation but this
+   * annotation is private so it's impossible to directly inject implementation surpassing interface.
+   */
+  @Target(ElementType.TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  @BindingAnnotation
+  private @interface ServiceImplementation {
+    // binding annotation
+  }
 }

@@ -32,7 +32,6 @@ import org.mozzes.application.module.scope.RequestScoped;
 import org.mozzes.application.module.scope.SessionScoped;
 import org.mozzes.application.module.scope.TransactionScoped;
 
-
 /**
  * This test cast is used to demonstrate how the service implementation classes are scoped. If the Service
  * Implementation class is annotated with {@link SessionScoped}, {@link RequestScoped} or {@link TransactionScoped} the
@@ -46,48 +45,48 @@ import org.mozzes.application.module.scope.TransactionScoped;
  */
 public class TestRequestScopedInternalService extends TestBase {
 
-	@Test
-	public void testRequestScopedService() {
-		try {
-			MozzesClient client = getClient();
+  @Test
+  public void testRequestScopedService() {
+    try {
+      MozzesClient client = getClient();
 
-			client.login(validUsername1, validPassword1);
-			callServiceAndTestResult(client);
-			client.logout();
+      client.login(validUsername1, validPassword1);
+      callServiceAndTestResult(client);
+      client.logout();
 
-			client.login(validUsername1, validPassword1);
-			callServiceAndTestResult(client);
-			client.logout();
+      client.login(validUsername1, validPassword1);
+      callServiceAndTestResult(client);
+      client.logout();
 
-		} catch (AuthorizationFailedException e) {
-			fail("should login");
-		}
-	}
+    } catch (AuthorizationFailedException e) {
+      fail("should login");
+    }
+  }
 
-	@Test
-	public void testRequestScopedService2() {
-		try {
-			MozzesClient client = getClient();
+  @Test
+  public void testRequestScopedService2() {
+    try {
+      MozzesClient client = getClient();
 
-			client.login(validUsername1, validPassword1);
+      client.login(validUsername1, validPassword1);
 
-			RequestScopedService service = client.getService(RequestScopedService.class);
-			int returnVal = service.incrementInjectedAndReturnValue();
+      RequestScopedService service = client.getService(RequestScopedService.class);
+      int returnVal = service.incrementInjectedAndReturnValue();
 
-			assertEquals(2, returnVal);
-			client.logout();
+      assertEquals(2, returnVal);
+      client.logout();
 
-		} catch (AuthorizationFailedException e) {
-			fail("should login");
-		}
-	}
+    } catch (AuthorizationFailedException e) {
+      fail("should login");
+    }
+  }
 
-	private RequestScopedService callServiceAndTestResult(MozzesClient client) {
-		RequestScopedService service = client.getService(RequestScopedService.class);
-		service.increment();
-		service.increment();
+  private RequestScopedService callServiceAndTestResult(MozzesClient client) {
+    RequestScopedService service = client.getService(RequestScopedService.class);
+    service.increment();
+    service.increment();
 
-		assertEquals(0, service.getCounter());
-		return service;
-	}
+    assertEquals(0, service.getCounter());
+    return service;
+  }
 }

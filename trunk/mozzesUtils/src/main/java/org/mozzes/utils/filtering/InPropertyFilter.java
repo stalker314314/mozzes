@@ -30,21 +30,21 @@ import java.util.Set;
  */
 public class InPropertyFilter<ObjectType, PropertyType> extends PropertyFilter<ObjectType, PropertyType> {
 
-	private Set<PropertyType> compareValues;
+  private Set<PropertyType> compareValues;
 
-	public InPropertyFilter(String propertyName, Set<PropertyType> compareValues) {
-		super(propertyName, null);
-		this.compareValues = compareValues;
-	}
+  public InPropertyFilter(String propertyName, Set<PropertyType> compareValues) {
+    super(propertyName, null);
+    this.compareValues = compareValues;
+  }
 
-	public boolean isAcceptable(ObjectType object) {
-		if (object == null)
-			return false;
+  public boolean isAcceptable(ObjectType object) {
+    if (object == null)
+      return false;
 
-		return compareValues.contains(getPropertyValue(object));
-	}
+    return compareValues.contains(getPropertyValue(object));
+  }
 
-	public Set<PropertyType> getInSet() {
-		return compareValues;
-	}
+  public Set<PropertyType> getInSet() {
+    return compareValues;
+  }
 }

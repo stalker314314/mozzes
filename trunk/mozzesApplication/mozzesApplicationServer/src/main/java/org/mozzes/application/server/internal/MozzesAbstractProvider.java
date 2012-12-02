@@ -31,13 +31,13 @@ import com.google.inject.Provider;
  */
 public abstract class MozzesAbstractProvider<T> implements Provider<T> {
 
-	private RequestManager requestManager;
+  private RequestManager requestManager;
 
-	protected MozzesAbstractProvider(RequestManager requestManager) {
-		this.requestManager = requestManager;
-	}
+  protected MozzesAbstractProvider(RequestManager requestManager) {
+    this.requestManager = requestManager;
+  }
 
-	protected RequestManager getRequestManager() {
-		return requestManager;
-	}
+  protected RequestManager getRequestManager() {
+    return requestManager;
+  }
 }

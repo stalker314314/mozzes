@@ -36,5 +36,5 @@ import com.google.inject.ScopeAnnotation;
 @Retention(RetentionPolicy.RUNTIME)
 @ScopeAnnotation
 public @interface RequestScoped {
-	// scope annotation
+  // scope annotation
 }

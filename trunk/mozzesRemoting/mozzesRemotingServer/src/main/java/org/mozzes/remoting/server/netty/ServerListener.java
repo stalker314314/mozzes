@@ -6,11 +6,12 @@ package org.mozzes.remoting.server.netty;
  * @author Vladimir Todorovic
  */
 public interface ServerListener {
-	
-	/**
-	 * Executed when client disconnected from Netty remoting server.
-	 * 
-	 * @param clientId - ID of disconnected client
-	 */
-	public void clientDisconnected(Integer clientId);
+
+  /**
+   * Executed when client disconnected from Netty remoting server.
+   * 
+   * @param clientId
+   *          - ID of disconnected client
+   */
+  public void clientDisconnected(Integer clientId);
 }

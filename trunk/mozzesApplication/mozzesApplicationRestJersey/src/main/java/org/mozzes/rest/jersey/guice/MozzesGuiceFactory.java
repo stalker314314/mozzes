@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
 
 import com.sun.jersey.server.spi.component.ResourceComponentProviderFactoryClass;
 
-@Target( { ElementType.TYPE })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @ResourceComponentProviderFactoryClass(MozzesGuiceProviderFactory.class)

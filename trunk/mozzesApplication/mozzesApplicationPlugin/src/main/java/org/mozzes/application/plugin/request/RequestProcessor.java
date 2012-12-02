@@ -30,8 +30,8 @@ import org.mozzes.invocation.common.Invocation;
  */
 public interface RequestProcessor {
 
-	/**
-	 * Process the invocation in the current request.
-	 */
-	public <I> Object process(String sessionId, Invocation<I> invocation) throws Throwable;
+  /**
+   * Process the invocation in the current request.
+   */
+  public <I> Object process(String sessionId, Invocation<I> invocation) throws Throwable;
 }

@@ -44,18 +44,18 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  */
 public class RestTeamsService {
 
-	@Inject
-	private MozzesClient mozzesClient;
+  @Inject
+  private MozzesClient mozzesClient;
 
-	public RestTeamsService() {
-	}
+  public RestTeamsService() {
+  }
 
-	@GET
-	@Produces( { MediaType.TEXT_XML })
-	public String getXml() {
-		List<Team> teams = mozzesClient.getService(TeamAdministration.class).findAll();
-		XStream xstream = new XStream(new DomDriver());
-		xstream.alias("team", Team.class);
-		return xstream.toXML(teams);
-	}
+  @GET
+  @Produces({ MediaType.TEXT_XML })
+  public String getXml() {
+    List<Team> teams = mozzesClient.getService(TeamAdministration.class).findAll();
+    XStream xstream = new XStream(new DomDriver());
+    xstream.alias("team", Team.class);
+    return xstream.toXML(teams);
+  }
 }

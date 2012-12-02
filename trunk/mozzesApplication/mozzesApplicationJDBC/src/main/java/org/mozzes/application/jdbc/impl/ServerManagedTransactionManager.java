@@ -34,48 +34,48 @@ import com.google.inject.Provider;
 
 public class ServerManagedTransactionManager implements TransactionManager {
 
-	private static final Logger logger = LoggerFactory.getLogger(ServerManagedTransactionManager.class);
-	
-	@Inject
-	private Provider<ServerManagedTransactionContext> transactionContextProvider;
+  private static final Logger logger = LoggerFactory.getLogger(ServerManagedTransactionManager.class);
 
-	@Inject
-	private DbConnectionManager connectionManager;
+  @Inject
+  private Provider<ServerManagedTransactionContext> transactionContextProvider;
 
-	@Override
-	public void begin(boolean nested) {
-		// ignored 
-	}
+  @Inject
+  private DbConnectionManager connectionManager;
 
-	@Override
-	public void commit() {
-		Connection dbConnection = transactionContextProvider.get().getRealConnection();
-		if (dbConnection != null) {
-			try {
-				dbConnection.commit();
-			} catch (SQLException e) {
-				throw new TransactionException("Commit failed", e);
-			}
-		}
-	}
+  @Override
+  public void begin(boolean nested) {
+    // ignored
+  }
 
-	@Override
-	public void rollback() {
-		Connection dbConnection = transactionContextProvider.get().getRealConnection();
-		if (dbConnection != null) {
-			try {
-				dbConnection.rollback();
-			} catch (SQLException e) {
-				logger.error("Rollback failed", e);
-			}
-		}
-	}
-	
-	@Override
-	public void finalizeTransaction(boolean successful) {
-		Connection dbConnection = transactionContextProvider.get().clearConnection();
-		if (dbConnection != null) 
-			connectionManager.close(dbConnection);
-	}
+  @Override
+  public void commit() {
+    Connection dbConnection = transactionContextProvider.get().getRealConnection();
+    if (dbConnection != null) {
+      try {
+        dbConnection.commit();
+      } catch (SQLException e) {
+        throw new TransactionException("Commit failed", e);
+      }
+    }
+  }
+
+  @Override
+  public void rollback() {
+    Connection dbConnection = transactionContextProvider.get().getRealConnection();
+    if (dbConnection != null) {
+      try {
+        dbConnection.rollback();
+      } catch (SQLException e) {
+        logger.error("Rollback failed", e);
+      }
+    }
+  }
+
+  @Override
+  public void finalizeTransaction(boolean successful) {
+    Connection dbConnection = transactionContextProvider.get().clearConnection();
+    if (dbConnection != null)
+      connectionManager.close(dbConnection);
+  }
 
 }

@@ -36,37 +36,37 @@ import com.google.inject.*;
 @RequestScoped
 public class RequestScopedServiceImpl implements RequestScopedService {
 
-	private int counter = 0;
+  private int counter = 0;
 
-	@Inject
-	private RequestScopedService2 injectedTargetService;
+  @Inject
+  private RequestScopedService2 injectedTargetService;
 
-	@Inject
-	private RequestScopedService3 injectedServiceCallingTargetService;
+  @Inject
+  private RequestScopedService3 injectedServiceCallingTargetService;
 
-	/**
-	 * @see RequestScopedService#increment()
-	 */
-	@Override
-	public void increment() {
-		counter++;
-	}
+  /**
+   * @see RequestScopedService#increment()
+   */
+  @Override
+  public void increment() {
+    counter++;
+  }
 
-	/**
-	 * @see RequestScopedService#getCounter()
-	 */
-	@Override
-	public int getCounter() {
-		return counter;
-	}
+  /**
+   * @see RequestScopedService#getCounter()
+   */
+  @Override
+  public int getCounter() {
+    return counter;
+  }
 
-	/**
-	 * @see RequestScopedService#incrementInjectedAndReturnValue()
-	 */
-	@Override
-	public int incrementInjectedAndReturnValue() {
-		injectedTargetService.increment();
-		injectedServiceCallingTargetService.incrementInInjectedService();
-		return injectedTargetService.getCounter();
-	}
+  /**
+   * @see RequestScopedService#incrementInjectedAndReturnValue()
+   */
+  @Override
+  public int incrementInjectedAndReturnValue() {
+    injectedTargetService.increment();
+    injectedServiceCallingTargetService.incrementInInjectedService();
+    return injectedTargetService.getCounter();
+  }
 }

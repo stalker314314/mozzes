@@ -31,5 +31,5 @@ import org.mozzes.application.module.scope.*;
  */
 public interface RequestScopedService3 {
 
-	void incrementInInjectedService();
+  void incrementInInjectedService();
 }

@@ -37,84 +37,85 @@ import org.mozzes.remoting.server.netty.NettyServerConfiguration;
  */
 public class RemotingServerFactory {
 
-    /**
-     * Kreirani RemotingServer-i.
-     */
-    private static HashMap<Integer, RemotingServer> servers = new HashMap<Integer, RemotingServer>();
+  /**
+   * Kreirani RemotingServer-i.
+   */
+  private static HashMap<Integer, RemotingServer> servers = new HashMap<Integer, RemotingServer>();
 
-    /**
-     * Kreira RemotingServer na trazenom portu ili vraca postojecu instancu RemotingServer-a. Metoda ne vodi racuna o
-     * tome da li je server pokrenut ili ne, tj. ne garantuje da je server startovan, vec je ostavljeno klijentu da
-     * uradi.
-     * 
-     * @param port Port na kome server prihvata konekcije
-     * @return RemotingServer - Novi ili postojeci
-     */
-    public static RemotingServer getServer(int port) {
-        if (port <= 0)
-            return null;
+  /**
+   * Kreira RemotingServer na trazenom portu ili vraca postojecu instancu RemotingServer-a. Metoda ne vodi racuna o tome
+   * da li je server pokrenut ili ne, tj. ne garantuje da je server startovan, vec je ostavljeno klijentu da uradi.
+   * 
+   * @param port
+   *          Port na kome server prihvata konekcije
+   * @return RemotingServer - Novi ili postojeci
+   */
+  public static RemotingServer getServer(int port) {
+    if (port <= 0)
+      return null;
 
-        return getServer(Integer.valueOf(port));
+    return getServer(Integer.valueOf(port));
+  }
+
+  /**
+   * Isto kao i {@link #getServer(int)}
+   * 
+   * @param port
+   *          Port na kome server prihvata konekcije
+   * @return RemotingServer - Novi ili postojeci server
+   * @see #getServer(int)
+   */
+  public static RemotingServer getServer(Integer port) {
+    if (port == null || port.intValue() <= 0)
+      return null;
+
+    RemotingServer returnValue = servers.get(port);
+
+    if (returnValue == null)
+      returnValue = createServer(port);
+
+    return returnValue;
+  }
+
+  private static synchronized RemotingServer createServer(Integer port) {
+    RemotingServer returnValue = servers.get(port);
+    if (returnValue == null) {
+      returnValue = new RemotingServer(port.intValue());
+      servers.put(port, returnValue);
     }
-    
+    return returnValue;
+  }
 
-    /**
-     * Isto kao i {@link #getServer(int)}
-     * 
-     * @param port Port na kome server prihvata konekcije
-     * @return RemotingServer - Novi ili postojeci server
-     * @see #getServer(int)
-     */
-    public static RemotingServer getServer(Integer port) {
-        if (port == null || port.intValue() <= 0)
-            return null;
+  /**
+   * Returns instance of Netty remoting server. This method doesn't know state of remoting server. Client have to start
+   * or stop remoting server.
+   * 
+   * @param nettyServerConfiguration
+   *          - configuration for Netty remoting server
+   * @return Netty remoting server
+   */
+  public static RemotingServer getNettyServer(NettyServerConfiguration nettyServerConfiguration) {
+    return getNettyServerInstance(nettyServerConfiguration);
+  }
 
-        RemotingServer returnValue = servers.get(port);
+  /**
+   * Returns instance of Netty remoting server.
+   * 
+   * @param nettyServerConfiguration
+   *          - configuration for Netty remoting server
+   * @return instance of Netty remoting server
+   */
+  private static synchronized RemotingServer getNettyServerInstance(NettyServerConfiguration nettyServerConfiguration) {
 
-        if (returnValue == null)
-            returnValue = createServer(port);
+    Integer nettyPort = nettyServerConfiguration.getNettyPort();
+    RemotingServer remotingServer = servers.get(nettyPort);
 
-        return returnValue;
+    if (remotingServer == null) {
+      remotingServer = new NettyRemotingServer(nettyServerConfiguration);
+      servers.put(nettyPort, remotingServer);
     }
 
-    private static synchronized RemotingServer createServer(Integer port) {
-        RemotingServer returnValue = servers.get(port);
-        if (returnValue == null) {
-        	returnValue = new RemotingServer(port.intValue());
-    		servers.put(port, returnValue);        		                       
-        }
-        return returnValue;
-    }
-    
-    /**
-     * Returns instance of Netty remoting server. This method doesn't know state of remoting server.
-     * Client have to start or stop remoting server.
-     * 
-     * @param nettyServerConfiguration - configuration for Netty remoting server
-     * @return Netty remoting server
-     */
-    public static RemotingServer getNettyServer(NettyServerConfiguration nettyServerConfiguration) {
-    	return getNettyServerInstance(nettyServerConfiguration);
-    }
-    
-    /**
-     * Returns instance of Netty remoting server.
-     * 
-     * @param nettyServerConfiguration - configuration for Netty remoting server
-     * @return instance of Netty remoting server
-     */
-    private static synchronized RemotingServer getNettyServerInstance(NettyServerConfiguration nettyServerConfiguration) {
-    	
-    	Integer nettyPort = nettyServerConfiguration.getNettyPort();
-    	RemotingServer remotingServer = servers.get(nettyPort);
-    	
-    	if (remotingServer == null) {
-    		remotingServer = new NettyRemotingServer(nettyServerConfiguration);            
-            servers.put(nettyPort, remotingServer);
-    	}
-    	
-    	return remotingServer;
-    }
-    
-    
+    return remotingServer;
+  }
+
 }

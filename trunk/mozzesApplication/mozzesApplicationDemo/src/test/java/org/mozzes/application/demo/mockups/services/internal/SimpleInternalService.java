@@ -30,10 +30,10 @@ import org.mozzes.application.server.client.*;
  */
 public interface SimpleInternalService {
 
-	int result = 321;
+  int result = 321;
 
-	/**
-	 * @return the {@link SimpleInternalService#result} value
-	 */
-	int getInteger();
+  /**
+   * @return the {@link SimpleInternalService#result} value
+   */
+  int getInteger();
 }

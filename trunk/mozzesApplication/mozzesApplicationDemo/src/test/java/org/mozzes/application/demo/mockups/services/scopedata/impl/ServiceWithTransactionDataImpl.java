@@ -34,49 +34,49 @@ import com.google.inject.*;
  */
 public class ServiceWithTransactionDataImpl implements ServiceWithTransactionData {
 
-	/**
-	 * This is how the transaction data is obtained. (Data stored in the session is annotated with the
-	 * {@link TransactionScoped} annotation.
-	 */
-	@Inject
-	private MTransactionData transactionData;
+  /**
+   * This is how the transaction data is obtained. (Data stored in the session is annotated with the
+   * {@link TransactionScoped} annotation.
+   */
+  @Inject
+  private MTransactionData transactionData;
 
-	/**
-	 * This is the injecting of the some other service. Type should be the interface and not the service implementation
-	 * class.<br>
-	 * 
-	 * <code>@Inject <br>private MServerService2Impl service2; </code> this is not good
-	 */
-	@Inject
-	private ServiceWithTransactionDataNewTransaction serviceThatStartsNewTransaction;
+  /**
+   * This is the injecting of the some other service. Type should be the interface and not the service implementation
+   * class.<br>
+   * 
+   * <code>@Inject <br>private MServerService2Impl service2; </code> this is not good
+   */
+  @Inject
+  private ServiceWithTransactionDataNewTransaction serviceThatStartsNewTransaction;
 
-	/**
-	 * Here we increment the integer in the transactionData object that is stored in the transaction and then we call
-	 * another service that is annotated with Transactional annotation and that service also increment the same counter.
-	 * But that incrementing is in the new transaction so this value shouldn't change because of the method call.
-	 * 
-	 * @see ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransactionBad()
-	 * @see ServiceWithTransactionData#incrementAndReturn()
-	 */
-	@Override
-	public int incrementAndReturn() {
-		transactionData.increment();
-		serviceThatStartsNewTransaction.incrementTransactionCounterInNewTransaction();
-		return transactionData.getCounter();
-	}
+  /**
+   * Here we increment the integer in the transactionData object that is stored in the transaction and then we call
+   * another service that is annotated with Transactional annotation and that service also increment the same counter.
+   * But that incrementing is in the new transaction so this value shouldn't change because of the method call.
+   * 
+   * @see ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransactionBad()
+   * @see ServiceWithTransactionData#incrementAndReturn()
+   */
+  @Override
+  public int incrementAndReturn() {
+    transactionData.increment();
+    serviceThatStartsNewTransaction.incrementTransactionCounterInNewTransaction();
+    return transactionData.getCounter();
+  }
 
-	/**
-	 * This is the same as {@link ServiceWithTransactionDataImpl#incrementAndReturn()} but because
-	 * ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransactionBad() is not annotated with @Transactional
-	 * this will not work so the result will be 2 and not 1
-	 * 
-	 * @see ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransactionBad()
-	 * @see ServiceWithTransactionData#incrementAndReturnBad()
-	 */
-	@Override
-	public int incrementAndReturnBad() {
-		transactionData.increment();
-		serviceThatStartsNewTransaction.incrementTransactionCounterInNewTransactionBad();
-		return transactionData.getCounter();
-	}
+  /**
+   * This is the same as {@link ServiceWithTransactionDataImpl#incrementAndReturn()} but because
+   * ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransactionBad() is not annotated with @Transactional
+   * this will not work so the result will be 2 and not 1
+   * 
+   * @see ServiceWithTransactionDataNewTransaction#incrementTransactionCounterInNewTransactionBad()
+   * @see ServiceWithTransactionData#incrementAndReturnBad()
+   */
+  @Override
+  public int incrementAndReturnBad() {
+    transactionData.increment();
+    serviceThatStartsNewTransaction.incrementTransactionCounterInNewTransactionBad();
+    return transactionData.getCounter();
+  }
 }

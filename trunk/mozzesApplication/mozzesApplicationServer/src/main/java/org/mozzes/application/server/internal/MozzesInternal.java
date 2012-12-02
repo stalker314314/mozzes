@@ -38,9 +38,9 @@ import com.google.inject.BindingAnnotation;
  * @see <a
  *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/BindingAnnotation.html">BindingAnnotationAPI</a>
  */
-@Target( { ElementType.FIELD, ElementType.PARAMETER })
+@Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @BindingAnnotation
 public @interface MozzesInternal {
-	// binding annotation
+  // binding annotation
 }

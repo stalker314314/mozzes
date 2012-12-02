@@ -42,77 +42,77 @@ import com.google.inject.Provider;
  */
 public class MozzesClient implements SessionIdProvider {
 
-	private String sessionId;
+  private String sessionId;
 
-	private final Injector injector;
+  private final Injector injector;
 
-	/**
-	 * Instantiates a new mozzes client based on provided configuration.
-	 */
-	public MozzesClient(MozzesClientConfiguration clientConfiguration) {
-		this(clientConfiguration, new ArrayList<Module>());
-	}
+  /**
+   * Instantiates a new mozzes client based on provided configuration.
+   */
+  public MozzesClient(MozzesClientConfiguration clientConfiguration) {
+    this(clientConfiguration, new ArrayList<Module>());
+  }
 
-	/**
-	 * Instantiates a new mozzes client based on provided configuration with additional custom guice modules.
-	 */
-	public MozzesClient(MozzesClientConfiguration clientConfiguration, List<Module> customModules) {
-		injector = clientConfiguration.createInjector(this, customModules);
-	}
+  /**
+   * Instantiates a new mozzes client based on provided configuration with additional custom guice modules.
+   */
+  public MozzesClient(MozzesClientConfiguration clientConfiguration, List<Module> customModules) {
+    injector = clientConfiguration.createInjector(this, customModules);
+  }
 
-	/**
-	 * Method for logging user on the server.
-	 * 
-	 * @see SessionService#login(String, String)
-	 */
-	public void login(String username, String password) throws AuthorizationFailedException {
-		sessionId = getService(SessionService.class).login(username, password);
-	}
+  /**
+   * Method for logging user on the server.
+   * 
+   * @see SessionService#login(String, String)
+   */
+  public void login(String username, String password) throws AuthorizationFailedException {
+    sessionId = getService(SessionService.class).login(username, password);
+  }
 
-	/**
-	 * @see SessionService#logout()
-	 */
-	public void logout() {
-		getService(SessionService.class).logout();
-		sessionId = null;
-	}
+  /**
+   * @see SessionService#logout()
+   */
+  public void logout() {
+    getService(SessionService.class).logout();
+    sessionId = null;
+  }
 
-	/**
-	 * @see <a
-	 *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/Injector.html">Injector
-	 *      API</a>
-	 */
-	public final <I> I getService(Class<I> serviceInterface) {
-		return injector.getInstance(serviceInterface);
-	}
+  /**
+   * @see <a
+   *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/Injector.html">Injector
+   *      API</a>
+   */
+  public final <I> I getService(Class<I> serviceInterface) {
+    return injector.getInstance(serviceInterface);
+  }
 
-	/**
-	 * @see <a
-	 *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/Injector.html">Injector
-	 *      API</a>
-	 */
-	public final void injectServices(Object o) {
-		injector.injectMembers(o);
-	}
+  /**
+   * @see <a
+   *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/Injector.html">Injector
+   *      API</a>
+   */
+  public final void injectServices(Object o) {
+    injector.injectMembers(o);
+  }
 
-	/**
-	 * @see <a
-	 *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/Injector.html">Injector
-	 *      API</a>
-	 */
-	public final <I> Provider<I> getServiceProvider(Class<I> serviceInterface) {
-		return injector.getProvider(serviceInterface);
-	}
+  /**
+   * @see <a
+   *      href="http://google-guice.googlecode.com/svn/trunk/javadoc/index.html?com/google/inject/Injector.html">Injector
+   *      API</a>
+   */
+  public final <I> Provider<I> getServiceProvider(Class<I> serviceInterface) {
+    return injector.getProvider(serviceInterface);
+  }
 
-	/*
-	 * @see SessionIdProvider#getSessionId()
-	 */
-	@Override
-	public String getSessionId() {
-		return sessionId;
-	}
+  /*
+   * @see SessionIdProvider#getSessionId()
+   */
+  @Override
+  public String getSessionId() {
+    return sessionId;
+  }
 
-	protected void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
+  protected void setSessionId(String sessionId) {
+    this.sessionId = sessionId;
+  }
 }

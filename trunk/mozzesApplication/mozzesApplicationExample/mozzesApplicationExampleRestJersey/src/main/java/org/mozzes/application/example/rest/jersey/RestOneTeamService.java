@@ -46,26 +46,26 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  */
 public class RestOneTeamService {
 
-	@Inject
-	private MozzesClient mozzesClient;
+  @Inject
+  private MozzesClient mozzesClient;
 
-	@GET
-	@Produces( { MediaType.TEXT_XML })
-	public String getTeam(@PathParam("teamId") String teamId) {
-		Integer id;
-		try {
-			id = Integer.parseInt(teamId);
-		} catch (NumberFormatException e) {
-			throw new NotFoundException("Team " + teamId + " not found");
-		}
-		List<Team> teams = mozzesClient.getService(TeamAdministration.class).findAll();
-		XStream xstream = new XStream(new DomDriver());
-		xstream.alias("team", Team.class);
-		for (Team team : teams) {
-			if (team.getId().equals(id)) {
-				return xstream.toXML(team);
-			}
-		}
-		throw new NotFoundException("Team " + teamId + " not found");
-	}
+  @GET
+  @Produces({ MediaType.TEXT_XML })
+  public String getTeam(@PathParam("teamId") String teamId) {
+    Integer id;
+    try {
+      id = Integer.parseInt(teamId);
+    } catch (NumberFormatException e) {
+      throw new NotFoundException("Team " + teamId + " not found");
+    }
+    List<Team> teams = mozzesClient.getService(TeamAdministration.class).findAll();
+    XStream xstream = new XStream(new DomDriver());
+    xstream.alias("team", Team.class);
+    for (Team team : teams) {
+      if (team.getId().equals(id)) {
+        return xstream.toXML(team);
+      }
+    }
+    throw new NotFoundException("Team " + teamId + " not found");
+  }
 }

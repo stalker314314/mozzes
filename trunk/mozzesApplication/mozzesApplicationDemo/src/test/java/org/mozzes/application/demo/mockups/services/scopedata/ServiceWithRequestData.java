@@ -23,7 +23,6 @@ package org.mozzes.application.demo.mockups.services.scopedata;
 import org.mozzes.application.demo.mockups.scopedata.*;
 import org.mozzes.application.module.scope.*;
 
-
 /**
  * This is the service that's working with the data stored in the request context. It's using {@link MRequestData} class
  * that's annotated with {@link RequestScoped} annotation.<br>
@@ -37,9 +36,9 @@ import org.mozzes.application.module.scope.*;
  */
 public interface ServiceWithRequestData {
 
-	/**
-	 * Increment data in the request context and then call other service that's doing the same and return value.Should
-	 * return 2
-	 */
-	int incrementAndReturnInTheRequestContext();
+  /**
+   * Increment data in the request context and then call other service that's doing the same and return value.Should
+   * return 2
+   */
+  int incrementAndReturnInTheRequestContext();
 }

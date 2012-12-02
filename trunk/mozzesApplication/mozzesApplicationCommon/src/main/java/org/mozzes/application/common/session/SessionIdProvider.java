@@ -25,8 +25,8 @@ package org.mozzes.application.common.session;
  */
 public interface SessionIdProvider {
 
-	/**
-	 * Gets the current session id.
-	 */
-	String getSessionId();
+  /**
+   * Gets the current session id.
+   */
+  String getSessionId();
 }

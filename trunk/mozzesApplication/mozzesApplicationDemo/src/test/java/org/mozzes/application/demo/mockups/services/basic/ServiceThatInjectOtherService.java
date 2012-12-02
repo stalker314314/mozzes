@@ -29,8 +29,8 @@ import org.mozzes.application.demo.mockups.services.basic.impl.*;
  */
 public interface ServiceThatInjectOtherService {
 
-	/**
-	 * delegates call to the {@link BasicServiceImpl#getIntegerFromServer()}
-	 */
-	int getIntegerFromInjectedService();
+  /**
+   * delegates call to the {@link BasicServiceImpl#getIntegerFromServer()}
+   */
+  int getIntegerFromInjectedService();
 }

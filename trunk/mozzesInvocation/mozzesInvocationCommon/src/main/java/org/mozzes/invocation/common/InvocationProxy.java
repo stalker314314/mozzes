@@ -27,7 +27,6 @@ import java.lang.reflect.UndeclaredThrowableException;
 
 import org.mozzes.invocation.common.handler.InvocationHandler;
 
-
 /**
  * This class that represents fake implementation of an interface I. <br>
  * <br>
@@ -45,74 +44,78 @@ import org.mozzes.invocation.common.handler.InvocationHandler;
  */
 public class InvocationProxy<I> implements java.lang.reflect.InvocationHandler {
 
-	/** Class which represents interface I */
-	private Class<I> invocationInterface;
+  /** Class which represents interface I */
+  private Class<I> invocationInterface;
 
-	/** Handler that accepts method calls */
-	private InvocationHandler<I> invocationHandler;
+  /** Handler that accepts method calls */
+  private InvocationHandler<I> invocationHandler;
 
-	/**
-	 * {@link InvocationProxy} creation
-	 * @param <I> interface <i>"implemented"</i> by this proxy
-	 * @param invocationInterface Class which represents interface I
-	 * @param handler which performs method invocation processing 
-	 * @return {@link InvocationProxy} instance
-	 */
-	@SuppressWarnings("unchecked")
-	public static <I> I newInstance(Class<I> invocationInterface, InvocationHandler<I> handler) {
-		return (I) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-				new Class<?>[] { invocationInterface }, new InvocationProxy<I>(invocationInterface, handler));
-	}
+  /**
+   * {@link InvocationProxy} creation
+   * 
+   * @param <I>
+   *          interface <i>"implemented"</i> by this proxy
+   * @param invocationInterface
+   *          Class which represents interface I
+   * @param handler
+   *          which performs method invocation processing
+   * @return {@link InvocationProxy} instance
+   */
+  @SuppressWarnings("unchecked")
+  public static <I> I newInstance(Class<I> invocationInterface, InvocationHandler<I> handler) {
+    return (I) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
+        new Class<?>[] { invocationInterface }, new InvocationProxy<I>(invocationInterface, handler));
+  }
 
-	private InvocationProxy(Class<I> invocationInterface, InvocationHandler<I> handler) {
-		setInvocationInterface(invocationInterface);
-		setHandler(handler);
-	}
+  private InvocationProxy(Class<I> invocationInterface, InvocationHandler<I> handler) {
+    setInvocationInterface(invocationInterface);
+    setHandler(handler);
+  }
 
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		try {
-			Invocation<I> methodInvocation = new Invocation<I>(invocationInterface, method.getName(), 
-			        method.getParameterTypes(), args);
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    try {
+      Invocation<I> methodInvocation = new Invocation<I>(invocationInterface, method.getName(),
+          method.getParameterTypes(), args);
 
-			return invocationHandler.invoke(methodInvocation);
-			
-		} catch (Throwable thr) {
-			
-		    if (InvocationTargetException.class.isInstance(thr))
-				thr = ((InvocationTargetException) thr).getTargetException();
+      return invocationHandler.invoke(methodInvocation);
 
-			if (RuntimeException.class.isInstance(thr))
-				throw thr;
+    } catch (Throwable thr) {
 
-			if (Error.class.isInstance(thr))
-				throw thr;
+      if (InvocationTargetException.class.isInstance(thr))
+        thr = ((InvocationTargetException) thr).getTargetException();
 
-			Class<?>[] declaredExceptions = method.getExceptionTypes();
-			
-			for (int i = 0; i < declaredExceptions.length; i++) {
-				if (declaredExceptions[i].isInstance(thr))
-					throw thr;
-			}
-			throw new UndeclaredThrowableException(thr);
-		}
-	}
+      if (RuntimeException.class.isInstance(thr))
+        throw thr;
 
-	private void setInvocationInterface(Class<I> invocationInterface) {
-		if (invocationInterface == null)
-			throw new IllegalArgumentException("Invalid invocation interface - null");
+      if (Error.class.isInstance(thr))
+        throw thr;
 
-		if (!invocationInterface.isInterface())
-			throw new IllegalArgumentException("Invalid invocation interface - class instead of interface");
+      Class<?>[] declaredExceptions = method.getExceptionTypes();
 
-		this.invocationInterface = invocationInterface;
-	}
+      for (int i = 0; i < declaredExceptions.length; i++) {
+        if (declaredExceptions[i].isInstance(thr))
+          throw thr;
+      }
+      throw new UndeclaredThrowableException(thr);
+    }
+  }
 
-	private void setHandler(InvocationHandler<I> handler) {
-		if (handler == null)
-			throw new IllegalArgumentException("Invalid invocation handler - null");
+  private void setInvocationInterface(Class<I> invocationInterface) {
+    if (invocationInterface == null)
+      throw new IllegalArgumentException("Invalid invocation interface - null");
 
-		this.invocationHandler = handler;
-	}
+    if (!invocationInterface.isInterface())
+      throw new IllegalArgumentException("Invalid invocation interface - class instead of interface");
+
+    this.invocationInterface = invocationInterface;
+  }
+
+  private void setHandler(InvocationHandler<I> handler) {
+    if (handler == null)
+      throw new IllegalArgumentException("Invalid invocation handler - null");
+
+    this.invocationHandler = handler;
+  }
 
 }

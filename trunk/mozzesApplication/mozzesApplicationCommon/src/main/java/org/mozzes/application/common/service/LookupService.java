@@ -27,8 +27,8 @@ import java.util.List;
  */
 public interface LookupService {
 
-	/**
-	 * @return list of server's services available to the client.
-	 */
-	List<String> getServices();
+  /**
+   * @return list of server's services available to the client.
+   */
+  List<String> getServices();
 }

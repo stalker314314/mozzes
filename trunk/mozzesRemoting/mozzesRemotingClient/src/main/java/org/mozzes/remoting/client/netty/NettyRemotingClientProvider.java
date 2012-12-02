@@ -14,22 +14,23 @@ import org.mozzes.remoting.common.RemotingException;
  * @author Vladimir Todorovic
  */
 public class NettyRemotingClientProvider implements RemotingActionExecutorProvider {
-	
-	private final RemotingClient client;
 
-	/**
-	 * Creates provader for Netty clients.
-	 * 
-	 * @throws RemotingException if remoting server is not available or any network problem while trying to establish connection
-	 */
-	public NettyRemotingClientProvider(NettyRemotingClient nettyRemotingClient)	throws RemotingException {
-		this.client = nettyRemotingClient;
-		this.client.connect();
-	}
+  private final RemotingClient client;
 
-	@Override
-	public RemotingActionExecutor get() {
-		return client;
-	}
+  /**
+   * Creates provader for Netty clients.
+   * 
+   * @throws RemotingException
+   *           if remoting server is not available or any network problem while trying to establish connection
+   */
+  public NettyRemotingClientProvider(NettyRemotingClient nettyRemotingClient) throws RemotingException {
+    this.client = nettyRemotingClient;
+    this.client.connect();
+  }
+
+  @Override
+  public RemotingActionExecutor get() {
+    return client;
+  }
 
 }

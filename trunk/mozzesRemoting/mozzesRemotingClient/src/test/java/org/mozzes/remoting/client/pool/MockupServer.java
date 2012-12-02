@@ -20,12 +20,12 @@
  */
 package org.mozzes.remoting.client.pool;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.mozzes.remoting.common.RemotingProtocol;
 import org.mozzes.remoting.common.RemotingResponse;
-
 
 /**
  * Simple mockup server that acts like a normal server, always returning empty {@link RemotingResponse}.
@@ -37,38 +37,46 @@ import org.mozzes.remoting.common.RemotingResponse;
  */
 public class MockupServer extends Thread {
 
-	private final int port;
-	private int numReceive;
+  private final int port;
+  private int numReceive;
 
-	private Object lastSentObject;
-	private Throwable lastError = null;
+  private Object lastSentObject;
+  private Throwable lastError = null;
 
-	public MockupServer(int numReceive, int port) {
-		this.port = port;
-		this.numReceive = numReceive;
-	}
+  public MockupServer(int numReceive, int port) {
+    this.port = port;
+    this.numReceive = numReceive;
+  }
 
-	@Override
-	public void run() {
-		try {
-			ServerSocket ss = new ServerSocket(this.port);
-			Socket s = ss.accept();
-			RemotingProtocol rp = RemotingProtocol.buildServerSide(s);
-			while (numReceive-- > 0) {
-				lastSentObject = rp.receive();
-				rp.send(new RemotingResponse());
-			}
-			rp.close();
-		} catch (Throwable t) {
-			this.lastError = t;
-		}
-	}
+  @Override
+  public void run() {
+    ServerSocket ss = null;
+    try {
+      ss = new ServerSocket(this.port);
+      Socket s = ss.accept();
+      RemotingProtocol rp = RemotingProtocol.buildServerSide(s);
+      while (numReceive-- > 0) {
+        lastSentObject = rp.receive();
+        rp.send(new RemotingResponse());
+      }
+      rp.close();
+    } catch (Throwable t) {
+      this.lastError = t;
+    } finally {
+      if (ss != null) {
+        try {
+          ss.close();
+        } catch (IOException ignore) {
+        }
+      }
+    }
+  }
 
-	public Object getLastSentObject() {
-		return lastSentObject;
-	}
+  public Object getLastSentObject() {
+    return lastSentObject;
+  }
 
-	public Throwable getLastError() {
-		return lastError;
-	}
+  public Throwable getLastError() {
+    return lastError;
+  }
 }

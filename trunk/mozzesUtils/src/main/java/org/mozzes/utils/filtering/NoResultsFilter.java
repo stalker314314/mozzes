@@ -28,18 +28,18 @@ package org.mozzes.utils.filtering;
  */
 public class NoResultsFilter<T> implements Filter<T> {
 
-	public boolean isAcceptable(T object) {
-		return false;
-	}
+  public boolean isAcceptable(T object) {
+    return false;
+  }
 
-	@Override
-	public boolean equals(Object that) {
-		return (that instanceof NoResultsFilter<?>);
-	}
+  @Override
+  public boolean equals(Object that) {
+    return (that instanceof NoResultsFilter<?>);
+  }
 
-	@Override
-	public int hashCode() {
-		return 0;
-	}
+  @Override
+  public int hashCode() {
+    return 0;
+  }
 
 }

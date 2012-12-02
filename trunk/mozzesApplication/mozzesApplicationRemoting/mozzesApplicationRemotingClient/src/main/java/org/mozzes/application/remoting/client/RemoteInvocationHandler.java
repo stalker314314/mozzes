@@ -35,7 +35,6 @@ import org.mozzes.remoting.common.RemotingActionExecutorProvider;
 import org.mozzes.remoting.common.RemotingException;
 import org.mozzes.remoting.common.RemotingResponse;
 
-
 /**
  * Client side for remote invocation
  * 
@@ -49,36 +48,36 @@ import org.mozzes.remoting.common.RemotingResponse;
  */
 class RemoteInvocationHandler<I> implements InvocationHandler<I> {
 
-	/** The session id provider. */
-	private final SessionIdProvider sessionIdProvider;
+  /** The session id provider. */
+  private final SessionIdProvider sessionIdProvider;
 
-	/** The client provider. */
-	private final RemotingActionExecutorProvider clientProvider;
+  /** The client provider. */
+  private final RemotingActionExecutorProvider clientProvider;
 
-	RemoteInvocationHandler(RemotingActionExecutorProvider clientProvider, SessionIdProvider sessionIdProvider) {
-		this.sessionIdProvider = sessionIdProvider;
-		this.clientProvider = clientProvider;
-	}
+  RemoteInvocationHandler(RemotingActionExecutorProvider clientProvider, SessionIdProvider sessionIdProvider) {
+    this.sessionIdProvider = sessionIdProvider;
+    this.clientProvider = clientProvider;
+  }
 
-	/**
-	 * @see InvocationHandler#invoke(Invocation)
-	 */
-	public Object invoke(Invocation<? super I> methodInvocation) throws Throwable {
-		try {
-			// set action's params that will be sent to the server 
-			HashMap<Object, Object> params = new HashMap<Object, Object>();
-			params.put(KEY_METHOD_INVOCATION, methodInvocation);
-			params.put(KEY_SESSION_ID, sessionIdProvider.getSessionId());
+  /**
+   * @see InvocationHandler#invoke(Invocation)
+   */
+  public Object invoke(Invocation<? super I> methodInvocation) throws Throwable {
+    try {
+      // set action's params that will be sent to the server
+      HashMap<Object, Object> params = new HashMap<Object, Object>();
+      params.put(KEY_METHOD_INVOCATION, methodInvocation);
+      params.put(KEY_SESSION_ID, sessionIdProvider.getSessionId());
 
-			// executing the action and getting response
-			RemotingResponse response = clientProvider.get().execute(new RemotingAction(KEY_ACTION_NAME, params));
+      // executing the action and getting response
+      RemotingResponse response = clientProvider.get().execute(new RemotingAction(KEY_ACTION_NAME, params));
 
-			// get the result from the response
-			return response.getParam(KEY_RESULT);
+      // get the result from the response
+      return response.getParam(KEY_RESULT);
 
-		} catch (RemotingException ex) {
-			throw ex.getCause() != null ? ex.getCause() : ex;
-		}
-	}
+    } catch (RemotingException ex) {
+      throw ex.getCause() != null ? ex.getCause() : ex;
+    }
+  }
 
 }

@@ -27,10 +27,10 @@ import org.mozzes.application.server.internal.AbstractContext;
  */
 public class TransactionContext extends AbstractContext {
 
-	// contains transaction scoped objects
-	
-	@Override
-	protected String getName() {
-		return "TransactionContext";
-	}
+  // contains transaction scoped objects
+
+  @Override
+  protected String getName() {
+    return "TransactionContext";
+  }
 }

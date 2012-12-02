@@ -31,21 +31,21 @@ import org.mozzes.application.common.transaction.*;
 @TransactionIgnored
 public class MIgnoredException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public MIgnoredException() {
-		super();
-	}
+  public MIgnoredException() {
+    super();
+  }
 
-	public MIgnoredException(String message, Throwable cause) {
-		super(message, cause);
-	}
+  public MIgnoredException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-	public MIgnoredException(String message) {
-		super(message);
-	}
+  public MIgnoredException(String message) {
+    super(message);
+  }
 
-	public MIgnoredException(Throwable cause) {
-		super(cause);
-	}
+  public MIgnoredException(Throwable cause) {
+    super(cause);
+  }
 }

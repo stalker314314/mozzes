@@ -31,18 +31,17 @@ import com.google.inject.Module;
  * ApplicationPlugin is base class for all Mozzes server plugins.<br>
  */
 public abstract class ApplicationPlugin extends ApplicationModule {
-	
-	public Module getCustomGuiceModule() {
-		return null;
-	}
-	
-	/**
-	 * @return The service interceptors that this plugin provides.<br>
-	 * Interceptors included here are invoked on <b>every</b> service call in every application module.
-	 */
-	public List<Class<? extends InvocationInterceptor>> getGlobalServiceInterceptors() {
-		return null;
-	}
-	
+
+  public Module getCustomGuiceModule() {
+    return null;
+  }
+
+  /**
+   * @return The service interceptors that this plugin provides.<br>
+   *         Interceptors included here are invoked on <b>every</b> service call in every application module.
+   */
+  public List<Class<? extends InvocationInterceptor>> getGlobalServiceInterceptors() {
+    return null;
+  }
 
 }

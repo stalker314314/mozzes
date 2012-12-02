@@ -27,14 +27,14 @@ package org.mozzes.utils.reflection;
  * @author milos
  */
 public class ReflectionException extends RuntimeException {
-	private static final long serialVersionUID = 15L;
+  private static final long serialVersionUID = 15L;
 
-	public ReflectionException(String message, Throwable cause) {
-		super(message, cause);
-	}
+  public ReflectionException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-	public ReflectionException(Throwable cause) {
-		super(cause);
-	}
+  public ReflectionException(Throwable cause) {
+    super(cause);
+  }
 
 }

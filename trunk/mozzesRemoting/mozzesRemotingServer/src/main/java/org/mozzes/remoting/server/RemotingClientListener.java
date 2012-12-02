@@ -32,7 +32,6 @@ import org.mozzes.remoting.common.RemotingResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Listener za jednog klijent-a. Prihvata Akcije od klijenta, pokusava da ih izvrsi i vraca mu odgovarajuci odgovor.
  * 
@@ -40,150 +39,151 @@ import org.slf4j.LoggerFactory;
  * @version v1.5
  */
 class RemotingClientListener extends Thread {
-	private static final Logger logger = LoggerFactory.getLogger(RemotingClientListener.class);
-	
-    /** Socket preko kog se obavlja komunikacija sa RemotingClient-om */
-    private Socket clientSocket = null;
+  private static final Logger logger = LoggerFactory.getLogger(RemotingClientListener.class);
 
-	/** Communication protocol */
-	private RemotingProtocol remotingProtocol = null;
+  /** Socket preko kog se obavlja komunikacija sa RemotingClient-om */
+  private Socket clientSocket = null;
 
-    /** Da li radi ovaj Thread */
-    private volatile boolean listening = true;
+  /** Communication protocol */
+  private RemotingProtocol remotingProtocol = null;
 
-    private RemotingActionDispatcher dispatcher;
+  /** Da li radi ovaj Thread */
+  private volatile boolean listening = true;
 
-    private RemotingClientManager clientManager;
+  private RemotingActionDispatcher dispatcher;
 
-    /**
-     * Pokretanje ClientListener-a
-     */
-    RemotingClientListener(RemotingActionDispatcher dispatcher, RemotingClientManager clientManager, Socket socket,
-            String parentName, int number) {
+  private RemotingClientManager clientManager;
 
-        super(parentName + "-listener(" + number + ")-client(" + socket.getInetAddress().getHostAddress() + ")");
+  /**
+   * Pokretanje ClientListener-a
+   */
+  RemotingClientListener(RemotingActionDispatcher dispatcher, RemotingClientManager clientManager, Socket socket,
+      String parentName, int number) {
 
-        this.dispatcher = dispatcher;
-        this.clientManager = clientManager;
-        this.clientSocket = socket;
+    super(parentName + "-listener(" + number + ")-client(" + socket.getInetAddress().getHostAddress() + ")");
+
+    this.dispatcher = dispatcher;
+    this.clientManager = clientManager;
+    this.clientSocket = socket;
+  }
+
+  @Override
+  public void run() {
+    try {
+      setClientInfo();
+      initClientSocket();
+
+      // obradjuje klijenta
+      doListening();
+    } catch (IOException e) {
+      logger.error("Exception during RemoteClientListener initialization", e);
+      stopListening();
+    } finally {
+      // odjavljuje se kod managera nakon sto zavrsi sa radom
+      clientManager.remove(this);
     }
+  }
 
-    @Override
-    public void run() {
-        try {
-        	setClientInfo();
-            initClientSocket();
-        	
-            // obradjuje klijenta
-            doListening();
-		} catch (IOException e) {
-			logger.error("Exception during RemoteClientListener initialization", e);
-			stopListening();
-		} finally {
-            // odjavljuje se kod managera nakon sto zavrsi sa radom
-            clientManager.remove(this);
-        }
+  /**
+   * Zaustavljanje ClientListener-a
+   */
+  synchronized void stopListening() {
+    if (!listening)
+      return;
+
+    listening = false;
+
+    if (remotingProtocol != null)
+      remotingProtocol.close();
+
+    if (clientSocket != null) {
+      try {
+        clientSocket.close();
+      } catch (IOException ignore) {
+      }
+      clientSocket = null;
     }
+  }
 
-    /**
-     * Zaustavljanje ClientListener-a
-     */
-    synchronized void stopListening() {
-        if (!listening)
-            return;
-
-        listening = false;
-
-        if (remotingProtocol != null) 
-        	remotingProtocol.close();
-
-        if (clientSocket != null) {
-            try {
-                clientSocket.close();
-            } catch (IOException ignore) {
-            }
-            clientSocket = null;
-        }
+  /**
+   * Glavna petlja u kojoj Thread prihvata i obradjuje akcije sve dok ne bude zaustavljen
+   */
+  private void doListening() {
+    while (listening) {
+      Thread.yield();
+      try {
+        processAction();
+      } catch (Throwable ex) {
+        final String msg = "Exception during action processing. Stopping listener";
+        if (listening)
+          logger.info(msg, ex);
+        else
+          logger.debug(msg, ex);
+        stopListening();
+      }
     }
+  }
 
-    /**
-     * Glavna petlja u kojoj Thread prihvata i obradjuje akcije sve dok ne bude zaustavljen
-     */
-    private void doListening() {
-        while (listening) {
-            Thread.yield();
-            try {
-                processAction();
-            } catch (Throwable ex) {
-            	final String msg = "Exception during action processing. Stopping listener";
-				if (listening)
-            		logger.info(msg, ex);
-            	else 
-            		logger.debug(msg, ex);
-                stopListening();
-            }
-        }
+  /**
+   * Cita akciju, procesira je i salje odgovor nazad
+   * 
+   * @throws IOException
+   *           Ukoliko je doslo do greske prilikom citanja akcije ili slanja odgovora
+   */
+  private void processAction() throws IOException {
+    if (!listening)
+      return;
+
+    try {
+      // cekamo da primimo neku akciju od klijenta
+      logger.debug("processAction() before receiving action");
+      RemotingAction action = (RemotingAction) remotingProtocol.receive();
+      // Log.getInstance().addEntry(Log.LEVEL_INFO, getName() +
+      // " je prihvatio zahtev za izvrsenjem akcije: " + action);
+
+      // primili smo akciju, pokusavamo da pronadjemo odgovarajuceg
+      // executor-a
+      RemotingActionExecutor actionExecutor = dispatcher.getActionExecutor(action);
+
+      // izvrsavanje akcije
+      RemotingResponse response = null;
+      try {
+        logger.debug("processAction() before executing action");
+        response = actionExecutor.execute(action);
+      } catch (RemotingException ex) {
+        throw ex;
+      } catch (Throwable thr) {
+        throw new RemotingException(thr);
+      }
+
+      // akcija mora da vrati neki response klijentu
+      if (response == null)
+        response = new RemotingResponse(new HashMap<Object, Object>());
+
+      logger.debug("processAction() before sending result");
+      remotingProtocol.send(response);
+      logger.debug("processAction() after sending result");
+    } catch (ClassCastException ex) {
+      logger.error("Unknown class received from client", ex);
+      remotingProtocol.send(new RemotingException(ex));
+      logger.debug("processAction() after sending class cast exception");
+    } catch (RemotingException ex) {
+      // doslo je do greske prilikom izvrsavanja akcije
+      // klijentu saljemo exception
+      logger.debug("processAction() before sending remoting exception", ex);
+      remotingProtocol.send(ex);
+      logger.debug("processAction() after sending remoting exception");
     }
+  }
 
-    /**
-     * Cita akciju, procesira je i salje odgovor nazad
-     * 
-     * @throws IOException Ukoliko je doslo do greske prilikom citanja akcije ili slanja odgovora
-     */
-    private void processAction() throws IOException {
-        if (!listening)
-            return;
+  private void initClientSocket() throws IOException {
+    clientSocket.setSoTimeout(0);
+    clientSocket.setKeepAlive(true);
+    remotingProtocol = RemotingProtocol.buildServerSide(clientSocket);
+  }
 
-        try {
-            // cekamo da primimo neku akciju od klijenta
-        	logger.debug("processAction() before receiving action");
-            RemotingAction action = (RemotingAction) remotingProtocol.receive();
-            // Log.getInstance().addEntry(Log.LEVEL_INFO, getName() +
-            // " je prihvatio zahtev za izvrsenjem akcije: " + action);
+  private void setClientInfo() {
+    RemotingClientInfo.setIpAddress(clientSocket.getInetAddress().getHostAddress());
+  }
 
-            // primili smo akciju, pokusavamo da pronadjemo odgovarajuceg
-            // executor-a
-            RemotingActionExecutor actionExecutor = dispatcher.getActionExecutor(action);
-
-            // izvrsavanje akcije
-            RemotingResponse response = null;
-            try {
-            	logger.debug("processAction() before executing action");
-                response = actionExecutor.execute(action);
-            } catch (RemotingException ex) {
-                throw ex;
-            } catch (Throwable thr) {
-                throw new RemotingException(thr);
-            }
-
-            // akcija mora da vrati neki response klijentu
-            if (response == null)
-                response = new RemotingResponse(new HashMap<Object, Object>());
-
-            logger.debug("processAction() before sending result");
-            remotingProtocol.send(response);
-            logger.debug("processAction() after sending result");
-        } catch (ClassCastException ex) {
-        	logger.error("Unknown class received from client", ex);
-            remotingProtocol.send(new RemotingException(ex));
-            logger.debug("processAction() after sending class cast exception");
-        } catch (RemotingException ex) {
-            // doslo je do greske prilikom izvrsavanja akcije
-            // klijentu saljemo exception
-        	logger.debug("processAction() before sending remoting exception", ex);
-        	remotingProtocol.send(ex);
-        	logger.debug("processAction() after sending remoting exception");
-        }
-    }
-
-    private void initClientSocket() throws IOException {
-    	clientSocket.setSoTimeout(0);
-    	clientSocket.setKeepAlive(true);
-    	remotingProtocol = RemotingProtocol.buildServerSide(clientSocket);
-    }
-    
-	private void setClientInfo() {
-		RemotingClientInfo.setIpAddress(clientSocket.getInetAddress().getHostAddress());
-	}
-    
 }

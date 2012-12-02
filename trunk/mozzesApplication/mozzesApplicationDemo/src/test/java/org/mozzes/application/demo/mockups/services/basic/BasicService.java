@@ -29,13 +29,13 @@ import org.mozzes.application.demo.mockups.SimpleOjbect;
  */
 public interface BasicService {
 
-	Integer returnedValue = 123;
+  Integer returnedValue = 123;
 
-	/**
-	 * this is simple method that returns 123 from server
-	 */
-	Integer getIntegerFromServer();
+  /**
+   * this is simple method that returns 123 from server
+   */
+  Integer getIntegerFromServer();
 
-	void setA(SimpleOjbect a);
+  void setA(SimpleOjbect a);
 
 }

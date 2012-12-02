@@ -33,13 +33,13 @@ import org.mozzes.application.module.scope.*;
  */
 public interface SessionScopedService {
 
-	/**
-	 * this method increments value of the integer attribute
-	 */
-	void increment();
+  /**
+   * this method increments value of the integer attribute
+   */
+  void increment();
 
-	/**
-	 * @return value of the integer attribute
-	 */
-	int getCounter();
+  /**
+   * @return value of the integer attribute
+   */
+  int getCounter();
 }

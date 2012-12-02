@@ -26,17 +26,16 @@ import org.mozzes.application.vaadin.VaadinServletConfig;
 
 import com.vaadin.Application;
 
-
 public class ExampleConfig extends VaadinServletConfig {
 
-	@Override
-	protected MozzesServerConfiguration getServerConfiguration() {
-		return new ExampleServer().createServerConfiguration();
-	}
+  @Override
+  protected MozzesServerConfiguration getServerConfiguration() {
+    return new ExampleServer().createServerConfiguration();
+  }
 
-	@Override
-	protected Class<? extends Application> getVaadinApplication() {
-		return ExampleApplication.class;
-	}
+  @Override
+  protected Class<? extends Application> getVaadinApplication() {
+    return ExampleApplication.class;
+  }
 
 }

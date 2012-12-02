@@ -66,7 +66,6 @@ import org.mozzes.remoting.common.RemotingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Base Testing class every other test class extends this class.
  * 
@@ -75,153 +74,153 @@ import org.slf4j.LoggerFactory;
  * @author vita
  */
 public abstract class TestBase {
-	
-	protected static final Logger logger = LoggerFactory.getLogger(TestBase.class);
 
-	protected MozzesServer server;
+  protected static final Logger logger = LoggerFactory.getLogger(TestBase.class);
 
-	protected MozzesServerConfiguration serverConfig;
+  protected MozzesServer server;
 
-	protected final String validUsername1 = "chuck";
+  protected MozzesServerConfiguration serverConfig;
 
-	protected final String validPassword1 = "norris";
+  protected final String validUsername1 = "chuck";
 
-	protected final String validUsername2 = "prabhu";
+  protected final String validPassword1 = "norris";
 
-	protected final String validPassword2 = "deva";
+  protected final String validUsername2 = "prabhu";
 
-	protected final String wrongUsername = "vita";
+  protected final String validPassword2 = "deva";
 
-	protected final String wrongPassword = "vita!";
+  protected final String wrongUsername = "vita";
 
-	/**
-	 * This method is executed before every test method.
-	 */
-	@Before
-	public void beforeTest() {
-		MAuthorizationManager.isUserLogged = false;
-		MAuthorizationManager.addValidCredentials(validUsername1, validPassword1);
-		MAuthorizationManager.addValidCredentials(validUsername2, validPassword2);
-		server = new MozzesServer(createServerConfiguration());
+  protected final String wrongPassword = "vita!";
 
-		CountDownLatch signal = new CountDownLatch(1);
-		server.start(signal);
-		try {
-	        signal.await();
-        } catch (InterruptedException e) {
-	        e.printStackTrace();
-        }
-	}
+  /**
+   * This method is executed before every test method.
+   */
+  @Before
+  public void beforeTest() {
+    MAuthorizationManager.isUserLogged = false;
+    MAuthorizationManager.addValidCredentials(validUsername1, validPassword1);
+    MAuthorizationManager.addValidCredentials(validUsername2, validPassword2);
+    server = new MozzesServer(createServerConfiguration());
 
-	/**
-	 * This method is executed after every test method
-	 */
-	@After
-	public void afterTest() {
-		CountDownLatch signal = new CountDownLatch(1);
-		server.stop(signal);
-		try {
-	        signal.await();
-        } catch (InterruptedException e) {
-	        e.printStackTrace();
-        }
-	}
+    CountDownLatch signal = new CountDownLatch(1);
+    server.start(signal);
+    try {
+      signal.await();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 
-	/**
-	 * @return server configuration that is needed for running the server
-	 */
-	@SuppressWarnings("unchecked")
-	protected MozzesServerConfiguration createServerConfiguration() {
+  /**
+   * This method is executed after every test method
+   */
+  @After
+  public void afterTest() {
+    CountDownLatch signal = new CountDownLatch(1);
+    server.stop(signal);
+    try {
+      signal.await();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 
-		serverConfig = new MozzesServerConfiguration();
+  /**
+   * @return server configuration that is needed for running the server
+   */
+  @SuppressWarnings("unchecked")
+  protected MozzesServerConfiguration createServerConfiguration() {
 
-		/* adding custom module that enables remote client logging */
-		serverConfig.addApplicationModule(new RemotingPlugin(7890));
+    serverConfig = new MozzesServerConfiguration();
 
-		/* setting up the application service implementations */
-		serverConfig.addApplicationModule(new SimpleAuthorizationPlugin(MAuthorizationManager.class));
-		serverConfig.addApplicationModule(new SimpleTransactionPlugion(MTransactionManager.class));
+    /* adding custom module that enables remote client logging */
+    serverConfig.addApplicationModule(new RemotingPlugin(7890));
 
-		/* adding internal services to the server */
-		for (Class interfaceClass : getInternalServices().keySet())
-			serverConfig.addInternalService(interfaceClass, getInternalServices().get(interfaceClass));
+    /* setting up the application service implementations */
+    serverConfig.addApplicationModule(new SimpleAuthorizationPlugin(MAuthorizationManager.class));
+    serverConfig.addApplicationModule(new SimpleTransactionPlugion(MTransactionManager.class));
 
-		/* adding services to the server */
-		for (Class interfaceClass : getServices().keySet())
-			serverConfig.addService(interfaceClass, getServices().get(interfaceClass));
+    /* adding internal services to the server */
+    for (Class interfaceClass : getInternalServices().keySet())
+      serverConfig.addInternalService(interfaceClass, getInternalServices().get(interfaceClass));
 
-		return serverConfig;
-	}
+    /* adding services to the server */
+    for (Class interfaceClass : getServices().keySet())
+      serverConfig.addService(interfaceClass, getServices().get(interfaceClass));
 
-	/**
-	 * If some test case should override the implementation of some interface it should override this method.
-	 */
-	protected HashMap<Class<?>, Class<?>> getInternalServices() {
-		HashMap<Class<?>, Class<?>> map = new HashMap<Class<?>, Class<?>>();
-		map.put(SimpleInternalService.class, SimpleInternalServiceImpl.class);
-		return map;
-	}
+    return serverConfig;
+  }
 
-	/**
-	 * If some test case should override the implementation of some interface it should override this method.
-	 */
-	protected HashMap<Class<?>, Class<?>> getServices() {
-		HashMap<Class<?>, Class<?>> map = new HashMap<Class<?>, Class<?>>();
+  /**
+   * If some test case should override the implementation of some interface it should override this method.
+   */
+  protected HashMap<Class<?>, Class<?>> getInternalServices() {
+    HashMap<Class<?>, Class<?>> map = new HashMap<Class<?>, Class<?>>();
+    map.put(SimpleInternalService.class, SimpleInternalServiceImpl.class);
+    return map;
+  }
 
-		// basic
-		map.put(BasicService.class, BasicServiceImpl.class);
-		map.put(ServiceThatInjectOtherService.class, ServiceThatInjectOtherServiceImpl.class);
-		map.put(ServiceThatThrowsExceptions.class, ServiceThatThrowsExceptionsImpl.class);
+  /**
+   * If some test case should override the implementation of some interface it should override this method.
+   */
+  protected HashMap<Class<?>, Class<?>> getServices() {
+    HashMap<Class<?>, Class<?>> map = new HashMap<Class<?>, Class<?>>();
 
-		// scoped
-		map.put(SessionScopedService.class, SessionScopedServiceImpl.class);
+    // basic
+    map.put(BasicService.class, BasicServiceImpl.class);
+    map.put(ServiceThatInjectOtherService.class, ServiceThatInjectOtherServiceImpl.class);
+    map.put(ServiceThatThrowsExceptions.class, ServiceThatThrowsExceptionsImpl.class);
 
-		map.put(RequestScopedService.class, RequestScopedServiceImpl.class);
-		map.put(RequestScopedService2.class, RequestScopedService2Impl.class);
-		map.put(RequestScopedService3.class, RequestScopedService3Impl.class);
+    // scoped
+    map.put(SessionScopedService.class, SessionScopedServiceImpl.class);
 
-		// scope data
-		map.put(ServiceWithRequestData2.class, ServiceWithRequestData2Impl.class);
-		map.put(ServiceWithRequestData.class, ServiceWithRequestDataImpl.class);
-		map.put(ServiceWithSessionData.class, ServiceWithSessionDataImpl.class);
-		map.put(ServiceWithTransactionData.class, ServiceWithTransactionDataImpl.class);
-		map.put(ServiceWithTransactionDataNewTransaction.class, ServiceWithTransactionDataNewTransactionImpl.class);
+    map.put(RequestScopedService.class, RequestScopedServiceImpl.class);
+    map.put(RequestScopedService2.class, RequestScopedService2Impl.class);
+    map.put(RequestScopedService3.class, RequestScopedService3Impl.class);
 
-		map.put(PublicServiceCallingInternal.class, PublicServiceCallingInternalImpl.class);
+    // scope data
+    map.put(ServiceWithRequestData2.class, ServiceWithRequestData2Impl.class);
+    map.put(ServiceWithRequestData.class, ServiceWithRequestDataImpl.class);
+    map.put(ServiceWithSessionData.class, ServiceWithSessionDataImpl.class);
+    map.put(ServiceWithTransactionData.class, ServiceWithTransactionDataImpl.class);
+    map.put(ServiceWithTransactionDataNewTransaction.class, ServiceWithTransactionDataNewTransactionImpl.class);
 
-		return map;
-	}
+    map.put(PublicServiceCallingInternal.class, PublicServiceCallingInternalImpl.class);
 
-	/**
-	 * @return the server used in the test cases.
-	 */
-	public MozzesServer getServer() {
-		return server;
-	}
+    return map;
+  }
 
-	/**
-	 * Method for getting the client. In typical test case we're using the remote client and if we need local client in
-	 * some use case we can override isClientLocal() method
-	 */
-	protected MozzesClient getClient() {
-		if (isClientLocal())
-			return server.getLocalClient();
+  /**
+   * @return the server used in the test cases.
+   */
+  public MozzesServer getServer() {
+    return server;
+  }
 
-		try {
-			return new MozzesClient(new RemoteClientConfiguration("localhost", 7890, true));
-		} catch (RemotingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+  /**
+   * Method for getting the client. In typical test case we're using the remote client and if we need local client in
+   * some use case we can override isClientLocal() method
+   */
+  protected MozzesClient getClient() {
+    if (isClientLocal())
+      return server.getLocalClient();
 
-	/**
-	 * This method should be overridden if specific test case is using remote clients
-	 * 
-	 * @return true if in the test should be used local client or false if remote client should be used
-	 */
-	protected boolean isClientLocal() {
-		return false;
-	}
+    try {
+      return new MozzesClient(new RemoteClientConfiguration("localhost", 7890, true));
+    } catch (RemotingException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * This method should be overridden if specific test case is using remote clients
+   * 
+   * @return true if in the test should be used local client or false if remote client should be used
+   */
+  protected boolean isClientLocal() {
+    return false;
+  }
 }

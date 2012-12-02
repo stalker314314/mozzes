@@ -32,25 +32,25 @@ import com.google.inject.Injector;
  */
 public class ServerLifeCycleServiceImpl implements ServerLifeCycleService {
 
-	/**
-	 * Google Guice {@link Injector}
-	 */
-	@Inject
-	private Injector injector;
+  /**
+   * Google Guice {@link Injector}
+   */
+  @Inject
+  private Injector injector;
 
-	/*
-	 * @see ServerLifeCycleService#startup(Class)
-	 */
-	@Override
-	public void startup(Class<? extends ServerLifecycleListener> serverListener) throws ServerInitializationException {
-		injector.getInstance(serverListener).startup();
-	}
+  /*
+   * @see ServerLifeCycleService#startup(Class)
+   */
+  @Override
+  public void startup(Class<? extends ServerLifecycleListener> serverListener) throws ServerInitializationException {
+    injector.getInstance(serverListener).startup();
+  }
 
-	/*
-	 * @see ServerLifeCycleService#shutdown(Class)
-	 */
-	@Override
-	public void shutdown(Class<? extends ServerLifecycleListener> serverListener) {
-		injector.getInstance(serverListener).shutdown();
-	}
+  /*
+   * @see ServerLifeCycleService#shutdown(Class)
+   */
+  @Override
+  public void shutdown(Class<? extends ServerLifecycleListener> serverListener) {
+    injector.getInstance(serverListener).shutdown();
+  }
 }

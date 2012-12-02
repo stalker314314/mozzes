@@ -26,9 +26,9 @@ package org.mozzes.application.module.scope;
  */
 public interface ScopeCleanUp {
 
-	/**
-	 * This method is called just before some instance is removed from the scope.
-	 */
-	public void scopeCleanUp();
+  /**
+   * This method is called just before some instance is removed from the scope.
+   */
+  public void scopeCleanUp();
 
 }

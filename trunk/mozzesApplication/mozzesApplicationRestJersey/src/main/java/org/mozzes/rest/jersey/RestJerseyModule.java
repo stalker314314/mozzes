@@ -29,26 +29,27 @@ import org.mozzes.application.module.ServerLifecycleListener;
 import com.google.inject.Binder;
 
 /**
- * Mozzes application module for REST Jersey implementation 
+ * Mozzes application module for REST Jersey implementation
+ * 
  * @author stalker
  */
 public class RestJerseyModule extends ApplicationModule {
 
-	private final RestJerseyConfiguration configuration;
+  private final RestJerseyConfiguration configuration;
 
-	public RestJerseyModule(String baseUri, String rootResourcePackage) {
-		configuration = new RestJerseyConfiguration(baseUri, rootResourcePackage);
-	}
+  public RestJerseyModule(String baseUri, String rootResourcePackage) {
+    configuration = new RestJerseyConfiguration(baseUri, rootResourcePackage);
+  }
 
-	@Override
-	public void doCustomBinding(Binder binder) {
-		binder.bind(RestJerseyConfiguration.class).toInstance(configuration);
-	}
+  @Override
+  public void doCustomBinding(Binder binder) {
+    binder.bind(RestJerseyConfiguration.class).toInstance(configuration);
+  }
 
-	@Override
-	public List<Class<? extends ServerLifecycleListener>> getServerListeners() {
-		List<Class<? extends ServerLifecycleListener>> list = new ArrayList<Class<? extends ServerLifecycleListener>>();
-		list.add(RestJerseyServerListener.class);
-		return list;
-	}
+  @Override
+  public List<Class<? extends ServerLifecycleListener>> getServerListeners() {
+    List<Class<? extends ServerLifecycleListener>> list = new ArrayList<Class<? extends ServerLifecycleListener>>();
+    list.add(RestJerseyServerListener.class);
+    return list;
+  }
 }

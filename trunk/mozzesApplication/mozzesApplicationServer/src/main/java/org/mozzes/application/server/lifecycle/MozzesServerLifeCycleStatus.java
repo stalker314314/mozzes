@@ -28,13 +28,13 @@ package org.mozzes.application.server.lifecycle;
  */
 public class MozzesServerLifeCycleStatus {
 
-	private boolean started = false;
+  private boolean started = false;
 
-	public void setStarted() {
-		started = true;
-	}
+  public void setStarted() {
+    started = true;
+  }
 
-	public boolean isStarted() {
-		return started;
-	}
+  public boolean isStarted() {
+    return started;
+  }
 }

@@ -28,15 +28,17 @@ package org.mozzes.remoting.common;
  */
 public interface RemotingActionExecutor {
 
-    /**
-     * Executes {@link RemotingAction}
-     * 
-     * @param action {@link RemotingAction} to be executed
-     * 
-     * @throws RemotingException If there is error on server while executing action
-     * 
-     * @return RemotingResponse Response from remoting server to executed action
-     */
-    public RemotingResponse execute(RemotingAction action) throws RemotingException;
+  /**
+   * Executes {@link RemotingAction}
+   * 
+   * @param action
+   *          {@link RemotingAction} to be executed
+   * 
+   * @throws RemotingException
+   *           If there is error on server while executing action
+   * 
+   * @return RemotingResponse Response from remoting server to executed action
+   */
+  public RemotingResponse execute(RemotingAction action) throws RemotingException;
 
 }
