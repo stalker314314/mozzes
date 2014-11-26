@@ -27,7 +27,6 @@ import javax.swing.table.TableModel;
 
 /**
  * {@link TableModel} objekat za tabelu koja prikazuje redni broj redova
- * @author Borko Grecic
  */
 public class OrdinalNumberModel<R extends TableModel> extends AbstractTableModel implements TableModelListener {
 
