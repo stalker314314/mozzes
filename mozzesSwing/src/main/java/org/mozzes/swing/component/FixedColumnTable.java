@@ -59,7 +59,6 @@ import org.mozzes.swing.mgf.component.table.rendering.CellRenderingFacility;
  * {@link JPanel} objekat koji sadrzi swing kontrole za prikaz podataka u tabelarnom formatu unutar kojeg se odredjeni 
  * broj kolona ne "skroluje" po horizontali. Kolone koje se ne skroluju po horizontali pozicionirane su sa leve strane i 
  * odvojene su {@link JSplitPane} objektom od kolona koje se skroluju i koje su pozicionirane sa desne strane.
- * @author Borko Grecic
  * 
  * @param <T> Genericki tip koji je pod-tip {@link TableModel} objekta
  */
@@ -695,7 +694,6 @@ public class FixedColumnTable <T extends TableModel> extends JPanel {
 	/**
 	 * Interni {@link JTable} objekat koji na svaki prosledjeni {@link TableModelEvent} 
 	 * tipa TableModelEvent.HEADER_ROW objekat pokrece proces deljenja kolona
-	 * @author Borko Grecic
 	 */
 	private class SplitTable extends JTable {
 
@@ -736,7 +734,6 @@ public class FixedColumnTable <T extends TableModel> extends JPanel {
 	 * Interni {@link JTable} objekat koji na svaki prosledjeni {@link TableModelEvent} 
 	 * tipa TableModelEvent.HEADER_ROW objekat pokrece proces deljenja kolona. 
 	 * Ovaj {@link JTable} objekat nudi mogucnost grupisanja Header-a tabele.
-	 * @author Borko Grecic
 	 */
 	private class GroupHeaderSplitTable extends JTableGH {
 		

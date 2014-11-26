@@ -25,7 +25,6 @@ import java.math.BigDecimal;
 /**
  * Vrsi zaokruzivanje prosledjenih iznosa na odgovarajuci broj decimala.
  * Objekat nije ThreadSafe.
- * @author Borko Grecic
  */
 public class AmountFormatter {
 
